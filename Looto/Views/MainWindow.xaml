@@ -1,0 +1,75 @@
+<Window x:Class="Looto.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Looto"
+        mc:Ignorable="d"
+        Title="Looto"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="500" 
+        Width="800">
+    
+    <Border BorderThickness="2"
+            BorderBrush="{StaticResource MainBrush}">
+        <StackPanel>
+            <Grid Height="25"
+                  Background="{StaticResource StaticBgBrush}"
+                  MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1">
+
+                    <Button x:Name="ExitButton"
+                            Grid.Column="2"
+                            Width="20" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="1,1,7,1"
+                            Cursor="Hand"
+                            Click="ExitButton_Click">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+
+                                <Grid>
+                                    <Image x:Name="ButtonImage" 
+                                       Source="/Looto;component/Images/exit_white.png"/>
+                                </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                            Property="Source" 
+                                            Value="/Looto;component/Images/exit_red.png"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                            Property="Source" 
+                                            Value="/Looto;component/Images/exit_gray.png"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Background="{StaticResource ActiveBgBrush}"
+                  Height="473">
+                
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

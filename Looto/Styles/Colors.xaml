@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Application colors -->
+    <SolidColorBrush x:Key="MainBrush" Color="#00C953"/>
+    <Color x:Key="MainColor">#00C953</Color>
+
+    <SolidColorBrush x:Key="OpenedBrush" Color="#00A000"/>
+    <Color x:Key="OpenedColor">#00A000</Color>
+
+    <SolidColorBrush x:Key="ClosedBrush" Color="#C80000"/>
+    <Color x:Key="ClosedColor">#C80000</Color>
+
+    <LinearGradientBrush x:Key="SelectorPropgressBrush">
+        <GradientStop Color="#00CA47" Offset="0"/>
+        <GradientStop Color="#00AB0E" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <!-- Background colors -->
+    <SolidColorBrush x:Key="ActiveBgBrush" Color="#3F3F46"/>
+    <Color x:Key="ActiveBgColor">#3F3F46</Color>
+
+    <SolidColorBrush x:Key="StaticBgBrush" Color="#181A1B"/>
+    <Color x:Key="StaticBgColor">#181A1B</Color>
+
+
+    <!-- Basic colors -->
+    <SolidColorBrush x:Key="BlackBrush" Color="#000000"/>
+    <Color x:Key="BlackColor">#000000</Color>
+
+    <SolidColorBrush x:Key="WhiteBrush" Color="#FFFFF0"/>
+    <Color x:Key="WhiteColor">#FFFFF0</Color>
+
+    <SolidColorBrush x:Key="RedBrush" Color="#FF0000"/>
+    <Color x:Key="RedColor">#FF0000</Color>
+
+</ResourceDictionary>
