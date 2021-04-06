@@ -8,6 +8,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ColorStyles" Source="Styles/Colors.xaml"/>
                 <ResourceDictionary x:Name="FontStyles" Source="Styles/Fonts.xaml"/>
+                <ResourceDictionary x:Name="StandartTextBox" Source="Styles/StandartTextBox.xaml"/>
+                <ResourceDictionary x:Name="StandartButton" Source="Styles/StandartButton.xaml"/>
+                <ResourceDictionary x:Name="StandartRadioButton" Source="Styles/StandartRadioButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

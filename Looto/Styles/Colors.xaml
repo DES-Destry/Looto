@@ -11,6 +11,30 @@
     <SolidColorBrush x:Key="ClosedBrush" Color="#C80000"/>
     <Color x:Key="ClosedColor">#C80000</Color>
 
+    <SolidColorBrush x:Key="DisabledButtonBrush" Color="#FF0000"/>
+    <Color x:Key="DisabledButtonColor">#FF0000</Color>
+
+    <SolidColorBrush x:Key="ToggleButtonCheckedBrush" Color="#00A000"/>
+    <Color x:Key="ToggleButtonCheckedColor">#00A000</Color>
+
+    <SolidColorBrush x:Key="ToggleButtonNotCheckedBrush" Color="#C80000"/>
+    <Color x:Key="ToggleButtonNotCheckedColor">#C80000</Color>
+
+    <SolidColorBrush x:Key="ToggleButtonNullValueBrush" Color="#696969"/>
+    <Color x:Key="ToggleButtonNullValueColor">#696969</Color>
+
+    <SolidColorBrush x:Key="ToggleButtonHoldBrush" Color="#AFAFAF"/>
+    <Color x:Key="ToggleButtonHoldColor">#AFAFAF</Color>
+
+    <SolidColorBrush x:Key="InformationTextBrush" Color="#AFAFAF"/>
+    <Color x:Key="InformationTextColor">#AFAFAF</Color>
+
+    <SolidColorBrush x:Key="TextBoxDisabledBrush" Color="#696969"/>
+    <Color x:Key="TextBoxDisabledColor">#696969</Color>
+
+    <SolidColorBrush x:Key="RadioButtonClickedBrush" Color="#696969"/>
+    <Color x:Key="RadioButtonClickedColor">#696969</Color>
+
     <LinearGradientBrush x:Key="SelectorPropgressBrush">
         <GradientStop Color="#00CA47" Offset="0"/>
         <GradientStop Color="#00AB0E" Offset="1"/>
