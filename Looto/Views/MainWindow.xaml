@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Looto"
+        xmlns:models="clr-namespace:Looto.Models" 
+        xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Looto"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +15,11 @@
         AllowsTransparency="True"
         Height="500" 
         Width="800">
-    
+
+    <Window.Resources>
+        <models:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
+
     <Border BorderThickness="2"
             BorderBrush="{StaticResource MainBrush}">
         <StackPanel>
@@ -70,11 +76,13 @@
                   Height="473">
                 <StackPanel>
                     <TextBox Style="{StaticResource StandartTextBox}"
+                             Text="{Binding Host}"
                              Margin="50, 10, 50, 10"
                              Tag="Host for scanning"/>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <RadioButton Style="{StaticResource RadioButtonBase}"
+                                     IsChecked="{Binding MultiplePorts}"
                                      Margin="5"/>
                         <TextBlock Text="Write multiple ports"
                                    VerticalAlignment="Center"
@@ -86,6 +94,7 @@
                                 CornerRadius="2"
                                 Background="{StaticResource WhiteBrush}"/>
                         <RadioButton Style="{StaticResource RadioButtonBase}"
+                                     IsChecked="{Binding RangeOfPorts}"
                                      Margin="5"/>
                         <TextBlock Text="Enter a range of ports"
                                    VerticalAlignment="Center"
@@ -94,13 +103,14 @@
                                    Foreground="{StaticResource WhiteBrush}"/>
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
-                                Visibility="Visible">
+                                Visibility="{Binding MultiplePorts, Converter={StaticResource VisibilityConverter}}">
                         <TextBlock Text="TCP"
                                    TextAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
                         <TextBox Style="{StaticResource StandartTextBox}"
+                                 Text="{Binding TcpPorts}"
                                  Margin="50, 0, 50, 10"
                                  Tag="TCP ports comma separated(For example: 20, 80, 443, 8080)"/>
                         <TextBlock Text="UDP"
@@ -109,6 +119,7 @@
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
                         <TextBox Style="{StaticResource StandartTextBox}"
+                                 Text="{Binding UdpPorts}"
                                  Margin="50, 0, 50, 10"
                                  Tag="UDP ports comma separated(For example: 20, 80, 443, 8080)"/>
                         <Border Height="4"
@@ -117,7 +128,7 @@
                                 Background="{StaticResource WhiteBrush}"/>
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
-                                Visibility="Visible">
+                                Visibility="{Binding RangeOfPorts, Converter={StaticResource VisibilityConverter}}">
                         <TextBlock Text="TCP"
                                    TextAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
@@ -129,11 +140,13 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBox Style="{StaticResource StandartTextBox}"
-                                     Margin="50, 0, 25, 10"
+                                     Text="{Binding FromTcpPort}"
+                                     Margin="240, 0, 25, 10"
                                      Tag="From TCP port"/>
                             <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding ToTcpPort}"
                                      Grid.Column="1"
-                                     Margin="25, 0, 50, 10"
+                                     Margin="25, 0, 240, 10"
                                      Tag="To TCP port"/>
                         </Grid>
                         <TextBlock Text="UDP"
@@ -147,11 +160,13 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBox Style="{StaticResource StandartTextBox}"
-                                     Margin="50, 0, 25, 10"
+                                     Text="{Binding FromUdpPort}"
+                                     Margin="240, 0, 25, 10"
                                      Tag="From UDP port"/>
                             <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding ToUdpPort}"
                                      Grid.Column="1"
-                                     Margin="25, 0, 50, 10"
+                                     Margin="25, 0, 240, 10"
                                      Tag="To UDP port"/>
                         </Grid>
                         <Border Height="4"
@@ -159,8 +174,15 @@
                                 CornerRadius="2"
                                 Background="{StaticResource WhiteBrush}"/>
                     </StackPanel>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Small}"
+                               Foreground="{StaticResource RedBrush}"
+                               Visibility="{Binding WrongInput, Converter={StaticResource VisibilityConverter}}"
+                               TextAlignment="Center"
+                               Text="Wrong input!"/>
                     <Button Style="{StaticResource ButtonStyle}"
                             FontSize="{StaticResource Regular}"
+                            Command="{Binding Scan}"
                             Width="200"
                             Margin="25"
                             Content="Scan"/>

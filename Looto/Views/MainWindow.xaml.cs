@@ -1,4 +1,5 @@
 using System.Windows;
+using Looto.ViewModels;
 
 namespace Looto.Views
 {
@@ -7,6 +8,9 @@ namespace Looto.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            // Initilalize view model for view
+            DataContext = new MainViewModel();
         }
 
         /// <summary>
@@ -26,7 +30,7 @@ namespace Looto.Views
         /// <param name="e"></param>
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
     }
 }
