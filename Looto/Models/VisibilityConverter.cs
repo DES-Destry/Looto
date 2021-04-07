@@ -6,6 +6,10 @@ using System.Windows.Markup;
 
 namespace Looto.Models
 {
+    /// <summary>
+    /// Bool -> <see cref="Visibility"/> converter. <br/>
+    /// Needs to hide or show something with bool value.
+    /// </summary>
     [ValueConversion(typeof(bool), typeof(Visibility))]
     class VisibilityConverter : MarkupExtension, IValueConverter
     {
@@ -14,27 +18,19 @@ namespace Looto.Models
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (_converter == null)
-            {
                 _converter = new VisibilityConverter();
-            }
 
             return _converter;
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-            {
-                return Visibility.Hidden;
-            }
+            if (value == null) return Visibility.Hidden;
 
             if (bool.TryParse(value.ToString(), out bool visible))
             {
-                if (visible)
-                {
-                    return Visibility.Visible;
-                }
-                return Visibility.Collapsed;
+                if (visible) return Visibility.Visible;
+                else return Visibility.Collapsed;
             }
 
             return Visibility.Hidden;
@@ -44,17 +40,10 @@ namespace Looto.Models
         {
             try
             {
-                if (value == null)
-                {
-                    return false;
-                }
+                if (value == null) return false;
 
-                Visibility visibility = (Visibility)value;
-
-                if (visibility == Visibility.Visible)
-                {
+                if ((Visibility)value == Visibility.Visible)
                     return true;
-                }
 
                 return false;
             }
