@@ -116,6 +116,49 @@
                                 CornerRadius="2"
                                 Background="{StaticResource WhiteBrush}"/>
                     </StackPanel>
+                    <StackPanel Margin="0, 20, 0, 0"
+                                Visibility="Visible">
+                        <TextBlock Text="TCP"
+                                   TextAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Margin="50, 0, 25, 10"
+                                     Tag="From TCP port"/>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Grid.Column="1"
+                                     Margin="25, 0, 50, 10"
+                                     Tag="To TCP port"/>
+                        </Grid>
+                        <TextBlock Text="UDP"
+                                   TextAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Margin="50, 0, 25, 10"
+                                     Tag="From UDP port"/>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Grid.Column="1"
+                                     Margin="25, 0, 50, 10"
+                                     Tag="To UDP port"/>
+                        </Grid>
+                        <Border Height="4"
+                                Margin="30, 10, 30, 0"
+                                CornerRadius="2"
+                                Background="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
                     <Button Style="{StaticResource ButtonStyle}"
                             FontSize="{StaticResource Regular}"
                             Width="200"
