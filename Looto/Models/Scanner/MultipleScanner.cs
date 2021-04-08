@@ -43,6 +43,7 @@ namespace Looto.Models.Scanner
 
             Port[] result = await IteratePortsAsync();
             OnScanEnding?.Invoke(result);
+            _scannedPortsCount = 0;
         }
 
         /// <summary>Itearte all ports asynchronously.</summary>

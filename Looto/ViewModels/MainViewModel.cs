@@ -21,7 +21,7 @@ namespace Looto.ViewModels
         // Meaning all of them you can understand with UI(MainWindow.xaml file in views)
         private bool _isMultiplePorts = true;
         private bool _isRangeOfPorts = false;
-        private bool _isSameProtocols = false;
+        private bool _isBothProtocols = false;
         private bool _isUndefinedProtocols = false;
         private bool _isWrongInput = true;
         private bool _isLoading = false;
@@ -67,13 +67,13 @@ namespace Looto.ViewModels
         /// Checks only TCP and ignoring UDP. <br/>
         /// TCP = TCP/UDP; UDP => ignore.
         /// </summary>
-        /// <value>The <see cref="IsSameProtocols"/> property gets/sets the value of the bool field, <see cref="_isSameProtocols"/>.</value>
-        public bool IsSameProtocols
+        /// <value>The <see cref="IsBothProtocols"/> property gets/sets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        public bool IsBothProtocols
         {
-            get => _isSameProtocols;
+            get => _isBothProtocols;
             set
             {
-                _isSameProtocols = value;
+                _isBothProtocols = value;
                 IsWrongInput = IsNotValidInputs();
                 OnPropertyChanged();
             }
@@ -105,8 +105,12 @@ namespace Looto.ViewModels
             {
                 _isWrongInput = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsScanButtonEnabled");
             }
         }
+        /// <summary>Locks button if wrong input equals true.</summary>
+        /// <value>The <see cref="IsScanButtonEnabled"/> property gets and invert the value of the bool field, <see cref="_isWrongInput"/>.</value>
+        public bool IsScanButtonEnabled => !_isWrongInput;
         /// <summary>Equals true if scanning in progress.</summary>
         /// <value>The <see cref="IsLoading"/> property gets/sets the value of the bool field, <see cref="_isLoading"/>.</value>
         public bool IsLoading
@@ -116,8 +120,12 @@ namespace Looto.ViewModels
             {
                 _isLoading = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsShowScanButton");
             }
         }
+        /// <summary>When it is loading, then scan button are hide.</summary>
+        /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the bool field, <see cref="_isLoading"/>.</value>
+        public bool IsShowScanButton => !_isLoading;
 
 
         /// <summary>IP address to check.</summary>
@@ -256,6 +264,7 @@ namespace Looto.ViewModels
         /// </param>
         private void StartScan(object parameter)
         {
+            TstRslt = "";
             if (_isWrongInput || _isLoading) return;
 
             List<Port> portsToScan = new List<Port>();
@@ -266,7 +275,7 @@ namespace Looto.ViewModels
                 ushort[] tcpPortValues = GetPortsArrayFromString(_tcpPorts);
                 ushort[] udpPortValues = GetPortsArrayFromString(_udpPorts);
 
-                if (_isSameProtocols)
+                if (_isBothProtocols)
                 {
                     foreach (ushort portValue in tcpPortValues)
                     {
@@ -324,7 +333,7 @@ namespace Looto.ViewModels
             // If user selected string of ports (separeted by commas), then it will check it in IsValidPortsString(string) method.
             // If user selected same protocols - UDP protocol input will not check.
             if (_isMultiplePorts)
-                return !(IsValidPortsString(_tcpPorts) || _isSameProtocols || IsValidPortsString(_udpPorts));
+                return !(IsValidPortsString(_tcpPorts) || _isBothProtocols || IsValidPortsString(_udpPorts));
 
             // If user selected range of ports, then it will check all ports in IsValidPort(string) method.
             // From value must be less than To value.
@@ -332,7 +341,7 @@ namespace Looto.ViewModels
             // TODO: fix something. If tcp port correct, udp can be not correct and vice versa.
             if (_isRangeOfPorts)
                 return !((IsValidPort(_fromTcpPort) && IsValidPort(_toTcpPort) && int.Parse(_fromTcpPort) < int.Parse(_toTcpPort)) ||
-                       _isSameProtocols || IsValidPort(_fromUdpPort) && IsValidPort(_toUdpPort) && int.Parse(_fromUdpPort) < int.Parse(_toUdpPort));
+                       _isBothProtocols || IsValidPort(_fromUdpPort) && IsValidPort(_toUdpPort) && int.Parse(_fromUdpPort) < int.Parse(_toUdpPort));
 
             return true;
         }

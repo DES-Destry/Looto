@@ -35,7 +35,7 @@
     <SolidColorBrush x:Key="RadioButtonClickedBrush" Color="#696969"/>
     <Color x:Key="RadioButtonClickedColor">#696969</Color>
 
-    <LinearGradientBrush x:Key="SelectorPropgressBrush">
+    <LinearGradientBrush x:Key="PropgressBrush">
         <GradientStop Color="#00CA47" Offset="0"/>
         <GradientStop Color="#00AB0E" Offset="1"/>
     </LinearGradientBrush>

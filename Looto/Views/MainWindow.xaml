@@ -180,6 +180,13 @@
                                Visibility="{Binding IsWrongInput, Converter={StaticResource VisibilityConverter}}"
                                TextAlignment="Center"
                                Text="Wrong input!"/>
+                    <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                 Value="{Binding CurrentProgress}"
+                                 Maximum="{Binding MaxProgress}"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
+                                 Background="Transparent"
+                                 Height="15"
+                                 Margin="120, 10, 120, 0"/>
                     <TextBlock FontFamily="{StaticResource BaseFont}"
                                FontSize="{StaticResource Small}"
                                Foreground="{StaticResource MainBrush}"
@@ -188,6 +195,8 @@
                     <Button Style="{StaticResource ButtonStyle}"
                             FontSize="{StaticResource Regular}"
                             Command="{Binding Scan}"
+                            IsEnabled="{Binding IsScanButtonEnabled}"
+                            Visibility="{Binding IsShowScanButton, Converter={StaticResource VisibilityConverter}}"
                             Width="200"
                             Margin="25"
                             Content="Scan"/>

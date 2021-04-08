@@ -37,7 +37,7 @@
                             <Setter Property="Background" Value="{StaticResource DisabledButtonBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource DisabledButtonBrush}"/>
-                            <Setter Property="Cursor" Value="Cross"/>
+                            <Setter Property="Cursor" Value="No"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
 
