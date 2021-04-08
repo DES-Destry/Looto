@@ -83,6 +83,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Scanner\IScanner.cs" />
+    <Compile Include="Models\Scanner\MultipleScanner.cs" />
+    <Compile Include="Models\Scanner\Port.cs" />
+    <Compile Include="Models\Scanner\PortChecker.cs" />
+    <Compile Include="Models\Scanner\PortState.cs" />
+    <Compile Include="Models\Scanner\RangeOfPortsException.cs" />
     <Compile Include="Models\VisibilityConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

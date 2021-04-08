@@ -82,7 +82,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <RadioButton Style="{StaticResource RadioButtonBase}"
-                                     IsChecked="{Binding MultiplePorts}"
+                                     IsChecked="{Binding IsMultiplePorts}"
                                      Margin="5"/>
                         <TextBlock Text="Write multiple ports"
                                    VerticalAlignment="Center"
@@ -94,7 +94,7 @@
                                 CornerRadius="2"
                                 Background="{StaticResource WhiteBrush}"/>
                         <RadioButton Style="{StaticResource RadioButtonBase}"
-                                     IsChecked="{Binding RangeOfPorts}"
+                                     IsChecked="{Binding IsRangeOfPorts}"
                                      Margin="5"/>
                         <TextBlock Text="Enter a range of ports"
                                    VerticalAlignment="Center"
@@ -103,7 +103,7 @@
                                    Foreground="{StaticResource WhiteBrush}"/>
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
-                                Visibility="{Binding MultiplePorts, Converter={StaticResource VisibilityConverter}}">
+                                Visibility="{Binding IsMultiplePorts, Converter={StaticResource VisibilityConverter}}">
                         <TextBlock Text="TCP"
                                    TextAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
@@ -128,7 +128,7 @@
                                 Background="{StaticResource WhiteBrush}"/>
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
-                                Visibility="{Binding RangeOfPorts, Converter={StaticResource VisibilityConverter}}">
+                                Visibility="{Binding IsRangeOfPorts, Converter={StaticResource VisibilityConverter}}">
                         <TextBlock Text="TCP"
                                    TextAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
@@ -177,9 +177,14 @@
                     <TextBlock FontFamily="{StaticResource BaseFont}"
                                FontSize="{StaticResource Small}"
                                Foreground="{StaticResource RedBrush}"
-                               Visibility="{Binding WrongInput, Converter={StaticResource VisibilityConverter}}"
+                               Visibility="{Binding IsWrongInput, Converter={StaticResource VisibilityConverter}}"
                                TextAlignment="Center"
                                Text="Wrong input!"/>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Small}"
+                               Foreground="{StaticResource MainBrush}"
+                               Text="{Binding TstRslt}"
+                               TextAlignment="Center"/>
                     <Button Style="{StaticResource ButtonStyle}"
                             FontSize="{StaticResource Regular}"
                             Command="{Binding Scan}"
