@@ -48,19 +48,19 @@
 
                                 <Grid>
                                     <Image x:Name="ButtonImage" 
-                                       Source="/Looto;component/Images/exit_white.png"/>
+                                           Source="/Looto;component/Images/exit_white.png"/>
                                 </Grid>
 
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="ButtonImage" 
-                                            Property="Source" 
-                                            Value="/Looto;component/Images/exit_red.png"/>
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_red.png"/>
                                     </Trigger>
                                     <Trigger Property="IsPressed" Value="True">
                                         <Setter TargetName="ButtonImage" 
-                                            Property="Source" 
-                                            Value="/Looto;component/Images/exit_gray.png"/>
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_gray.png"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
 
@@ -81,6 +81,19 @@
                              Tag="Host for scanning"/>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
+                        <CheckBox Style="{StaticResource StandartCheckBox}"
+                                  IsChecked="{Binding IsBothProtocols}"
+                                  VerticalAlignment="Center"
+                                  Margin="5, 5, 5, -15"/>
+                        <TextBlock Text="Both protocols"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0, 10, 0, 0">
                         <RadioButton Style="{StaticResource RadioButtonBase}"
                                      IsChecked="{Binding IsMultiplePorts}"
                                      Margin="5"/>
@@ -90,7 +103,7 @@
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
                         <Border Width="5"
-                                Margin="10, 0, 10, 0"
+                                Margin="10, 0, 0, 0"
                                 CornerRadius="2"
                                 Background="{StaticResource WhiteBrush}"/>
                         <RadioButton Style="{StaticResource RadioButtonBase}"
@@ -104,8 +117,8 @@
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
                                 Visibility="{Binding IsMultiplePorts, Converter={StaticResource VisibilityConverter}}">
-                        <TextBlock Text="TCP"
-                                   TextAlignment="Center"
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding FirstHeader}"
                                    FontFamily="{StaticResource BaseFont}"
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
@@ -113,15 +126,17 @@
                                  Text="{Binding TcpPorts}"
                                  Margin="50, 0, 50, 10"
                                  Tag="TCP ports comma separated(For example: 20, 80, 443, 8080)"/>
-                        <TextBlock Text="UDP"
-                                   TextAlignment="Center"
-                                   FontFamily="{StaticResource BaseFont}"
-                                   FontSize="{StaticResource Regular}"
-                                   Foreground="{StaticResource WhiteBrush}"/>
-                        <TextBox Style="{StaticResource StandartTextBox}"
-                                 Text="{Binding UdpPorts}"
-                                 Margin="50, 0, 50, 10"
-                                 Tag="UDP ports comma separated(For example: 20, 80, 443, 8080)"/>
+                        <StackPanel Visibility="{Binding IsUdpFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock Text="UDP"
+                                       TextAlignment="Center"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       FontSize="{StaticResource Regular}"
+                                       Foreground="{StaticResource WhiteBrush}"/>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding UdpPorts}"
+                                     Margin="50, 0, 50, 10"
+                                     Tag="UDP ports comma separated(For example: 20, 80, 443, 8080)"/>
+                        </StackPanel>
                         <Border Height="4"
                                 Margin="30, 10, 30, 0"
                                 CornerRadius="2"
@@ -129,8 +144,8 @@
                     </StackPanel>
                     <StackPanel Margin="0, 20, 0, 0"
                                 Visibility="{Binding IsRangeOfPorts, Converter={StaticResource VisibilityConverter}}">
-                        <TextBlock Text="TCP"
-                                   TextAlignment="Center"
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding FirstHeader}"
                                    FontFamily="{StaticResource BaseFont}"
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
@@ -149,26 +164,28 @@
                                      Margin="25, 0, 240, 10"
                                      Tag="To TCP port"/>
                         </Grid>
-                        <TextBlock Text="UDP"
+                        <StackPanel Visibility="{Binding IsUdpFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock Text="UDP"
                                    TextAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
                                    FontSize="{StaticResource Regular}"
                                    Foreground="{StaticResource WhiteBrush}"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox Style="{StaticResource StandartTextBox}"
-                                     Text="{Binding FromUdpPort}"
-                                     Margin="240, 0, 25, 10"
-                                     Tag="From UDP port"/>
-                            <TextBox Style="{StaticResource StandartTextBox}"
-                                     Text="{Binding ToUdpPort}"
-                                     Grid.Column="1"
-                                     Margin="25, 0, 240, 10"
-                                     Tag="To UDP port"/>
-                        </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding FromUdpPort}"
+                                         Margin="240, 0, 25, 10"
+                                         Tag="From UDP port"/>
+                                <TextBox Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding ToUdpPort}"
+                                         Grid.Column="1"
+                                         Margin="25, 0, 240, 10"
+                                         Tag="To UDP port"/>
+                            </Grid>
+                        </StackPanel>
                         <Border Height="4"
                                 Margin="30, 10, 30, 0"
                                 CornerRadius="2"

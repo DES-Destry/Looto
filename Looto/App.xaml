@@ -11,6 +11,7 @@
                 <ResourceDictionary x:Name="StandartTextBox" Source="Styles/StandartTextBox.xaml"/>
                 <ResourceDictionary x:Name="StandartButton" Source="Styles/StandartButton.xaml"/>
                 <ResourceDictionary x:Name="StandartRadioButton" Source="Styles/StandartRadioButton.xaml"/>
+                <ResourceDictionary x:Name="StandartCheckBox" Source="Styles/StandartCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

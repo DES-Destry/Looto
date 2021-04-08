@@ -76,6 +76,8 @@ namespace Looto.ViewModels
                 _isBothProtocols = value;
                 IsWrongInput = IsNotValidInputs();
                 OnPropertyChanged();
+                OnPropertyChanged("FirstHeader");
+                OnPropertyChanged("IsUdpFieldsVisible");
             }
         }
         /// <summary>
@@ -126,8 +128,14 @@ namespace Looto.ViewModels
         /// <summary>When it is loading, then scan button are hide.</summary>
         /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the bool field, <see cref="_isLoading"/>.</value>
         public bool IsShowScanButton => !_isLoading;
+        /// <summary>Hides UDP fields if user selected both protocols.</summary>
+        /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        public bool IsUdpFieldsVisible => !_isBothProtocols;
 
 
+        /// <summary>Header of the first line(tcp ports line)</summary>
+        /// <value>The <see cref="FirstHeader"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        public string FirstHeader => _isBothProtocols ? "TCP/UDP" : "TCP";
         /// <summary>IP address to check.</summary>
         /// <value>The <see cref="Host"/> property gets/sets the value of the string field, <see cref="_host"/>.</value>
         public string Host
