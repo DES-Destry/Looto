@@ -30,7 +30,6 @@ namespace Looto.Models.Scanner
 
         /// <summary>Scan all of ports in host.</summary>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="Host"/> or <see cref="Ports"/> was equals null.</exception>
-        /// <returns>List of scanned ports.</returns>
         public async void ScanAllAsync()
         {
             if (Host == null)

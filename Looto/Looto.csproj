@@ -58,6 +58,8 @@
     <Compile Include="Components\PortInfo.xaml.cs">
       <DependentUpon>PortInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Scanner\RangeOfPorts.cs" />
+    <Compile Include="Models\Scanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\Scanner\ScanResult.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="Views\ResultsWindow.xaml.cs">

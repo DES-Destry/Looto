@@ -265,7 +265,7 @@ namespace Looto.ViewModels
         {
             if (_isWrongInput || _isLoading) return;
 
-            Port[] portsToScan = new Port[] { };
+            Port[] portsToScan;
             // Set ports to the scanner.
             if (_isMultiplePorts)
             {
@@ -274,7 +274,7 @@ namespace Looto.ViewModels
             }
             else if (_isRangeOfPorts)
             {
-                _scanner = new MultipleScanner();
+                _scanner = new RangeOfPortsScanner();
                 portsToScan = GetRangeOfPortsCollection();
             }
             else
@@ -304,9 +304,9 @@ namespace Looto.ViewModels
             {
                 Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
             }
-            catch (RangeOfPortsException) // If ports are incorrect
+            catch (RangeOfPortsException) // Input range of ports are incorrect
             {
-                Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
+                Host = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
             }
         }
 
@@ -369,13 +369,10 @@ namespace Looto.ViewModels
         /// <returns>Correct range of ports array.</returns>
         private Port[] GetRangeOfPortsCollection()
         {
-            // [0] - From TCP (or UDP if TCP not defined)
-            // [1] - To TCP   (or UDP if TCP not defined)
-            // [2] - From UDP (can be null if UDP not defined)
-            // [3] - To UDP   (can be null if UDP not defined)
-            List<Port> portsToScan = new List<Port>();
+            RangeOfPorts rangeOfPorts = GetRangeOfPortsFromInputs();
+            Port[] result = rangeOfPorts.GetPortsArray();
 
-            return portsToScan.ToArray();
+            return result;
         }
 
         /// <summary>Translate string ports separeted by commas to numeric array.</summary>
@@ -397,6 +394,34 @@ namespace Looto.ViewModels
             }
 
             return numPorts.ToArray();
+        }
+
+        /// <summary>Generate <see cref="RangeOfPorts"/> instance from inputs.</summary>
+        /// <returns><see cref="RangeOfPorts"/> instance.</returns>
+        private RangeOfPorts GetRangeOfPortsFromInputs()
+        {
+            RangeOfPorts rangeOfPorts = new RangeOfPorts();
+
+            if (_isBothProtocols)
+            {
+                if (ushort.TryParse(_fromTcpPort, out ushort fromTcp))
+                    rangeOfPorts.FromTcp = rangeOfPorts.FromUdp = fromTcp;
+                if (ushort.TryParse(_toTcpPort, out ushort toTcp))
+                    rangeOfPorts.ToTcp = rangeOfPorts.ToUdp = toTcp;
+            }
+            else
+            {
+                if (ushort.TryParse(_fromTcpPort, out ushort fromTcp))
+                    rangeOfPorts.FromTcp = fromTcp;
+                if (ushort.TryParse(_toTcpPort, out ushort toTcp))
+                    rangeOfPorts.ToTcp = toTcp;
+                if (ushort.TryParse(_fromUdpPort, out ushort fromUdp))
+                    rangeOfPorts.FromUdp = fromUdp;
+                if (ushort.TryParse(_toUdpPort, out ushort toUdp))
+                    rangeOfPorts.ToUdp = toUdp;
+            }
+
+            return rangeOfPorts;
         }
 
         /// <summary>Checks all user inputs.</summary>
