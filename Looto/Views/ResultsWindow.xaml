@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Looto.Views"
         mc:Ignorable="d"
+        xmlns:models="clr-namespace:Looto.Models" 
         xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:ResultsViewModel}"
         Title="Results" 
@@ -15,6 +16,10 @@
         AllowsTransparency="True"
         Height="450" 
         Width="600">
+
+    <Window.Resources>
+        <models:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
 
     <Border BorderThickness="2"
             BorderBrush="{StaticResource MainBrush}">
@@ -104,6 +109,50 @@
                                        Foreground="{StaticResource WhiteBrush}"
                                        TextAlignment="Left"
                                        Margin="5"/>
+                            <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}">
+                                <TextBlock FontFamily="{StaticResource BaseFont}"
+                                           FontSize="{StaticResource Small}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           TextAlignment="Center"
+                                           Text="Loading..."
+                                           Margin="0, 5, 0, 0"/>
+                                <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                             Value="{Binding CurrentProgress}"
+                                             Maximum="{Binding MaxProgress}"
+                                             Background="Transparent"
+                                             Height="15"
+                                             Margin="120, 0, 120, 20"/>
+                            </StackPanel>
+                            <Grid Margin="0, 10, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Port"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+
+                                <TextBlock Grid.Column="1"
+                                           Text="Protocol"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+
+                                <TextBlock Grid.Column="2"
+                                           Text="Port status"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+                            </Grid>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

@@ -11,6 +11,10 @@ namespace Looto.ViewModels
         #region Fields for binding
         private ScanResult _result;
 
+        private bool _isLoading = true;
+        private int _currentProgress = 1;
+        private int _maxProgress = 2;
+
         /// <summary>Result of scanning.</summary>
         /// <value>The <see cref="Result"/> property gets/sets the value of the <see cref="ScanResult"/> field, <see cref="_result"/>.</value>
         public ScanResult Result
@@ -30,6 +34,40 @@ namespace Looto.ViewModels
         /// <summary>User-friendly scanned date information.</summary>
         /// <value>The <see cref="Host"/> property gets the value of the <see cref="ScanResult.ScanDate"/> field, <see cref="_result"/>.</value>
         public string ScanDate => $"Scanned at: {_result.ScanDate:U}(UTC+0)";
+
+        /// <summary>If result not rendered yet.</summary>
+        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the bool field, <see cref="_isLoading"/>.</value>
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>Value of progress bar.</summary>
+        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the int field, <see cref="_currentProgress"/>.</value>
+        public int CurrentProgress
+        {
+            get => _currentProgress;
+            set
+            {
+                _currentProgress = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>Maximum of progress bar.</summary>
+        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the int field, <see cref="_maxProgress"/>.</value>
+        public int MaxProgress
+        {
+            get => _maxProgress;
+            set
+            {
+                _maxProgress = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         /// <summary>Base constructor.</summary>

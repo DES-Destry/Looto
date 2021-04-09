@@ -15,7 +15,6 @@ namespace Looto.ViewModels
     class MainViewModel : BaseViewModel
     {
         private IScanner _scanner;
-        private ScanResult _lastResults;
 
         #region Fields for binding
 
@@ -332,7 +331,6 @@ namespace Looto.ViewModels
             var resultsShowCase = new ResultsWindow(results);
             resultsShowCase.Show();
 
-            _lastResults = results;
             _scanner = null;
         }
 
