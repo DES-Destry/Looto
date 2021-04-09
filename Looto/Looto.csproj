@@ -55,6 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\PortInfo.xaml.cs">
+      <DependentUpon>PortInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Scanner\ScanResult.cs" />
+    <Compile Include="ViewModels\ResultsViewModel.cs" />
+    <Compile Include="Views\ResultsWindow.xaml.cs">
+      <DependentUpon>ResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Components\PortInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\StandartRadioButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\StandartScrollBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,6 +117,10 @@
     </Compile>
     <Compile Include="Models\BaseCommand.cs" xmlns="" />
     <Compile Include="ViewModels\BaseViewModel.cs" xmlns="" />
+    <Page Include="Views\ResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

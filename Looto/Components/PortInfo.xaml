@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Looto.Components.PortInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:ResultsViewModel}"
+             xmlns:local="clr-namespace:Looto.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="35" 
+             d:DesignWidth="590">
+    <Grid x:Name="MainGrid"
+          Background="Transparent"
+          Loaded="MainGrid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="PortText"
+                   Text="-8080"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontFamily="{StaticResource BaseFont}"
+                   Foreground="{StaticResource WhiteBrush}"
+                   FontSize="{StaticResource Regular}"/>
+
+        <TextBlock x:Name="ProtocolText"
+                   Grid.Column="1"
+                   Text="Undefined"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontFamily="{StaticResource BaseFont}"
+                   Foreground="{StaticResource WhiteBrush}"
+                   FontSize="{StaticResource Regular}"/>
+
+        <TextBlock x:Name="StateText"
+                   Grid.Column="2"
+                   Text="NotСhecked"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   FontFamily="{StaticResource BaseFont}"
+                   Foreground="{StaticResource WhiteBrush}"
+                   FontSize="{StaticResource Regular}"/>
+    </Grid>
+</UserControl>

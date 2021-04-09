@@ -1,5 +1,6 @@
 ﻿using Looto.Models;
 using Looto.Models.Scanner;
+using Looto.Views;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -14,6 +15,7 @@ namespace Looto.ViewModels
     class MainViewModel : BaseViewModel
     {
         private IScanner _scanner;
+        private ScanResult _lastResults;
 
         #region Fields for binding
 
@@ -33,7 +35,6 @@ namespace Looto.ViewModels
         private string _toTcpPort = "";
         private string _fromUdpPort = "";
         private string _toUdpPort = "";
-        private string _tstRslt = "";
 
         private int _maxProgress = 1;
         private int _currentProgress = 0;
@@ -220,16 +221,6 @@ namespace Looto.ViewModels
                 OnPropertyChanged();
             }
         }
-        // TODO: delete this shit
-        public string TstRslt
-        {
-            get => _tstRslt;
-            set
-            {
-                _tstRslt = value;
-                OnPropertyChanged();
-            }
-        }
 
 
         /// <summary>Maximum value of progress bar.</summary>
@@ -261,7 +252,7 @@ namespace Looto.ViewModels
         /// Scan button command. <br/>
         /// Start scanning ports with values from input.
         /// </summary>
-        public ICommand Scan => new BaseCommand(StartScan);
+        public ICommand Scan => new BaseCommand(ScanCommand);
 
         #endregion
 
@@ -270,48 +261,36 @@ namespace Looto.ViewModels
         /// Basic <see cref="BaseCommand"/> parameter. <br/>
         /// Value of this gets from xaml (CommandParameter property).
         /// </param>
-        private void StartScan(object parameter)
+        private void ScanCommand(object parameter)
         {
-            TstRslt = "";
             if (_isWrongInput || _isLoading) return;
 
-            List<Port> portsToScan = new List<Port>();
+            Port[] portsToScan = new Port[] { };
             // Set ports to the scanner.
             if (_isMultiplePorts)
             {
                 _scanner = new MultipleScanner();
-                ushort[] tcpPortValues = GetPortsArrayFromString(_tcpPorts);
-                ushort[] udpPortValues = GetPortsArrayFromString(_udpPorts);
-
-                if (_isBothProtocols)
-                {
-                    foreach (ushort portValue in tcpPortValues)
-                    {
-                        portsToScan.Add(new Port(portValue, System.Net.Sockets.ProtocolType.Tcp));
-                        portsToScan.Add(new Port(portValue, System.Net.Sockets.ProtocolType.Udp));
-                    }
-                }
-                else
-                {
-                    foreach (ushort tcpPortValue in tcpPortValues)
-                        portsToScan.Add(new Port(tcpPortValue, System.Net.Sockets.ProtocolType.Tcp));
-
-                    foreach (ushort udpPortValue in udpPortValues)
-                        portsToScan.Add(new Port(udpPortValue, System.Net.Sockets.ProtocolType.Udp));
-                }
+                portsToScan = GetMultiplePortsCollection();
             }
             else if (_isRangeOfPorts)
             {
-
+                _scanner = new MultipleScanner();
+                portsToScan = GetRangeOfPortsCollection();
             }
             else
             {
                 IsWrongInput = true;
                 return;
             }
+            StartScanning(portsToScan);
+        }
 
+        /// <summary>Scan all ports.</summary>
+        /// <param name="ports">Ports collection.</param>
+        private void StartScanning(Port[] ports)
+        {
             _scanner.Host = IPAddress.Parse(_host);
-            _scanner.Ports = portsToScan.ToArray();
+            _scanner.Ports = ports;
             _scanner.OnOnePortWasScanned += ProgressWasChanged;
             _scanner.OnScanEnding += ScanEnded;
 
@@ -325,6 +304,99 @@ namespace Looto.ViewModels
             {
                 Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
             }
+            catch (RangeOfPortsException) // If ports are incorrect
+            {
+                Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
+            }
+        }
+
+        /// <summary>Calls on invoking <see cref="IScanner.OnOnePortWasScanned"/> event.</summary>
+        /// <param name="dest">Count of all ports for scanning.</param>
+        /// <param name="currentProgress">Count of already scanned ports.</param>
+        private void ProgressWasChanged(int dest, int currentProgress)
+        {
+            // Change progress bar paremeters
+            MaxProgress = dest;
+            CurrentProgress = currentProgress;
+        }
+
+        /// <summary>Calls on invoking <see cref="IScanner.OnScanEnding"/> event.</summary>
+        /// <param name="results">Results after scanning.</param>
+        private void ScanEnded(ScanResult results)
+        {
+            IsLoading = false;
+            MaxProgress = 1;
+            CurrentProgress = 0;
+
+            // Open results in new window.
+            var resultsShowCase = new ResultsWindow(results);
+            resultsShowCase.Show();
+
+            _lastResults = results;
+            _scanner = null;
+        }
+
+        /// <summary>Create the correct array of ports from inputs for multiple scanning.</summary>
+        /// <returns>Correct multiple ports array.</returns>
+        private Port[] GetMultiplePortsCollection()
+        {
+            List<Port> portsToScan = new List<Port>();
+
+            ushort[] tcpPortValues = GetPortsArrayFromString(_tcpPorts);
+            ushort[] udpPortValues = GetPortsArrayFromString(_udpPorts);
+
+            if (_isBothProtocols)
+            {
+                foreach (ushort portValue in tcpPortValues)
+                {
+                    portsToScan.Add(new Port(portValue, System.Net.Sockets.ProtocolType.Tcp));
+                    portsToScan.Add(new Port(portValue, System.Net.Sockets.ProtocolType.Udp));
+                }
+            }
+            else
+            {
+                foreach (ushort tcpPortValue in tcpPortValues)
+                    portsToScan.Add(new Port(tcpPortValue, System.Net.Sockets.ProtocolType.Tcp));
+
+                foreach (ushort udpPortValue in udpPortValues)
+                    portsToScan.Add(new Port(udpPortValue, System.Net.Sockets.ProtocolType.Udp));
+            }
+
+            return portsToScan.ToArray();
+        }
+
+        /// <summary>Create the correct array of ports from inputs for range scanning.</summary>
+        /// <returns>Correct range of ports array.</returns>
+        private Port[] GetRangeOfPortsCollection()
+        {
+            // [0] - From TCP (or UDP if TCP not defined)
+            // [1] - To TCP   (or UDP if TCP not defined)
+            // [2] - From UDP (can be null if UDP not defined)
+            // [3] - To UDP   (can be null if UDP not defined)
+            List<Port> portsToScan = new List<Port>();
+
+            return portsToScan.ToArray();
+        }
+
+        /// <summary>Translate string ports separeted by commas to numeric array.</summary>
+        /// <param name="portString">Ports separated by commas.</param>
+        /// <returns>Array of numeric ports</returns>
+        private ushort[] GetPortsArrayFromString(string portString)
+        {
+            // Check null value.
+            if (portString == null) return new ushort[] { };
+
+            List<ushort> numPorts = new List<ushort>();
+            // Ports are separated bu commas.
+            string[] strPorts = portString.Split(',');
+            foreach (string port in strPorts)
+            {
+                if (ushort.TryParse(port, out ushort numPort))
+                    numPorts.Add(numPort);
+                else return new ushort[] { };
+            }
+
+            return numPorts.ToArray();
         }
 
         /// <summary>Checks all user inputs.</summary>
@@ -398,52 +470,6 @@ namespace Looto.ViewModels
             }
 
             return false;
-        }
-
-        /// <summary>Translate string ports separeted by commas to numeric array.</summary>
-        /// <param name="portString">Ports separated by commas.</param>
-        /// <returns>Array of numeric ports</returns>
-        private ushort[] GetPortsArrayFromString(string portString)
-        {
-            // Check null value.
-            if (portString == null) return new ushort[] { };
-
-            List<ushort> numPorts = new List<ushort>();
-            // Ports are separated bu commas.
-            string[] strPorts = portString.Split(',');
-            foreach (string port in strPorts)
-            {
-                if (ushort.TryParse(port, out ushort numPort))
-                    numPorts.Add(numPort);
-                else return new ushort[] { };
-            }
-
-            return numPorts.ToArray();
-        }
-
-        /// <summary>Calls on invoking <see cref="IScanner.OnOnePortWasScanned"/> event.</summary>
-        /// <param name="dest">Count of all ports for scanning.</param>
-        /// <param name="currentProgress">Count of already scanned ports.</param>
-        private void ProgressWasChanged(int dest, int currentProgress)
-        {
-            // Change progress bar paremeters
-            MaxProgress = dest;
-            CurrentProgress = currentProgress;
-        }
-
-        /// <summary>Calls on invoking <see cref="IScanner.OnScanEnding"/> event.</summary>
-        /// <param name="results">Results after scanning.</param>
-        private void ScanEnded(Port[] results)
-        {
-            IsLoading = false;
-            MaxProgress = 1;
-            CurrentProgress = 0;
-            // TODO: made another window for results showing.
-            foreach (Port port in results)
-            {
-                TstRslt += $"{port.Value}/{port.Protocol}: {port.State} \n";
-            }
-            _scanner = null;
         }
     }
 }

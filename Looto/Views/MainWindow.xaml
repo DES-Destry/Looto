@@ -109,7 +109,7 @@
                         <RadioButton Style="{StaticResource RadioButtonBase}"
                                      IsChecked="{Binding IsRangeOfPorts}"
                                      Margin="5"/>
-                        <TextBlock Text="Enter a range of ports"
+                        <TextBlock Text="Write a range of ports"
                                    VerticalAlignment="Center"
                                    FontFamily="{StaticResource BaseFont}"
                                    FontSize="{StaticResource Regular}"
@@ -204,11 +204,6 @@
                                  Background="Transparent"
                                  Height="15"
                                  Margin="120, 10, 120, 0"/>
-                    <TextBlock FontFamily="{StaticResource BaseFont}"
-                               FontSize="{StaticResource Small}"
-                               Foreground="{StaticResource MainBrush}"
-                               Text="{Binding TstRslt}"
-                               TextAlignment="Center"/>
                     <Button Style="{StaticResource ButtonStyle}"
                             FontSize="{StaticResource Regular}"
                             Command="{Binding Scan}"

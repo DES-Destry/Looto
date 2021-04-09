@@ -16,7 +16,7 @@ namespace Looto.Models.Scanner
 
 
         public event Action<int, int> OnOnePortWasScanned;
-        public event Action<Port[]> OnScanEnding;
+        public event Action<ScanResult> OnScanEnding;
 
         public IPAddress Host { get; set; }
         public Port[] Ports { get; set; }
@@ -42,7 +42,7 @@ namespace Looto.Models.Scanner
             _checker.InstallHost(Host);
 
             Port[] result = await IteratePortsAsync();
-            OnScanEnding?.Invoke(result);
+            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, result));
             _scannedPortsCount = 0;
         }
 

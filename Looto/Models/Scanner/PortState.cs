@@ -1,6 +1,6 @@
 ﻿namespace Looto.Models.Scanner
 {
-    enum PortState
+    public enum PortState
     {
         NotChecked,
         Opened,

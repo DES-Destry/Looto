@@ -3,7 +3,7 @@
 namespace Looto.Models.Scanner
 {
     /// <summary>Ports integer presentation with his protocol.</summary>
-    struct Port
+    public struct Port
     {
         /// <summary>Numeric value of port.</summary>
         public ushort Value { get; set; }

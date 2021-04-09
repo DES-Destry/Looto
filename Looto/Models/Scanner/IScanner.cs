@@ -9,7 +9,7 @@ namespace Looto.Models.Scanner
         /// <summary>Calls when one port was scanned.</summary>
         event Action<int, int> OnOnePortWasScanned;
         /// <summary>Calls when all port has been scanned.</summary>
-        event Action<Port[]> OnScanEnding;
+        event Action<ScanResult> OnScanEnding;
 
         /// <summary>Host, that will be scanned.</summary>
         IPAddress Host { get; set; }
