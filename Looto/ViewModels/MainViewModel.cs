@@ -436,15 +436,28 @@ namespace Looto.ViewModels
             // If user selected string of ports (separeted by commas), then it will check it in IsValidPortsString(string) method.
             // If user selected same protocols - UDP protocol input will not check.
             if (_isMultiplePorts)
-                return !(IsValidPortsString(_tcpPorts) || _isBothProtocols || IsValidPortsString(_udpPorts));
+            {
+                byte notDefined = 0;
+
+                if (_tcpPorts.Trim() == "")
+                    notDefined++;
+                if (_udpPorts.Trim() == "")
+                    notDefined++;
+
+                if (_tcpPorts.Trim() != "" && !IsValidPortsString(_tcpPorts)) 
+                    return true;
+                if (_udpPorts.Trim() != "" && !(_isBothProtocols || IsValidPortsString(_udpPorts)))
+                    return true;
+
+                return notDefined == 2;
+            }
 
             // If user selected range of ports, then it will check all ports in IsValidPort(string) method.
             // From value must be less than To value.
             // If user selected same protocols - UDP protocol input will not check.
             // TODO: fix something. If tcp port correct, udp can be not correct and vice versa.
             if (_isRangeOfPorts)
-                return !((IsValidPort(_fromTcpPort) && IsValidPort(_toTcpPort) && int.Parse(_fromTcpPort) < int.Parse(_toTcpPort)) ||
-                       _isBothProtocols || IsValidPort(_fromUdpPort) && IsValidPort(_toUdpPort) && int.Parse(_fromUdpPort) < int.Parse(_toUdpPort));
+                return !GetRangeOfPortsFromInputs().IsValid;
 
             return true;
         }

@@ -14,7 +14,26 @@ namespace Looto.Models.Scanner
         /// <summary>Last udp port value.</summary>
         public ushort ToUdp { get; set; }
         /// <summary>Checks all struct values for correctness.</summary>
-        public bool IsValid => IsValidRange();
+        public bool IsValid
+        {
+            get
+            {
+                byte notDefined = 0;
+
+                if (FromTcp == default(ushort) && ToTcp == default(ushort))
+                    notDefined++;
+                if (FromUdp == default(ushort) && ToUdp == default(ushort))
+                    notDefined++;
+
+                if ((FromTcp != default(ushort) || ToTcp != default(ushort)) && FromTcp >= ToTcp)
+                    return false;
+                if ((FromUdp != default(ushort) || ToUdp != default(ushort)) && FromUdp >= ToUdp)
+                    return false;
+
+                // If not defined 2 times - input not valid.
+                return notDefined != 2;
+            }
+        }
 
         /// <summary>Generate array for correct scan in range scanner.</summary>
         /// <returns>Array of <see cref="Port"/></returns>
@@ -71,26 +90,6 @@ namespace Looto.Models.Scanner
             }
 
             return rangeOfPorts.IsValid;
-        }
-
-        /// <summary>Checks all struct values for correctness.</summary>
-        /// <returns>True if all values are correct.</returns>
-        private bool IsValidRange()
-        {
-            bool validTcp = true;
-            bool validUdp = true;
-            byte notDefined = 0;
-
-            if (FromTcp != default(ushort) && ToTcp != default(ushort))
-                validTcp = FromTcp < ToTcp;
-            else notDefined++;
-
-            if (FromUdp != default(ushort) && ToUdp != default(ushort))
-                validUdp = FromUdp < ToUdp;
-            else notDefined++;
-
-            // If not defined 2 times - input not valid.
-            return (validTcp || validUdp) && notDefined != 2;
         }
     }
 }
