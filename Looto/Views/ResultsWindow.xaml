@@ -1,0 +1,162 @@
+﻿<Window x:Class="Looto.Views.ResultsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Looto.Views"
+        mc:Ignorable="d"
+        xmlns:models="clr-namespace:Looto.Models" 
+        xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:ResultsViewModel}"
+        Title="Results" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="450" 
+        Width="600">
+
+    <Window.Resources>
+        <models:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
+
+    <Border BorderThickness="2"
+            BorderBrush="{StaticResource MainBrush}">
+        <StackPanel>
+            <Grid Height="25"
+                  Background="{StaticResource StaticBgBrush}"
+                  MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               Foreground="{StaticResource WhiteBrush}"
+                               FontSize="{StaticResource Small}"
+                               Margin="10, 0, 0, 0"
+                               VerticalAlignment="Center"
+                               Text="Scanning results"/>
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <Button x:Name="ExitButton"
+                            Grid.Column="2"
+                            Width="20" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="1,1,7,1"
+                            Cursor="Hand"
+                            Click="ExitButton_Click">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+
+                                <Grid>
+                                    <Image x:Name="ButtonImage" 
+                                           Source="/Looto;component/Images/exit_white.png"/>
+                                </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_red.png"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_gray.png"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </Grid>
+                
+            </Grid>
+
+            <Grid Background="{StaticResource ActiveBgBrush}"
+                  Height="423">
+                <ScrollViewer>
+                    <StackPanel>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel x:Name="ResultsContainer"
+                                    Loaded="ResultsContainer_Loaded">
+                            <TextBlock Text="{Binding Host}"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       FontSize="{StaticResource Regular}"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       TextAlignment="Left"
+                                       Margin="5"/>
+                            <TextBlock Text="{Binding ScanDate}"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       FontSize="{StaticResource Regular}"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       TextAlignment="Left"
+                                       Margin="5"/>
+                            <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}">
+                                <TextBlock FontFamily="{StaticResource BaseFont}"
+                                           FontSize="{StaticResource Small}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           TextAlignment="Center"
+                                           Text="Loading..."
+                                           Margin="0, 5, 0, 0"/>
+                                <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                             Value="{Binding CurrentProgress}"
+                                             Maximum="{Binding MaxProgress}"
+                                             Background="Transparent"
+                                             Height="15"
+                                             Margin="120, 0, 120, 20"/>
+                            </StackPanel>
+                            <Grid Margin="0, 10, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Port"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+
+                                <TextBlock Grid.Column="1"
+                                           Text="Protocol"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+
+                                <TextBlock Grid.Column="2"
+                                           Text="Port status"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           FontSize="{StaticResource Regular}"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

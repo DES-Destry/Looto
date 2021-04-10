@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Looto"
+        xmlns:models="clr-namespace:Looto.Models" 
+        xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Looto"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +15,11 @@
         AllowsTransparency="True"
         Height="500" 
         Width="800">
-    
+
+    <Window.Resources>
+        <models:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
+
     <Border BorderThickness="2"
             BorderBrush="{StaticResource MainBrush}">
         <StackPanel>
@@ -26,6 +32,17 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Looto;component/Images/logo_white.png"
+                           Margin="10, 0, 0, 0"/>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               Foreground="{StaticResource WhiteBrush}"
+                               FontSize="{StaticResource Small}"
+                               Margin="10, 0, 0, 0"
+                               VerticalAlignment="Center"
+                               Text="Looto - port scanner."/>
+                </StackPanel>
+                
                 <Grid Grid.Column="1">
 
                     <Button x:Name="ExitButton"
@@ -42,19 +59,19 @@
 
                                 <Grid>
                                     <Image x:Name="ButtonImage" 
-                                       Source="/Looto;component/Images/exit_white.png"/>
+                                           Source="/Looto;component/Images/exit_white.png"/>
                                 </Grid>
 
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="ButtonImage" 
-                                            Property="Source" 
-                                            Value="/Looto;component/Images/exit_red.png"/>
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_red.png"/>
                                     </Trigger>
                                     <Trigger Property="IsPressed" Value="True">
                                         <Setter TargetName="ButtonImage" 
-                                            Property="Source" 
-                                            Value="/Looto;component/Images/exit_gray.png"/>
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_gray.png"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
 
@@ -68,7 +85,153 @@
 
             <Grid Background="{StaticResource ActiveBgBrush}"
                   Height="473">
-                
+                <StackPanel>
+                    <TextBox Style="{StaticResource StandartTextBox}"
+                             Text="{Binding Host}"
+                             Margin="50, 10, 50, 10"
+                             Tag="Host for scanning"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <CheckBox Style="{StaticResource StandartCheckBox}"
+                                  IsChecked="{Binding IsBothProtocols}"
+                                  VerticalAlignment="Center"
+                                  Margin="5, 5, 5, -15"/>
+                        <TextBlock Text="Both protocols"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0, 10, 0, 0">
+                        <RadioButton Style="{StaticResource RadioButtonBase}"
+                                     IsChecked="{Binding IsMultiplePorts}"
+                                     Margin="5"/>
+                        <TextBlock Text="Write multiple ports"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                        <Border Width="5"
+                                Margin="10, 0, 0, 0"
+                                CornerRadius="2"
+                                Background="{StaticResource WhiteBrush}"/>
+                        <RadioButton Style="{StaticResource RadioButtonBase}"
+                                     IsChecked="{Binding IsRangeOfPorts}"
+                                     Margin="5"/>
+                        <TextBlock Text="Write a range of ports"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0, 20, 0, 0"
+                                Visibility="{Binding IsMultiplePorts, Converter={StaticResource VisibilityConverter}}">
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding FirstHeader}"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                        <TextBox Style="{StaticResource StandartTextBox}"
+                                 Text="{Binding TcpPorts}"
+                                 Margin="50, 0, 50, 10"
+                                 Tag="TCP ports comma separated(For example: 20, 80, 443, 8080)"/>
+                        <StackPanel Visibility="{Binding IsUdpFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock Text="UDP"
+                                       TextAlignment="Center"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       FontSize="{StaticResource Regular}"
+                                       Foreground="{StaticResource WhiteBrush}"/>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding UdpPorts}"
+                                     Margin="50, 0, 50, 10"
+                                     Tag="UDP ports comma separated(For example: 20, 80, 443, 8080)"/>
+                        </StackPanel>
+                        <Border Height="4"
+                                Margin="30, 10, 30, 0"
+                                CornerRadius="2"
+                                Background="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0, 20, 0, 0"
+                                Visibility="{Binding IsRangeOfPorts, Converter={StaticResource VisibilityConverter}}">
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding FirstHeader}"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding FromTcpPort}"
+                                     Margin="240, 0, 25, 10"
+                                     Tag="From TCP port"/>
+                            <TextBox Style="{StaticResource StandartTextBox}"
+                                     Text="{Binding ToTcpPort}"
+                                     Grid.Column="1"
+                                     Margin="25, 0, 240, 10"
+                                     Tag="To TCP port"/>
+                        </Grid>
+                        <StackPanel Visibility="{Binding IsUdpFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock Text="UDP"
+                                   TextAlignment="Center"
+                                   FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Regular}"
+                                   Foreground="{StaticResource WhiteBrush}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding FromUdpPort}"
+                                         Margin="240, 0, 25, 10"
+                                         Tag="From UDP port"/>
+                                <TextBox Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding ToUdpPort}"
+                                         Grid.Column="1"
+                                         Margin="25, 0, 240, 10"
+                                         Tag="To UDP port"/>
+                            </Grid>
+                        </StackPanel>
+                        <Border Height="4"
+                                Margin="30, 10, 30, 0"
+                                CornerRadius="2"
+                                Background="{StaticResource WhiteBrush}"/>
+                    </StackPanel>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Small}"
+                               Foreground="{StaticResource RedBrush}"
+                               Visibility="{Binding IsWrongInput, Converter={StaticResource VisibilityConverter}}"
+                               TextAlignment="Center"
+                               Text="Wrong input!"/>
+                    <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                 Value="{Binding CurrentProgress}"
+                                 Maximum="{Binding MaxProgress}"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
+                                 Background="Transparent"
+                                 Height="15"
+                                 Margin="120, 10, 120, 0"/>
+                    <Button Style="{StaticResource ButtonStyle}"
+                            FontSize="{StaticResource Regular}"
+                            Command="{Binding Scan}"
+                            IsEnabled="{Binding IsScanButtonEnabled}"
+                            Visibility="{Binding IsShowScanButton, Converter={StaticResource VisibilityConverter}}"
+                            Width="200"
+                            Margin="25"
+                            Content="Scan"/>
+                </StackPanel>
+
+                <TextBlock FontFamily="{StaticResource BaseFont}"
+                           FontSize="{StaticResource Small}"
+                           Foreground="{StaticResource MainBrush}"
+                           VerticalAlignment="Bottom"
+                           TextAlignment="Right"
+                           Margin="5"
+                           Text="Destry.Unimaster - v1.0.0"/>
             </Grid>
         </StackPanel>
     </Border>
