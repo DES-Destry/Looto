@@ -1,18 +1,16 @@
 ﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
 // Общие сведения об этой сборке предоставляются следующим набором
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Looto")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyTitle("Looto - port scanner")]
+[assembly: AssemblyDescription("Looto - powerful and user-friendly GUI for fast port scanning. This software can use ONLY for educational purposes or for protection purposes!!!")]
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Destry.Unimaster")]
 [assembly: AssemblyProduct("Looto")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Destry.Unimaster Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
