@@ -288,7 +288,7 @@ namespace Looto.ViewModels
         /// <param name="ports">Ports collection.</param>
         private void StartScanning(Port[] ports)
         {
-            _scanner.Host = IPAddress.Parse(_host);
+            _scanner.Host = _host;
             _scanner.Ports = ports;
             _scanner.OnOnePortWasScanned += ProgressWasChanged;
             _scanner.OnScanEnding += ScanEnded;
@@ -430,7 +430,7 @@ namespace Looto.ViewModels
         private bool IsNotValidInputs()
         {
             // Check IP address for correctness.
-            if (!IPAddress.TryParse(_host, out IPAddress _))
+            if (_host.Trim() == "")
                 return true;
 
             // If user selected string of ports (separeted by commas), then it will check it in IsValidPortsString(string) method.

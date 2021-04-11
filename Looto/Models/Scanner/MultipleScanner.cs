@@ -18,7 +18,7 @@ namespace Looto.Models.Scanner
         public event Action<int, int> OnOnePortWasScanned;
         public event Action<ScanResult> OnScanEnding;
 
-        public IPAddress Host { get; set; }
+        public string Host { get; set; }
         public Port[] Ports { get; set; }
         public int PortsCount => Ports.Length;
 

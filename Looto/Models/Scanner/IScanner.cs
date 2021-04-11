@@ -12,7 +12,7 @@ namespace Looto.Models.Scanner
         event Action<ScanResult> OnScanEnding;
 
         /// <summary>Host, that will be scanned.</summary>
-        IPAddress Host { get; set; }
+        string Host { get; set; }
         /// <summary>Ports, that will be checked</summary>
         Port[] Ports { get; set; }
         /// <summary>Count of all ports that will be scanned.</summary>

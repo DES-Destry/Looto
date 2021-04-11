@@ -16,7 +16,7 @@ namespace Looto.Models.Scanner
         private int _scannedPortsCount;
 
 
-        public IPAddress Host { get; set; }
+        public string Host { get; set; }
         public Port[] Ports { get; set; }
 
         public int PortsCount
