@@ -29,6 +29,7 @@ After scanning you will see the scan result in an understandable form.
 
 ## 📜Install
 Lastest stable version of application will be available in [Releases](https://github.com/DES-Destry/Looto/releases) of [GitHub repository](https://github.com/DES-Destry/Looto). For stable working of application you need only one executable file (Looto.exe), other files not necessary for application working, but still important.
+<img src="./README_RESOURCES/IM_4.png" style="display: block;margin-left: auto;margin-right: auto;">
 
 <br/>
 <br/>
