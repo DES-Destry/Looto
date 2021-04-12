@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 
 namespace Looto.Models.Scanner
 {
@@ -7,7 +6,7 @@ namespace Looto.Models.Scanner
     public struct ScanResult
     {
         /// <summary>Host, that was scanned.</summary>
-        public IPAddress Host { get; set; }
+        public string Host { get; set; }
         /// <summary>Time of scanning.</summary>
         public DateTime ScanDate { get; set; }
         /// <summary>
@@ -27,7 +26,7 @@ namespace Looto.Models.Scanner
         /// <param name="host">Host, that was scanned.</param>
         /// <param name="scanDate">Time of scanning.</param>
         /// <param name="results">All data about all ports.</param>
-        public ScanResult(IPAddress host, DateTime scanDate, Port[] results)
+        public ScanResult(string host, DateTime scanDate, Port[] results)
         {
             Host = host;
             ScanDate = scanDate;

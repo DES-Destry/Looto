@@ -40,7 +40,7 @@
                                FontSize="{StaticResource Small}"
                                Margin="10, 0, 0, 0"
                                VerticalAlignment="Center"
-                               Text="Looto - port scanner."/>
+                               Text="Looto - port scanner"/>
                 </StackPanel>
                 
                 <Grid Grid.Column="1">
@@ -223,6 +223,19 @@
                             Width="200"
                             Margin="25"
                             Content="Scan"/>
+                    <Button Style="{StaticResource ButtonStyle}"
+                            FontSize="{StaticResource Regular}"
+                            Command="{Binding Abort}"
+                            Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
+                            Width="200"
+                            Margin="25"
+                            Content="Stop scanning"/>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Small}"
+                               Foreground="{StaticResource MainBrush}"
+                               Visibility="{Binding IsAborted, Converter={StaticResource VisibilityConverter}}"
+                               TextAlignment="Center"
+                               Text="Waiting for the port, that has already started scanning..."/>
                 </StackPanel>
 
                 <TextBlock FontFamily="{StaticResource BaseFont}"
@@ -231,7 +244,7 @@
                            VerticalAlignment="Bottom"
                            TextAlignment="Right"
                            Margin="5"
-                           Text="Destry.Unimaster - v1.0.0"/>
+                           Text="Destry.Unimaster - v1.0.1"/>
             </Grid>
         </StackPanel>
     </Border>
