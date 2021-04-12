@@ -40,7 +40,7 @@
                                FontSize="{StaticResource Small}"
                                Margin="10, 0, 0, 0"
                                VerticalAlignment="Center"
-                               Text="Looto - port scanner."/>
+                               Text="Looto - port scanner"/>
                 </StackPanel>
                 
                 <Grid Grid.Column="1">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +11,9 @@ namespace Looto.Models.Scanner
     /// </summary>
     class MultipleScanner : IScanner
     {
-        private readonly PortChecker _checker;
+        private readonly object _lockObject;
+        private readonly ParallelOptions _parallelOptions;
+        private PortChecker _checker;
         private int _scannedPortsCount;
         private bool _aborted;
 
@@ -25,7 +28,11 @@ namespace Looto.Models.Scanner
         /// <summary>Create new scanner instance.</summary>
         public MultipleScanner()
         {
-            _checker = new PortChecker();
+            _lockObject = new object();
+            _parallelOptions = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Environment.ProcessorCount,
+            };
         }
 
         /// <summary>Scan all of ports in host.</summary>
@@ -38,10 +45,10 @@ namespace Looto.Models.Scanner
                 throw new ArgumentNullException(nameof(Ports), "Ports value was equals null.");
 
             _scannedPortsCount = 0;
-            _checker.InstallHost(Host);
 
-            Port[] result = await IteratePortsAsync();
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, result));
+            Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+
+            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
             _scannedPortsCount = 0;
             _aborted = false;
         }
@@ -59,28 +66,32 @@ namespace Looto.Models.Scanner
 
             await Task.Run(() =>
             {
-                foreach (Port port in Ports)
+                lock (_lockObject)
                 {
-                    try
+                    // Use all processors
+                    Parallel.ForEach(Ports, _parallelOptions, port =>
                     {
-                        if (!_aborted)
-                            port.ChangeState(_checker.CheckPort(port));
+                        try
+                        {
+                            _checker = new PortChecker();
+                            _checker.InstallHost(Host);
 
-                        result.Add(port);
+                            if (!_aborted)
+                                port.ChangeState(_checker.CheckPort(port));
 
-                        _scannedPortsCount++;
-                        OnOnePortWasScanned?.Invoke(PortsCount, _scannedPortsCount);
-                    }
-                    catch (ArgumentNullException) // If host not initializes in checker.
-                    {
-                        result = new List<Port>();
-                        break;
-                    }
+                            result.Add(port);
+
+                            _scannedPortsCount++;
+                            OnOnePortWasScanned?.Invoke(PortsCount, _scannedPortsCount);
+                        }
+                        catch (ArgumentNullException) // If host not initializes in checker.
+                        {
+                            result = new List<Port>();
+                            return;
+                        }
+                    });
                 }
             });
-
-            // After foreach loop in heap can store a lot of objects of Socket and IPEndPoint classes.
-            GC.Collect();
 
             return result.ToArray();
         }

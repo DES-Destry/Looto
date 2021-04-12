@@ -38,12 +38,10 @@ namespace Looto.Models.Scanner
             try
             {
                 // Try to send content
-                using (_socket = new Socket(_socketType, port.Protocol))
-                {
-                    _socket.Connect(_host, port.Value);
-                    _socket.Send(_message);
-                    _socket.Shutdown(SocketShutdown.Both);
-                }
+                _socket = new Socket(_socketType, port.Protocol);
+                _socket.Connect(_host, port.Value);
+                _socket.Send(_message);
+                _socket.Shutdown(SocketShutdown.Both);
 
                 // If sending are successful - port opened (not allowed for UDP)
                 result = PortState.Opened;
@@ -53,6 +51,7 @@ namespace Looto.Models.Scanner
                 result = PortState.Closed;
             }
 
+            _socket.Close();
             return result;
         }
 

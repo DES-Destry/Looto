@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -11,7 +12,9 @@ namespace Looto.Models.Scanner
     /// </summary>
     class RangeOfPortsScanner : IScanner
     {
-        private readonly PortChecker _checker;
+        private readonly object _lockObject;
+        private readonly ParallelOptions _parallelOptions;
+        private PortChecker _checker;
         private int _scannedPortsCount;
         private bool _aborted = false;
 
@@ -42,7 +45,11 @@ namespace Looto.Models.Scanner
         /// <summary>Create new scanner instance.</summary>
         public RangeOfPortsScanner()
         {
-            _checker = new PortChecker();
+            _lockObject = new object();
+            _parallelOptions = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Environment.ProcessorCount,
+            };
         }
 
         /// <summary>Scan all of ports in host.</summary>
@@ -58,7 +65,6 @@ namespace Looto.Models.Scanner
                 throw new RangeOfPortsException("Ports array are not correct.");
 
             _scannedPortsCount = 0;
-            _checker.InstallHost(Host);
 
             List<Port> results = new List<Port>();
 
@@ -73,7 +79,9 @@ namespace Looto.Models.Scanner
                 results.AddRange(scannedPorts);
             }
 
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results.ToArray()));
+            Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
+
+            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             _scannedPortsCount = 0;
             _aborted = false;
         }
@@ -94,22 +102,28 @@ namespace Looto.Models.Scanner
                 throw new RangeOfPortsException("Ports array are not correct.");
 
             List<Port> result = new List<Port>();
-            ushort currentPort = from.Value;
             ProtocolType protocol = from.Protocol;
 
             await Task.Run(() =>
             {
-                while (currentPort <= to.Value)
+                lock (_lockObject)
                 {
-                    Port portToScan = new Port(currentPort, protocol);
-                    if (!_aborted)
-                        portToScan.ChangeState(_checker.CheckPort(portToScan));
+                    Parallel.For(from.Value, to.Value + 1, _parallelOptions, currentPort =>
+                    {
+                        _checker = new PortChecker();
+                        _checker.InstallHost(Host);
 
-                    result.Add(portToScan);
+                        Port portToScan = new Port((ushort)currentPort, protocol);
+                        if (!_aborted)
+                            portToScan.ChangeState(_checker.CheckPort(portToScan));
 
-                    currentPort++;
-                    _scannedPortsCount++;
-                    OnOnePortWasScanned?.Invoke(PortsCount, _scannedPortsCount);
+                        result.Add(portToScan);
+
+                        currentPort++;
+                        _scannedPortsCount++;
+                        OnOnePortWasScanned?.Invoke(PortsCount, _scannedPortsCount);
+
+                    });
                 }
             });
 
