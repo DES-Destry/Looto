@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 
 namespace Looto.Models.Scanner
 {
@@ -19,7 +18,8 @@ namespace Looto.Models.Scanner
         int PortsCount { get; }
 
         /// <summary>Scan async all of ports in host.</summary>
-        /// <returns>List of scanned ports.</returns>
         void ScanAllAsync();
+        /// <summary>Abort current scanning.</summary>
+        void Abort();
     }
 }

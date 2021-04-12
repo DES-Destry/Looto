@@ -26,6 +26,7 @@ namespace Looto.ViewModels
         private bool _isUndefinedProtocols = false;
         private bool _isWrongInput = true;
         private bool _isLoading = false;
+        private bool _isAborted = false;
 
         private string _host = "";
         private string _tcpPorts = "";
@@ -131,6 +132,17 @@ namespace Looto.ViewModels
         /// <summary>Hides UDP fields if user selected both protocols.</summary>
         /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
         public bool IsUdpFieldsVisible => !_isBothProtocols;
+        /// <summary>Then waiting for a port that has already started scanning.</summary>
+        /// <value>The <see cref="IsAborted"/> property gets the value of the bool field, <see cref="_isAborted"/>.</value>
+        public bool IsAborted
+        {
+            get => _isAborted;
+            set
+            {
+                _isAborted = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         /// <summary>Header of the first line(tcp ports line)</summary>
@@ -252,6 +264,11 @@ namespace Looto.ViewModels
         /// Start scanning ports with values from input.
         /// </summary>
         public ICommand Scan => new BaseCommand(ScanCommand);
+        /// <summary>
+        /// Abort button command. <br/>
+        /// Abort current scanning.
+        /// </summary>
+        public ICommand Abort => new BaseCommand(AbortCommand);
 
         #endregion
 
@@ -282,6 +299,20 @@ namespace Looto.ViewModels
                 return;
             }
             StartScanning(portsToScan);
+        }
+
+        /// <summary>Abort scanning if it started</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void AbortCommand(object parameter)
+        {
+            if (_scanner != null)
+            {
+                _scanner.Abort();
+                IsAborted = true;
+            }
         }
 
         /// <summary>Scan all ports.</summary>
@@ -331,6 +362,7 @@ namespace Looto.ViewModels
             var resultsShowCase = new ResultsWindow(results);
             resultsShowCase.Show();
 
+            IsAborted = false;
             _scanner = null;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -22,7 +21,7 @@ namespace Looto.Models.Scanner
 
         /// <summary>Check port for Opened/Closed state.</summary>
         /// <param name="port">Port parameters</param>
-        /// <exception cref="ArgumentNullException">If <see cref="InstallHost(IPAddress)"/> method wasn't executed and <see cref="_host"/> equals null.</exception>
+        /// <exception cref="ArgumentNullException">If <see cref="InstallHost(string)"/> method wasn't executed and <see cref="_host"/> equals null.</exception>
         /// <returns><see cref="PortState"/> enum value.</returns>
         public PortState CheckPort(Port port)
         {

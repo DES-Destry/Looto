@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -14,6 +13,7 @@ namespace Looto.Models.Scanner
     {
         private readonly PortChecker _checker;
         private int _scannedPortsCount;
+        private bool _aborted = false;
 
 
         public string Host { get; set; }
@@ -75,6 +75,12 @@ namespace Looto.Models.Scanner
 
             OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results.ToArray()));
             _scannedPortsCount = 0;
+            _aborted = false;
+        }
+
+        public void Abort()
+        {
+            _aborted = true;
         }
 
         /// <summary>Scan range of ports.</summary>
@@ -96,7 +102,9 @@ namespace Looto.Models.Scanner
                 while (currentPort <= to.Value)
                 {
                     Port portToScan = new Port(currentPort, protocol);
-                    portToScan.ChangeState(_checker.CheckPort(portToScan));
+                    if (!_aborted)
+                        portToScan.ChangeState(_checker.CheckPort(portToScan));
+
                     result.Add(portToScan);
 
                     currentPort++;

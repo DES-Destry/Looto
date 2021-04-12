@@ -223,6 +223,19 @@
                             Width="200"
                             Margin="25"
                             Content="Scan"/>
+                    <Button Style="{StaticResource ButtonStyle}"
+                            FontSize="{StaticResource Regular}"
+                            Command="{Binding Abort}"
+                            Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
+                            Width="200"
+                            Margin="25"
+                            Content="Stop scanning"/>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Small}"
+                               Foreground="{StaticResource MainBrush}"
+                               Visibility="{Binding IsAborted, Converter={StaticResource VisibilityConverter}}"
+                               TextAlignment="Center"
+                               Text="Waiting for the port, that has already started scanning..."/>
                 </StackPanel>
 
                 <TextBlock FontFamily="{StaticResource BaseFont}"
