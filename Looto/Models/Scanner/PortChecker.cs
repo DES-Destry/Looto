@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Looto.Models.DebugTools;
+using System;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows;
 
 namespace Looto.Models.Scanner
 {
@@ -49,6 +51,11 @@ namespace Looto.Models.Scanner
             catch (SocketException)
             {
                 result = PortState.Closed;
+            }
+            catch (Exception ex)
+            {
+                result = PortState.NotChecked;
+                Application.Current.Dispatcher.Invoke(new Error(ex).HandleError);
             }
 
             _socket.Close();

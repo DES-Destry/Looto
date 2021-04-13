@@ -78,10 +78,16 @@
     <Compile Include="Components\PortInfo.xaml.cs">
       <DependentUpon>PortInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DebugTools\Error.cs" />
+    <Compile Include="Models\DebugTools\Log.cs" />
     <Compile Include="Models\Scanner\RangeOfPorts.cs" />
     <Compile Include="Models\Scanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\Scanner\ScanResult.cs" />
+    <Compile Include="ViewModels\ErrorOccuredViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
+    <Compile Include="Views\ErrorOccured.xaml.cs">
+      <DependentUpon>ErrorOccured.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\StandartTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorOccured.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,6 +203,9 @@
   <ItemGroup>
     <Resource Include="Images\logo_green.png" />
     <Resource Include="Images\logo_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

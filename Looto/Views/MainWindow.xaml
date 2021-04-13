@@ -244,7 +244,7 @@
                            VerticalAlignment="Bottom"
                            TextAlignment="Right"
                            Margin="5"
-                           Text="Destry.Unimaster - v1.0.1"/>
+                           Text="Destry.Unimaster - v1.0.2 dev"/>
             </Grid>
         </StackPanel>
     </Border>

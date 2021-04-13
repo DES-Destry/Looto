@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Looto.Models.DebugTools;
 
 namespace Looto.Models.Scanner
 {
@@ -46,7 +47,16 @@ namespace Looto.Models.Scanner
 
             _scannedPortsCount = 0;
 
-            Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+            Port[] results;
+            try
+            {
+                results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+            }
+            catch (Exception ex)
+            {
+                results = new Port[] { };
+                new Error(ex).HandleError();
+            }
 
             OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
             _scannedPortsCount = 0;

@@ -38,6 +38,9 @@
     <SolidColorBrush x:Key="NotCheckedBrush" Color="#696969"/>
     <Color x:Key="NotCheckedColor">#696969</Color>
 
+    <SolidColorBrush x:Key="SecondMessageBrush" Color="#AFAFAF"/>
+    <Color x:Key="SecondMessageColor">#AFAFAF</Color>
+
     <LinearGradientBrush x:Key="PropgressBrush">
         <GradientStop Color="#00CA47" Offset="0"/>
         <GradientStop Color="#00AB0E" Offset="1"/>

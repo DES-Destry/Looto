@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Looto.Models.DebugTools;
 
 namespace Looto.Models.Scanner
 {
@@ -68,15 +69,22 @@ namespace Looto.Models.Scanner
 
             List<Port> results = new List<Port>();
 
-            if (Ports.Length == 2 || Ports.Length == 4)
+            try
             {
-                Port[] scannedPorts = await ScanRange(Ports[0], Ports[1]);
-                results.AddRange(scannedPorts);
+                if (Ports.Length == 2 || Ports.Length == 4)
+                {
+                    Port[] scannedPorts = await ScanRange(Ports[0], Ports[1]);
+                    results.AddRange(scannedPorts);
+                }
+                if (Ports.Length == 4)
+                {
+                    Port[] scannedPorts = await ScanRange(Ports[2], Ports[3]);
+                    results.AddRange(scannedPorts);
+                }
             }
-            if (Ports.Length == 4)
+            catch (Exception ex)
             {
-                Port[] scannedPorts = await ScanRange(Ports[2], Ports[3]);
-                results.AddRange(scannedPorts);
+                new Error(ex).HandleError();
             }
 
             Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();

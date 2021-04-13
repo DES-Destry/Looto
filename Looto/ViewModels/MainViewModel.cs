@@ -1,9 +1,9 @@
 ﻿using Looto.Models;
+using Looto.Models.DebugTools;
 using Looto.Models.Scanner;
 using Looto.Views;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Windows.Input;
 
 namespace Looto.ViewModels
@@ -14,6 +14,7 @@ namespace Looto.ViewModels
     /// </summary>
     class MainViewModel : BaseViewModel
     {
+        private readonly Log _log;
         private IScanner _scanner;
 
         #region Fields for binding
@@ -272,6 +273,12 @@ namespace Looto.ViewModels
 
         #endregion
 
+        /// <summary>Create new view model instance.</summary>
+        public MainViewModel()
+        {
+            _log = new Log();
+        }
+
         /// <summary>Scan host with parameters in input.</summary>
         /// <param name="parameter">
         /// Basic <see cref="BaseCommand"/> parameter. <br/>
@@ -281,6 +288,7 @@ namespace Looto.ViewModels
         {
             if (_isWrongInput || _isLoading) return;
 
+            _log.AppendLogMessage("Scan button has been clicked.");
             Port[] portsToScan;
             // Set ports to the scanner.
             if (_isMultiplePorts)
@@ -295,9 +303,11 @@ namespace Looto.ViewModels
             }
             else
             {
+                _log.AppendLogMessage("Input was wrong, but it NOT REGISTERED in setters.");
                 IsWrongInput = true;
                 return;
             }
+            _log.AppendLogMessage("Ports to scan has been initialized.");
             StartScanning(portsToScan);
         }
 
@@ -328,15 +338,22 @@ namespace Looto.ViewModels
 
             try
             {
+                _log.AppendLogMessage("Scanning has been started.");
                 _scanner.ScanAllAsync();
             }
-            catch (ArgumentNullException) // If host or ports are incorrect
+            catch (ArgumentNullException ex) // If host or ports are incorrect
             {
+                new Error(ex).HandleError();
                 Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
             }
-            catch (RangeOfPortsException) // Input range of ports are incorrect
+            catch (RangeOfPortsException ex) // Input range of ports are incorrect
             {
+                new Error(ex).HandleError();
                 Host = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
+            }
+            catch (Exception ex)
+            {
+                new Error(ex).HandleError();
             }
         }
 
@@ -362,6 +379,7 @@ namespace Looto.ViewModels
             var resultsShowCase = new ResultsWindow(results);
             resultsShowCase.Show();
 
+            _log.AppendLogMessage("Scanning has been completed.");
             IsAborted = false;
             _scanner = null;
         }
@@ -476,7 +494,7 @@ namespace Looto.ViewModels
                 if (_udpPorts.Trim() == "")
                     notDefined++;
 
-                if (_tcpPorts.Trim() != "" && !IsValidPortsString(_tcpPorts)) 
+                if (_tcpPorts.Trim() != "" && !IsValidPortsString(_tcpPorts))
                     return true;
                 if (_udpPorts.Trim() != "" && !(_isBothProtocols || IsValidPortsString(_udpPorts)))
                     return true;
