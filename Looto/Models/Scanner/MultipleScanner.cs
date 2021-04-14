@@ -30,6 +30,7 @@ namespace Looto.Models.Scanner
         public MultipleScanner()
         {
             _lockObject = new object();
+            _checker = new PortChecker();
             _parallelOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
@@ -47,18 +48,21 @@ namespace Looto.Models.Scanner
 
             _scannedPortsCount = 0;
 
-            Port[] results;
             try
             {
-                results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+                await _checker.HostIsValidAsync(Host);
+                Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
+            }
+            catch (HostNotValidException)
+            {
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, new Port[] { }, false));
             }
             catch (Exception ex)
             {
-                results = new Port[] { };
                 new Error(ex).HandleError();
             }
 
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
             _scannedPortsCount = 0;
             _aborted = false;
         }

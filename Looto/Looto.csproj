@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Models\DebugTools\Error.cs" />
     <Compile Include="Models\DebugTools\Log.cs" />
+    <Compile Include="Models\Scanner\HostNotValidException.cs" />
     <Compile Include="Models\Scanner\RangeOfPorts.cs" />
     <Compile Include="Models\Scanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\Scanner\ScanResult.cs" />

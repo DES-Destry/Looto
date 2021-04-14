@@ -47,6 +47,7 @@ namespace Looto.Models.Scanner
         public RangeOfPortsScanner()
         {
             _lockObject = new object();
+            _checker = new PortChecker();
             _parallelOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
@@ -67,10 +68,12 @@ namespace Looto.Models.Scanner
 
             _scannedPortsCount = 0;
 
-            List<Port> results = new List<Port>();
-
             try
             {
+                await _checker.HostIsValidAsync(Host);
+
+                List<Port> results = new List<Port>();
+
                 if (Ports.Length == 2 || Ports.Length == 4)
                 {
                     Port[] scannedPorts = await ScanRange(Ports[0], Ports[1]);
@@ -81,15 +84,20 @@ namespace Looto.Models.Scanner
                     Port[] scannedPorts = await ScanRange(Ports[2], Ports[3]);
                     results.AddRange(scannedPorts);
                 }
+
+                Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
+
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
+            }
+            catch (HostNotValidException)
+            {
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, new Port[] { }, false));
             }
             catch (Exception ex)
             {
                 new Error(ex).HandleError();
             }
 
-            Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
-
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             _scannedPortsCount = 0;
             _aborted = false;
         }

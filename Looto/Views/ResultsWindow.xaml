@@ -100,7 +100,7 @@
                             <TextBlock Text="{Binding Host}"
                                        FontFamily="{StaticResource BaseFont}"
                                        FontSize="{StaticResource Regular}"
-                                       Foreground="{StaticResource WhiteBrush}"
+                                       Foreground="{Binding HostColor}"
                                        TextAlignment="Left"
                                        Margin="5"/>
                             <TextBlock Text="{Binding ScanDate}"

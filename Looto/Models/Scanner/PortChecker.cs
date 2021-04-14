@@ -1,7 +1,9 @@
 ﻿using Looto.Models.DebugTools;
 using System;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Looto.Models.Scanner
@@ -67,6 +69,28 @@ namespace Looto.Models.Scanner
         public void InstallHost(string host)
         {
             _host = host;
+        }
+
+        /// <summary>Check host on existance.</summary>
+        /// <param name="host">Host to check.</param>
+        /// <exception cref="HostNotValidException">Throws when host doesn't exist.</exception>
+        public async Task HostIsValidAsync(string host)
+        {
+            await Task.Run(() =>
+            {
+                try 
+                {
+                    Ping hostCheck = new Ping();
+                    PingReply reply = hostCheck.Send(host);
+
+                    if (reply.Status != IPStatus.Success)
+                        throw new HostNotValidException("Host not valid", host);
+                }
+                catch (PingException)
+                {
+                    throw new HostNotValidException("Host not valid", host);
+                }
+            });
         }
     }
 }
