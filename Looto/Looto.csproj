@@ -208,5 +208,12 @@
   <ItemGroup>
     <Resource Include="Images\error.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lan_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lan_selected_green.png" />
+    <Resource Include="Images\lan_white.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -35,7 +35,7 @@ namespace Looto.Models.DebugTools
         {
             try
             {
-                string log = $"{DateTime.Now:MM.dd.yy - HH:m:ss.fff}  ---  {type}  ---  {message}";
+                string log = $"{DateTime.Now:MM.dd.yy - HH:mm:ss.fff}  ---  {type}  ---  {message}";
                 using (var stream = File.AppendText(_path))
                     stream.WriteLine(log);
             }
