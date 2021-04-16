@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>Struct for storage data about scanning result.</summary>
     public struct ScanResult

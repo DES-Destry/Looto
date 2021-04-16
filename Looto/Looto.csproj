@@ -80,14 +80,18 @@
     </Compile>
     <Compile Include="Models\DebugTools\Error.cs" />
     <Compile Include="Models\DebugTools\Log.cs" />
-    <Compile Include="Models\Scanner\HostNotValidException.cs" />
-    <Compile Include="Models\Scanner\RangeOfPorts.cs" />
-    <Compile Include="Models\Scanner\RangeOfPortsScanner.cs" />
-    <Compile Include="Models\Scanner\ScanResult.cs" />
+    <Compile Include="Models\PortScanner\HostNotValidException.cs" />
+    <Compile Include="Models\PortScanner\RangeOfPorts.cs" />
+    <Compile Include="Models\PortScanner\RangeOfPortsScanner.cs" />
+    <Compile Include="Models\PortScanner\ScanResult.cs" />
     <Compile Include="ViewModels\ErrorOccuredViewModel.cs" />
+    <Compile Include="ViewModels\LANListViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="Views\ErrorOccured.xaml.cs">
       <DependentUpon>ErrorOccured.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LANHostsWindow.xaml.cs">
+      <DependentUpon>LANHostsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
@@ -128,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LANHostsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -136,12 +144,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Scanner\IScanner.cs" />
-    <Compile Include="Models\Scanner\MultipleScanner.cs" />
-    <Compile Include="Models\Scanner\Port.cs" />
-    <Compile Include="Models\Scanner\PortChecker.cs" />
-    <Compile Include="Models\Scanner\PortState.cs" />
-    <Compile Include="Models\Scanner\RangeOfPortsException.cs" />
+    <Compile Include="Models\PortScanner\IScanner.cs" />
+    <Compile Include="Models\PortScanner\MultipleScanner.cs" />
+    <Compile Include="Models\PortScanner\Port.cs" />
+    <Compile Include="Models\PortScanner\PortChecker.cs" />
+    <Compile Include="Models\PortScanner\PortState.cs" />
+    <Compile Include="Models\PortScanner\RangeOfPortsException.cs" />
     <Compile Include="Models\VisibilityConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -214,6 +222,9 @@
   <ItemGroup>
     <Resource Include="Images\lan_selected_green.png" />
     <Resource Include="Images\lan_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\HostScanner\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

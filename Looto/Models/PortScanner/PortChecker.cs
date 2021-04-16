@@ -1,12 +1,12 @@
 ﻿using Looto.Models.DebugTools;
+using Looto.Models.HostScanner;
 using System;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>Have methods for check port for Opened/Closed state.</summary>
     class PortChecker
@@ -78,18 +78,8 @@ namespace Looto.Models.Scanner
         {
             await Task.Run(() =>
             {
-                try 
-                {
-                    Ping hostCheck = new Ping();
-                    PingReply reply = hostCheck.Send(host);
-
-                    if (reply.Status != IPStatus.Success)
-                        throw new HostNotValidException("Host not valid", host);
-                }
-                catch (PingException)
-                {
-                    throw new HostNotValidException("Host not valid", host);
-                }
+                if (!HostChecker.CheckHost(new HostData(host, false)))
+                    throw new HostNotValidException("Host not exists", host);
             });
         }
     }

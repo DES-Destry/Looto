@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Looto.Models.DebugTools;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>
     /// <see cref="IScanner"/> interface implementation.<br/>
@@ -57,7 +57,7 @@ namespace Looto.Models.Scanner
         /// <summary>Scan all of ports in host.</summary>
         /// <exception cref="ArgumentNullException">Throws when <see cref="Host"/> or <see cref="Ports"/> was equals null.</exception>
         /// <exception cref="RangeOfPortsException">Throws when <see cref="Ports"/> parameter not looks like a range.</exception>
-        public async void ScanAllAsync()
+        public async Task ScanAllAsync()
         {
             if (Host == null)
                 throw new ArgumentNullException(nameof(Host), "Host value was equals null.");

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Looto.ViewModels;
+using System;
+using System.Windows;
 
 namespace Looto.Views
 {
@@ -7,6 +9,15 @@ namespace Looto.Views
         public LANHostsWindow()
         {
             InitializeComponent();
+        }
+
+        public LANHostsWindow(Action<string> onHostApplyed)
+        {
+            var vm = new LANListViewModel();
+            vm.OnHostApplyed += onHostApplyed;
+
+            InitializeComponent();
+            DataContext = vm;
         }
 
         /// Exit from application

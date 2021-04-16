@@ -1,6 +1,6 @@
 ﻿using Looto.Models;
 using Looto.Models.DebugTools;
-using Looto.Models.Scanner;
+using Looto.Models.PortScanner;
 using Looto.Views;
 using System;
 using System.Collections.Generic;
@@ -270,6 +270,11 @@ namespace Looto.ViewModels
         /// Abort current scanning.
         /// </summary>
         public ICommand Abort => new BaseCommand(AbortCommand);
+        /// <summary>
+        /// LAN List button command. <br/> 
+        /// Search for hosts in the LAN.
+        /// </summary>
+        public ICommand LANList => new BaseCommand(LANListCommand);
 
         #endregion
 
@@ -323,6 +328,12 @@ namespace Looto.ViewModels
                 _scanner.Abort();
                 IsAborted = true;
             }
+        }
+
+        private void LANListCommand(object parameter)
+        {
+            LANHostsWindow view = new LANHostsWindow();
+            view.ShowDialog();
         }
 
         /// <summary>Scan all ports.</summary>

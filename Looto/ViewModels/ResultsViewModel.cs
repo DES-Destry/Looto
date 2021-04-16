@@ -1,4 +1,4 @@
-﻿using Looto.Models.Scanner;
+﻿using Looto.Models.PortScanner;
 using System.Windows;
 using System.Windows.Media;
 

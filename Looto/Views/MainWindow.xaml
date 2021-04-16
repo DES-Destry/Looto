@@ -94,7 +94,8 @@
                              Width="650"
                              Tag="Host for scanning"/>
                         <Button Margin="10, 0, 0, 0"
-                                Cursor="Hand">
+                                Cursor="Hand"
+                                Command="{Binding LANList}">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
 
