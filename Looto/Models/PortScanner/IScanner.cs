@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
-    /// <summary>Base scanner interface.</summary>
+    /// <summary>Base port scanner interface.</summary>
     interface IScanner
     {
         /// <summary>Calls when one port was scanned.</summary>
@@ -18,7 +19,7 @@ namespace Looto.Models.Scanner
         int PortsCount { get; }
 
         /// <summary>Scan async all of ports in host.</summary>
-        void ScanAllAsync();
+        Task ScanAllAsync();
         /// <summary>Abort current scanning.</summary>
         void Abort();
     }

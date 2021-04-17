@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Looto.Models.DebugTools;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>
     /// <see cref="IScanner"/> interface implementation.<br/>
@@ -29,6 +30,7 @@ namespace Looto.Models.Scanner
         public MultipleScanner()
         {
             _lockObject = new object();
+            _checker = new PortChecker();
             _parallelOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
@@ -37,7 +39,7 @@ namespace Looto.Models.Scanner
 
         /// <summary>Scan all of ports in host.</summary>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="Host"/> or <see cref="Ports"/> was equals null.</exception>
-        public async void ScanAllAsync()
+        public async Task ScanAllAsync()
         {
             if (Host == null)
                 throw new ArgumentNullException(nameof(Host), "Host value was equals null.");
@@ -46,9 +48,21 @@ namespace Looto.Models.Scanner
 
             _scannedPortsCount = 0;
 
-            Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+            try
+            {
+                await _checker.HostIsValidAsync(Host);
+                Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
+            }
+            catch (HostNotValidException)
+            {
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, new Port[] { }, false));
+            }
+            catch (Exception ex)
+            {
+                new Error(ex).HandleError();
+            }
 
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
             _scannedPortsCount = 0;
             _aborted = false;
         }

@@ -1,9 +1,9 @@
 ﻿using Looto.Models;
-using Looto.Models.Scanner;
+using Looto.Models.DebugTools;
+using Looto.Models.PortScanner;
 using Looto.Views;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Windows.Input;
 
 namespace Looto.ViewModels
@@ -14,6 +14,7 @@ namespace Looto.ViewModels
     /// </summary>
     class MainViewModel : BaseViewModel
     {
+        private readonly Log _log;
         private IScanner _scanner;
 
         #region Fields for binding
@@ -53,7 +54,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Shows input, where user need write range of ports (from, to).</summary>
-        /// <value>The <see cref="IsRangeOfPorts"/> property gets/sets the value of the bool field, <see cref="_isRangeOfPorts"/>.</value>
+        /// <value>The <see cref="IsRangeOfPorts"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isRangeOfPorts"/>.</value>
         public bool IsRangeOfPorts
         {
             get => _isRangeOfPorts;
@@ -68,7 +69,7 @@ namespace Looto.ViewModels
         /// Checks only TCP and ignoring UDP. <br/>
         /// TCP = TCP/UDP; UDP => ignore.
         /// </summary>
-        /// <value>The <see cref="IsBothProtocols"/> property gets/sets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="IsBothProtocols"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public bool IsBothProtocols
         {
             get => _isBothProtocols;
@@ -85,7 +86,7 @@ namespace Looto.ViewModels
         /// If user not selected no one of TCP or UDP.<br/>
         /// Feature for future.
         /// </summary>
-        /// <value>The <see cref="IsUndefinedProtocols"/> property gets/sets the value of the bool field, <see cref="_isUndefinedProtocols"/>.</value>
+        /// <value>The <see cref="IsUndefinedProtocols"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isUndefinedProtocols"/>.</value>
         public bool IsUndefinedProtocols
         {
             get => _isUndefinedProtocols;
@@ -100,7 +101,7 @@ namespace Looto.ViewModels
         /// If users input are wrong.<br/>
         /// If it equals true, then scanning not able to start.
         /// </summary>
-        /// <value>The <see cref="IsWrongInput"/> property gets/sets the value of the bool field, <see cref="_isWrongInput"/>.</value>
+        /// <value>The <see cref="IsWrongInput"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isWrongInput"/>.</value>
         public bool IsWrongInput
         {
             get => _isWrongInput;
@@ -112,10 +113,10 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Locks button if wrong input equals true.</summary>
-        /// <value>The <see cref="IsScanButtonEnabled"/> property gets and invert the value of the bool field, <see cref="_isWrongInput"/>.</value>
+        /// <value>The <see cref="IsScanButtonEnabled"/> property gets and invert the value of the <see cref="bool"/> field, <see cref="_isWrongInput"/>.</value>
         public bool IsScanButtonEnabled => !_isWrongInput;
         /// <summary>Equals true if scanning in progress.</summary>
-        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the bool field, <see cref="_isLoading"/>.</value>
+        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isLoading"/>.</value>
         public bool IsLoading
         {
             get => _isLoading;
@@ -127,13 +128,13 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>When it is loading, then scan button are hide.</summary>
-        /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the bool field, <see cref="_isLoading"/>.</value>
+        /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the <see cref="bool"/> field, <see cref="_isLoading"/>.</value>
         public bool IsShowScanButton => !_isLoading;
         /// <summary>Hides UDP fields if user selected both protocols.</summary>
-        /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public bool IsUdpFieldsVisible => !_isBothProtocols;
         /// <summary>Then waiting for a port that has already started scanning.</summary>
-        /// <value>The <see cref="IsAborted"/> property gets the value of the bool field, <see cref="_isAborted"/>.</value>
+        /// <value>The <see cref="IsAborted"/> property gets the value of the <see cref="bool"/> field, <see cref="_isAborted"/>.</value>
         public bool IsAborted
         {
             get => _isAborted;
@@ -146,10 +147,10 @@ namespace Looto.ViewModels
 
 
         /// <summary>Header of the first line(tcp ports line)</summary>
-        /// <value>The <see cref="FirstHeader"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="FirstHeader"/> property gets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public string FirstHeader => _isBothProtocols ? "TCP/UDP" : "TCP";
         /// <summary>IP address to check.</summary>
-        /// <value>The <see cref="Host"/> property gets/sets the value of the string field, <see cref="_host"/>.</value>
+        /// <value>The <see cref="Host"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_host"/>.</value>
         public string Host
         {
             get => _host;
@@ -161,7 +162,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>All TCP ports separated by commas to check.</summary>
-        /// <value>The <see cref="TcpPorts"/> property gets/sets the value of the string field, <see cref="_tcpPorts"/>.</value>
+        /// <value>The <see cref="TcpPorts"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_tcpPorts"/>.</value>
         public string TcpPorts
         {
             get => _tcpPorts;
@@ -173,7 +174,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>All UDP ports separated by commas to check.</summary>
-        /// <value>The <see cref="UdpPorts"/> property gets/sets the value of the string field, <see cref="_udpPorts"/>.</value>
+        /// <value>The <see cref="UdpPorts"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_udpPorts"/>.</value>
         public string UdpPorts
         {
             get => _udpPorts;
@@ -185,7 +186,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>TCP port First value in range.</summary>
-        /// <value>The <see cref="FromTcpPort"/> property gets/sets the value of the string field, <see cref="_fromTcpPort"/>.</value>
+        /// <value>The <see cref="FromTcpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_fromTcpPort"/>.</value>
         public string FromTcpPort
         {
             get => _fromTcpPort;
@@ -197,7 +198,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>TCP port Last value in range.</summary>
-        /// <value>The <see cref="ToTcpPort"/> property gets/sets the value of the string field, <see cref="_toTcpPort"/>.</value>
+        /// <value>The <see cref="ToTcpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_toTcpPort"/>.</value>
         public string ToTcpPort
         {
             get => _toTcpPort;
@@ -209,7 +210,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>UDP port First value in range.</summary>
-        /// <value>The <see cref="FromUdpPort"/> property gets/sets the value of the string field, <see cref="_fromTcpPort"/>.</value>
+        /// <value>The <see cref="FromUdpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_fromTcpPort"/>.</value>
         public string FromUdpPort
         {
             get => _fromUdpPort;
@@ -221,7 +222,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>UDP port Last value in range.</summary>
-        /// <value>The <see cref="ToUdpPort"/> property gets/sets the value of the string field, <see cref="_toUdpPort"/>.</value>
+        /// <value>The <see cref="ToUdpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_toUdpPort"/>.</value>
         public string ToUdpPort
         {
             get => _toUdpPort;
@@ -235,7 +236,7 @@ namespace Looto.ViewModels
 
 
         /// <summary>Maximum value of progress bar.</summary>
-        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the int field, <see cref="_maxProgress"/>.</value>
+        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_maxProgress"/>.</value>
         public int MaxProgress
         {
             get => _maxProgress;
@@ -246,7 +247,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Current progress value of progress bar.</summary>
-        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the int field, <see cref="_currentProgress"/>.</value>
+        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_currentProgress"/>.</value>
         public int CurrentProgress
         {
             get => _currentProgress;
@@ -269,8 +270,19 @@ namespace Looto.ViewModels
         /// Abort current scanning.
         /// </summary>
         public ICommand Abort => new BaseCommand(AbortCommand);
+        /// <summary>
+        /// LAN List button command. <br/> 
+        /// Search for hosts in the LAN.
+        /// </summary>
+        public ICommand LANList => new BaseCommand(LANListCommand);
 
         #endregion
+
+        /// <summary>Create new view model instance.</summary>
+        public MainViewModel()
+        {
+            _log = new Log();
+        }
 
         /// <summary>Scan host with parameters in input.</summary>
         /// <param name="parameter">
@@ -281,6 +293,7 @@ namespace Looto.ViewModels
         {
             if (_isWrongInput || _isLoading) return;
 
+            _log.AppendLogMessage("Scan button has been clicked.");
             Port[] portsToScan;
             // Set ports to the scanner.
             if (_isMultiplePorts)
@@ -295,9 +308,11 @@ namespace Looto.ViewModels
             }
             else
             {
+                _log.AppendLogMessage("Input was wrong, but it NOT REGISTERED in setters.");
                 IsWrongInput = true;
                 return;
             }
+            _log.AppendLogMessage("Ports to scan has been initialized.");
             StartScanning(portsToScan);
         }
 
@@ -315,6 +330,21 @@ namespace Looto.ViewModels
             }
         }
 
+        /// <summary>Open view as dialog with available LAN hosts.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void LANListCommand(object parameter)
+        {
+            LANHostsWindow view = new LANHostsWindow(HostApplied);
+            view.ShowDialog();
+        }
+
+        /// <summary>Invoke when LAN list dialog applied host.</summary>
+        /// <param name="host">Host that was applied.</param>
+        private void HostApplied(string host) => Host = host;
+
         /// <summary>Scan all ports.</summary>
         /// <param name="ports">Ports collection.</param>
         private void StartScanning(Port[] ports)
@@ -328,15 +358,22 @@ namespace Looto.ViewModels
 
             try
             {
+                _log.AppendLogMessage("Scanning has been started.");
                 _scanner.ScanAllAsync();
             }
-            catch (ArgumentNullException) // If host or ports are incorrect
+            catch (ArgumentNullException ex) // If host or ports are incorrect
             {
+                new Error(ex).HandleError();
                 Host = TcpPorts = UdpPorts = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
             }
-            catch (RangeOfPortsException) // Input range of ports are incorrect
+            catch (RangeOfPortsException ex) // Input range of ports are incorrect
             {
+                new Error(ex).HandleError();
                 Host = FromTcpPort = ToTcpPort = FromUdpPort = ToUdpPort = "";
+            }
+            catch (Exception ex)
+            {
+                new Error(ex).HandleError();
             }
         }
 
@@ -362,6 +399,7 @@ namespace Looto.ViewModels
             var resultsShowCase = new ResultsWindow(results);
             resultsShowCase.Show();
 
+            _log.AppendLogMessage("Scanning has been completed.");
             IsAborted = false;
             _scanner = null;
         }
@@ -461,7 +499,7 @@ namespace Looto.ViewModels
         /// </returns>
         private bool IsNotValidInputs()
         {
-            // Check IP address for correctness.
+            // Check host(IP or Domain name) for correctness.
             if (_host.Trim() == "")
                 return true;
 
@@ -476,7 +514,7 @@ namespace Looto.ViewModels
                 if (_udpPorts.Trim() == "")
                     notDefined++;
 
-                if (_tcpPorts.Trim() != "" && !IsValidPortsString(_tcpPorts)) 
+                if (_tcpPorts.Trim() != "" && !IsValidPortsString(_tcpPorts))
                     return true;
                 if (_udpPorts.Trim() != "" && !(_isBothProtocols || IsValidPortsString(_udpPorts)))
                     return true;
@@ -484,10 +522,8 @@ namespace Looto.ViewModels
                 return notDefined == 2;
             }
 
-            // If user selected range of ports, then it will check all ports in IsValidPort(string) method.
             // From value must be less than To value.
             // If user selected same protocols - UDP protocol input will not check.
-            // TODO: fix something. If tcp port correct, udp can be not correct and vice versa.
             if (_isRangeOfPorts)
                 return !GetRangeOfPortsFromInputs().IsValid;
 

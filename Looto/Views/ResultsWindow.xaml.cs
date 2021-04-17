@@ -1,5 +1,5 @@
 ﻿using Looto.Components;
-using Looto.Models.Scanner;
+using Looto.Models.PortScanner;
 using Looto.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;

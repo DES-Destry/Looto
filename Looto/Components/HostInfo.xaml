@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Looto.Components.HostInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Looto.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="35" 
+             d:DesignWidth="690">
+    <Grid x:Name="MainGrid"
+          Background="Transparent"
+          Loaded="MainGrid_Loaded">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="Host"
+                   Text="192.168.0.0"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   Foreground="{StaticResource WhiteBrush}"
+                   FontFamily="{StaticResource BaseFont}"
+                   FontSize="{StaticResource Regular}"/>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                FontSize="{StaticResource Regular}"
+                x:Name="ApplyButton"
+                Click="ApplyButton_Click"
+                Grid.Column="1"
+                Margin="3"
+                Content="Apply"/>
+
+    </Grid>
+</UserControl>

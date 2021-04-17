@@ -22,3 +22,6 @@ A clear and concise description of what you expected to happen.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
+
+**Logs and bug reports, that genarate app**
+Send to agafonovandrej69@gmail.com ".data" folder content. I'll check it only if you enter your email here.

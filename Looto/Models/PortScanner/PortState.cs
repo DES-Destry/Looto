@@ -1,4 +1,4 @@
-﻿namespace Looto.Models.Scanner
+﻿namespace Looto.Models.PortScanner
 {
     public enum PortState
     {

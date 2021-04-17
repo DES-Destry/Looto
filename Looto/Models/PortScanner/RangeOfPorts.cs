@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>Struct to present range of ports.</summary>
     public struct RangeOfPorts

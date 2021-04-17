@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>Ports integer presentation with his protocol.</summary>
     public struct Port

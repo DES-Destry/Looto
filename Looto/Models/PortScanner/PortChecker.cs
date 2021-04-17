@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Looto.Models.DebugTools;
+using Looto.Models.HostScanner;
+using System;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>Have methods for check port for Opened/Closed state.</summary>
     class PortChecker
@@ -50,6 +54,11 @@ namespace Looto.Models.Scanner
             {
                 result = PortState.Closed;
             }
+            catch (Exception ex)
+            {
+                result = PortState.NotChecked;
+                Application.Current.Dispatcher.Invoke(new Error(ex).HandleError);
+            }
 
             _socket.Close();
             return result;
@@ -60,6 +69,18 @@ namespace Looto.Models.Scanner
         public void InstallHost(string host)
         {
             _host = host;
+        }
+
+        /// <summary>Check host on existance.</summary>
+        /// <param name="host">Host to check.</param>
+        /// <exception cref="HostNotValidException">Throws when host doesn't exist.</exception>
+        public async Task HostIsValidAsync(string host)
+        {
+            await Task.Run(() =>
+            {
+                if (!HostChecker.CheckHost(new HostData(host, false)))
+                    throw new HostNotValidException("Host not exists", host);
+            });
         }
     }
 }

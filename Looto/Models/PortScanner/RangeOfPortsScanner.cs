@@ -3,8 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Looto.Models.DebugTools;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     /// <summary>
     /// <see cref="IScanner"/> interface implementation.<br/>
@@ -46,6 +47,7 @@ namespace Looto.Models.Scanner
         public RangeOfPortsScanner()
         {
             _lockObject = new object();
+            _checker = new PortChecker();
             _parallelOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
@@ -55,7 +57,7 @@ namespace Looto.Models.Scanner
         /// <summary>Scan all of ports in host.</summary>
         /// <exception cref="ArgumentNullException">Throws when <see cref="Host"/> or <see cref="Ports"/> was equals null.</exception>
         /// <exception cref="RangeOfPortsException">Throws when <see cref="Ports"/> parameter not looks like a range.</exception>
-        public async void ScanAllAsync()
+        public async Task ScanAllAsync()
         {
             if (Host == null)
                 throw new ArgumentNullException(nameof(Host), "Host value was equals null.");
@@ -66,22 +68,36 @@ namespace Looto.Models.Scanner
 
             _scannedPortsCount = 0;
 
-            List<Port> results = new List<Port>();
-
-            if (Ports.Length == 2 || Ports.Length == 4)
+            try
             {
-                Port[] scannedPorts = await ScanRange(Ports[0], Ports[1]);
-                results.AddRange(scannedPorts);
+                await _checker.HostIsValidAsync(Host);
+
+                List<Port> results = new List<Port>();
+
+                if (Ports.Length == 2 || Ports.Length == 4)
+                {
+                    Port[] scannedPorts = await ScanRange(Ports[0], Ports[1]);
+                    results.AddRange(scannedPorts);
+                }
+                if (Ports.Length == 4)
+                {
+                    Port[] scannedPorts = await ScanRange(Ports[2], Ports[3]);
+                    results.AddRange(scannedPorts);
+                }
+
+                Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
+
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             }
-            if (Ports.Length == 4)
+            catch (HostNotValidException)
             {
-                Port[] scannedPorts = await ScanRange(Ports[2], Ports[3]);
-                results.AddRange(scannedPorts);
+                OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, new Port[] { }, false));
+            }
+            catch (Exception ex)
+            {
+                new Error(ex).HandleError();
             }
 
-            Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
-
-            OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             _scannedPortsCount = 0;
             _aborted = false;
         }

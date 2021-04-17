@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Looto.Models.Scanner
+namespace Looto.Models.PortScanner
 {
     [Serializable]
     class RangeOfPortsException : Exception
