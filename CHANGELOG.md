@@ -1,5 +1,10 @@
 # Versions
 
+## v1.0.2
+- Error handling. Now app can write logs and made bug report files in .data\_logs folder. If exception was catched app now shows window with error info.(in the previous version the app only crashed without warnings or consequenses)
+- Not scanning hosts ports if host doesn't exists.(in the previous version the app shows all ports of not existed host as closed)
+- Added host scanner. Now you can see the list of devices IP addresses, that are on the same local network.
+
 ## v1.0.1
 - Now in host input user can type Domain name(in the previous version user can type only IP address)
 - Stop button added. If you realized that you don't need to scan everything, but realized it too late, then you can complete the process. But the check of those ports that have started to be checked will not stop and you will have to wait for some time.
