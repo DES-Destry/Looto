@@ -11,6 +11,7 @@ namespace Looto.Models.HostScanner
     class SimpleHostScanner : IHostScanner
     {
         private readonly ParallelOptions _parallelOptions;
+        private readonly object _lockObject;
         private int _scannedHosts;
         private bool _isAborted = false;
 
@@ -24,6 +25,7 @@ namespace Looto.Models.HostScanner
         /// <summary>Create new Simple host scanner.</summary>
         public SimpleHostScanner()
         {
+            _lockObject = new object();
             _parallelOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
@@ -41,16 +43,19 @@ namespace Looto.Models.HostScanner
             List<HostData> result = new List<HostData>();
             await Task.Run(() =>
             {
-                Parallel.ForEach(Hosts, _parallelOptions, host =>
+                lock (_lockObject)
                 {
-                    if (!_isAborted)
-                        host.Exists = HostChecker.CheckHost(host);
-                    else host.Exists = false;
+                    Parallel.ForEach(Hosts, _parallelOptions, host =>
+                    {
+                        if (!_isAborted)
+                            host.Exists = HostChecker.CheckHost(host);
+                        else host.Exists = false;
 
-                    result.Add(host);
-                    _scannedHosts++;
-                    OnOneHostWasScanned?.Invoke(HostsCount, _scannedHosts, host);
-                });
+                        result.Add(host);
+                        _scannedHosts++;
+                        OnOneHostWasScanned?.Invoke(HostsCount, _scannedHosts, host);
+                    });
+                }
             });
 
             OnScanEnding?.Invoke(result.ToArray());

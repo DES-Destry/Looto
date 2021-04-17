@@ -499,7 +499,7 @@ namespace Looto.ViewModels
         /// </returns>
         private bool IsNotValidInputs()
         {
-            // Check IP address for correctness.
+            // Check host(IP or Domain name) for correctness.
             if (_host.Trim() == "")
                 return true;
 
@@ -522,10 +522,8 @@ namespace Looto.ViewModels
                 return notDefined == 2;
             }
 
-            // If user selected range of ports, then it will check all ports in IsValidPort(string) method.
             // From value must be less than To value.
             // If user selected same protocols - UDP protocol input will not check.
-            // TODO: fix something. If tcp port correct, udp can be not correct and vice versa.
             if (_isRangeOfPorts)
                 return !GetRangeOfPortsFromInputs().IsValid;
 
