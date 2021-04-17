@@ -330,11 +330,20 @@ namespace Looto.ViewModels
             }
         }
 
+        /// <summary>Open view as dialog with available LAN hosts.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
         private void LANListCommand(object parameter)
         {
-            LANHostsWindow view = new LANHostsWindow();
+            LANHostsWindow view = new LANHostsWindow(HostApplied);
             view.ShowDialog();
         }
+
+        /// <summary>Invoke when LAN list dialog applied host.</summary>
+        /// <param name="host">Host that was applied.</param>
+        private void HostApplied(string host) => Host = host;
 
         /// <summary>Scan all ports.</summary>
         /// <param name="ports">Ports collection.</param>

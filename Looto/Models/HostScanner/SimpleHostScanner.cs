@@ -21,6 +21,7 @@ namespace Looto.Models.HostScanner
         public event Action<int, int, HostData> OnOneHostWasScanned;
         public event Action<HostData[]> OnScanEnding;
 
+        /// <summary>Create new Simple host scanner.</summary>
         public SimpleHostScanner()
         {
             _parallelOptions = new ParallelOptions
@@ -42,7 +43,7 @@ namespace Looto.Models.HostScanner
             {
                 Parallel.ForEach(Hosts, _parallelOptions, host =>
                 {
-                    if (_isAborted)
+                    if (!_isAborted)
                         host.Exists = HostChecker.CheckHost(host);
                     else host.Exists = false;
 

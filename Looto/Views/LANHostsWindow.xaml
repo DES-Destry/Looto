@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Looto.Views"
         mc:Ignorable="d"
+        xmlns:models="clr-namespace:Looto.Models"
         xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
-        d:DataContext="{d:DesignInstance Type=viewmodels:ErrorOccuredViewModel}"
+        d:DataContext="{d:DesignInstance Type=viewmodels:LANListViewModel}"
         Title="LAN Hosts" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -15,6 +16,10 @@
         AllowsTransparency="True"
         Height="600" 
         Width="700">
+
+    <Window.Resources>
+        <models:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
 
     <Border BorderThickness="2"
             BorderBrush="{StaticResource MainBrush}">
@@ -97,17 +102,47 @@
                                 <TextBlock FontSize="{StaticResource Small}"
                                            FontFamily="{StaticResource BaseFont}"
                                            Foreground="{StaticResource SecondMessageBrush}"
-                                           Text="There are all hosts in your local network. Click apply button for copy IP of the device to Host input in the port scanner"
+                                           Text="There are all hosts in your local network. Click apply button for copy IP of the device to Host input in the port scanner."
                                            MaxWidth="560"
                                            TextWrapping="Wrap"
                                            Margin="10, -10, 0, 0"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer>
-                        <StackPanel>
-                        </StackPanel>
-                    </ScrollViewer>
+                    <StackPanel Visibility="{Binding IsSearching, Converter={StaticResource VisibilityConverter}}">
+                        <TextBlock FontFamily="{StaticResource BaseFont}"
+                                   FontSize="{StaticResource Small}"
+                                   Foreground="{StaticResource WhiteBrush}"
+                                   TextAlignment="Center"
+                                   Text="Searching..."
+                                   Margin="0, 5, 0, 0"/>
+                        <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                     Value="{Binding CurrentSearchProgress}"
+                                     Maximum="{Binding MaxSearchProgress}"
+                                     Background="Transparent"
+                                     Height="15"
+                                     Margin="120, 0, 120, 20"/>
+                    </StackPanel>
+                    <Grid Height="455">
+                        <ScrollViewer>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="Host"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="{StaticResource WhiteBrush}"
+                                               FontFamily="{StaticResource BaseFont}"
+                                               FontSize="{StaticResource Regular}"/>
+                                </Grid>
+                                <StackPanel x:Name="ResultsPanel"></StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </StackPanel>

@@ -105,18 +105,18 @@
                     <ScrollViewer Height="265">
                         <StackPanel>
                             <TextBlock FontSize="{StaticResource Regular}"
-                                   FontFamily="{StaticResource BaseFont}"
-                                   Foreground="{StaticResource WhiteBrush}"
-                                   TextAlignment="Center"
-                                   Text="Stack trace"/>
-                        <TextBlock FontSize="{StaticResource Small}"
-                                   FontFamily="{StaticResource BaseFont}"
-                                   Foreground="{StaticResource WhiteBrush}"
-                                   Text="{Binding OccuredError.StackTrace}"
-                                   TextWrapping="Wrap"
-                                   Margin="10"/>
-                    </StackPanel>
-                </ScrollViewer>
+                                       FontFamily="{StaticResource BaseFont}"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       TextAlignment="Center"
+                                       Text="Stack trace"/>
+                            <TextBlock FontSize="{StaticResource Small}"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       Text="{Binding OccuredError.StackTrace}"
+                                       TextWrapping="Wrap"
+                                       Margin="10"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 <Button Style="{StaticResource ButtonStyle}"
                         FontSize="{StaticResource Regular}"
                         Command="{Binding OpenGithub}"

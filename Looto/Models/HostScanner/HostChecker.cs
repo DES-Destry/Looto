@@ -13,9 +13,9 @@ namespace Looto.Models.HostScanner
             try
             {
                 Ping hostCheck = new Ping();
-                PingReply reply = hostCheck.Send(host.Host);
+                PingReply reply = hostCheck.Send(host.Host, 1000);
 
-                if (reply.Status != IPStatus.Success)
+                if (reply.Status == IPStatus.Success)
                     return true;
                 else return false;
             }
