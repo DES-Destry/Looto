@@ -51,7 +51,7 @@ namespace Looto.ViewModels
         public string ScanDate => $"Scanned at: {_result.ScanDate:G}";
 
         /// <summary>If result not rendered yet.</summary>
-        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the bool field, <see cref="_isLoading"/>.</value>
+        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isLoading"/>.</value>
         public bool IsLoading
         {
             get => _isLoading;
@@ -62,7 +62,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Value of progress bar.</summary>
-        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the int field, <see cref="_currentProgress"/>.</value>
+        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_currentProgress"/>.</value>
         public int CurrentProgress
         {
             get => _currentProgress;
@@ -73,7 +73,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Maximum of progress bar.</summary>
-        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the int field, <see cref="_maxProgress"/>.</value>
+        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_maxProgress"/>.</value>
         public int MaxProgress
         {
             get => _maxProgress;
@@ -92,8 +92,8 @@ namespace Looto.ViewModels
         public ResultsViewModel(ScanResult result)
         {
             Result = result;
-            HostColor = _result.HostIsValid ? 
-                (Brush)Application.Current.MainWindow.FindResource("WhiteBrush") 
+            HostColor = _result.HostIsValid ?
+                (Brush)Application.Current.MainWindow.FindResource("WhiteBrush")
                 : (Brush)Application.Current.MainWindow.FindResource("RedBrush");
 
             _hostState = _result.HostIsValid ? string.Empty : "(DOESN'T EXISTS)";

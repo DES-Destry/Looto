@@ -19,7 +19,7 @@ namespace Looto.ViewModels
 
 
         /// <summary>Need for show or hide progress bar.</summary>
-        /// <value>The <see cref="IsSearching"/> property gets/sets the value of the bool field, <see cref="_isSearching"/>.</value>
+        /// <value>The <see cref="IsSearching"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isSearching"/>.</value>
         public bool IsSearching
         {
             get => _isSearching;
@@ -31,7 +31,7 @@ namespace Looto.ViewModels
         }
 
         /// <summary>Maximum value of progress bar.</summary>
-        /// <value>The <see cref="MaxSearchProgress"/> property gets/sets the value of the int field, <see cref="_maxSearchProgress"/>.</value>
+        /// <value>The <see cref="MaxSearchProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_maxSearchProgress"/>.</value>
         public int MaxSearchProgress
         {
             get => _maxSearchProgress;
@@ -42,7 +42,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Value of progress bar.</summary>
-        /// <value>The <see cref="CurrentSearchProgress"/> property gets/sets the value of the int field, <see cref="_currentSearchProgress"/>.</value>
+        /// <value>The <see cref="CurrentSearchProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_currentSearchProgress"/>.</value>
         public int CurrentSearchProgress
         {
             get => _currentSearchProgress;

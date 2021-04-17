@@ -54,7 +54,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Shows input, where user need write range of ports (from, to).</summary>
-        /// <value>The <see cref="IsRangeOfPorts"/> property gets/sets the value of the bool field, <see cref="_isRangeOfPorts"/>.</value>
+        /// <value>The <see cref="IsRangeOfPorts"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isRangeOfPorts"/>.</value>
         public bool IsRangeOfPorts
         {
             get => _isRangeOfPorts;
@@ -69,7 +69,7 @@ namespace Looto.ViewModels
         /// Checks only TCP and ignoring UDP. <br/>
         /// TCP = TCP/UDP; UDP => ignore.
         /// </summary>
-        /// <value>The <see cref="IsBothProtocols"/> property gets/sets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="IsBothProtocols"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public bool IsBothProtocols
         {
             get => _isBothProtocols;
@@ -86,7 +86,7 @@ namespace Looto.ViewModels
         /// If user not selected no one of TCP or UDP.<br/>
         /// Feature for future.
         /// </summary>
-        /// <value>The <see cref="IsUndefinedProtocols"/> property gets/sets the value of the bool field, <see cref="_isUndefinedProtocols"/>.</value>
+        /// <value>The <see cref="IsUndefinedProtocols"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isUndefinedProtocols"/>.</value>
         public bool IsUndefinedProtocols
         {
             get => _isUndefinedProtocols;
@@ -101,7 +101,7 @@ namespace Looto.ViewModels
         /// If users input are wrong.<br/>
         /// If it equals true, then scanning not able to start.
         /// </summary>
-        /// <value>The <see cref="IsWrongInput"/> property gets/sets the value of the bool field, <see cref="_isWrongInput"/>.</value>
+        /// <value>The <see cref="IsWrongInput"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isWrongInput"/>.</value>
         public bool IsWrongInput
         {
             get => _isWrongInput;
@@ -113,10 +113,10 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Locks button if wrong input equals true.</summary>
-        /// <value>The <see cref="IsScanButtonEnabled"/> property gets and invert the value of the bool field, <see cref="_isWrongInput"/>.</value>
+        /// <value>The <see cref="IsScanButtonEnabled"/> property gets and invert the value of the <see cref="bool"/> field, <see cref="_isWrongInput"/>.</value>
         public bool IsScanButtonEnabled => !_isWrongInput;
         /// <summary>Equals true if scanning in progress.</summary>
-        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the bool field, <see cref="_isLoading"/>.</value>
+        /// <value>The <see cref="IsLoading"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_isLoading"/>.</value>
         public bool IsLoading
         {
             get => _isLoading;
@@ -128,13 +128,13 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>When it is loading, then scan button are hide.</summary>
-        /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the bool field, <see cref="_isLoading"/>.</value>
+        /// <value>The <see cref="IsShowScanButton"/> property gets and invert the value of the <see cref="bool"/> field, <see cref="_isLoading"/>.</value>
         public bool IsShowScanButton => !_isLoading;
         /// <summary>Hides UDP fields if user selected both protocols.</summary>
-        /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="IsUdpFieldsVisible"/> property gets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public bool IsUdpFieldsVisible => !_isBothProtocols;
         /// <summary>Then waiting for a port that has already started scanning.</summary>
-        /// <value>The <see cref="IsAborted"/> property gets the value of the bool field, <see cref="_isAborted"/>.</value>
+        /// <value>The <see cref="IsAborted"/> property gets the value of the <see cref="bool"/> field, <see cref="_isAborted"/>.</value>
         public bool IsAborted
         {
             get => _isAborted;
@@ -147,10 +147,10 @@ namespace Looto.ViewModels
 
 
         /// <summary>Header of the first line(tcp ports line)</summary>
-        /// <value>The <see cref="FirstHeader"/> property gets the value of the bool field, <see cref="_isBothProtocols"/>.</value>
+        /// <value>The <see cref="FirstHeader"/> property gets the value of the <see cref="bool"/> field, <see cref="_isBothProtocols"/>.</value>
         public string FirstHeader => _isBothProtocols ? "TCP/UDP" : "TCP";
         /// <summary>IP address to check.</summary>
-        /// <value>The <see cref="Host"/> property gets/sets the value of the string field, <see cref="_host"/>.</value>
+        /// <value>The <see cref="Host"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_host"/>.</value>
         public string Host
         {
             get => _host;
@@ -162,7 +162,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>All TCP ports separated by commas to check.</summary>
-        /// <value>The <see cref="TcpPorts"/> property gets/sets the value of the string field, <see cref="_tcpPorts"/>.</value>
+        /// <value>The <see cref="TcpPorts"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_tcpPorts"/>.</value>
         public string TcpPorts
         {
             get => _tcpPorts;
@@ -174,7 +174,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>All UDP ports separated by commas to check.</summary>
-        /// <value>The <see cref="UdpPorts"/> property gets/sets the value of the string field, <see cref="_udpPorts"/>.</value>
+        /// <value>The <see cref="UdpPorts"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_udpPorts"/>.</value>
         public string UdpPorts
         {
             get => _udpPorts;
@@ -186,7 +186,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>TCP port First value in range.</summary>
-        /// <value>The <see cref="FromTcpPort"/> property gets/sets the value of the string field, <see cref="_fromTcpPort"/>.</value>
+        /// <value>The <see cref="FromTcpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_fromTcpPort"/>.</value>
         public string FromTcpPort
         {
             get => _fromTcpPort;
@@ -198,7 +198,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>TCP port Last value in range.</summary>
-        /// <value>The <see cref="ToTcpPort"/> property gets/sets the value of the string field, <see cref="_toTcpPort"/>.</value>
+        /// <value>The <see cref="ToTcpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_toTcpPort"/>.</value>
         public string ToTcpPort
         {
             get => _toTcpPort;
@@ -210,7 +210,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>UDP port First value in range.</summary>
-        /// <value>The <see cref="FromUdpPort"/> property gets/sets the value of the string field, <see cref="_fromTcpPort"/>.</value>
+        /// <value>The <see cref="FromUdpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_fromTcpPort"/>.</value>
         public string FromUdpPort
         {
             get => _fromUdpPort;
@@ -222,7 +222,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>UDP port Last value in range.</summary>
-        /// <value>The <see cref="ToUdpPort"/> property gets/sets the value of the string field, <see cref="_toUdpPort"/>.</value>
+        /// <value>The <see cref="ToUdpPort"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_toUdpPort"/>.</value>
         public string ToUdpPort
         {
             get => _toUdpPort;
@@ -236,7 +236,7 @@ namespace Looto.ViewModels
 
 
         /// <summary>Maximum value of progress bar.</summary>
-        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the int field, <see cref="_maxProgress"/>.</value>
+        /// <value>The <see cref="MaxProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_maxProgress"/>.</value>
         public int MaxProgress
         {
             get => _maxProgress;
@@ -247,7 +247,7 @@ namespace Looto.ViewModels
             }
         }
         /// <summary>Current progress value of progress bar.</summary>
-        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the int field, <see cref="_currentProgress"/>.</value>
+        /// <value>The <see cref="CurrentProgress"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_currentProgress"/>.</value>
         public int CurrentProgress
         {
             get => _currentProgress;
