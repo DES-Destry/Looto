@@ -48,7 +48,7 @@ namespace Looto.Models.DebugTools
         public void HandleError()
         {
             ErrorOccured view = new ErrorOccured(_error);
-            view.Show();
+            view.ShowDialog();
 
             using (var stream = new StreamWriter($"{_dirPath}\\{DateTime.Now:MMddyyHHmssfff}.log", false))
             {
