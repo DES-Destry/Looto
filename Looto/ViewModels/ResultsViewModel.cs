@@ -108,8 +108,12 @@ namespace Looto.ViewModels
             get => _showOpened;
             set
             {
-                _showOpened = value;
-                OnPropertyChanged();
+                if (!_isLoading)
+                {
+                    _showOpened = value;
+                    OnPropertyChanged();
+                    OnRenderRequest?.Invoke(_result.PortsAfterScan);
+                }
             }
         }
         public bool ShowClosed
@@ -117,8 +121,12 @@ namespace Looto.ViewModels
             get => _showClosed;
             set
             {
-                _showClosed = value;
-                OnPropertyChanged();
+                if (!_isLoading)
+                {
+                    _showClosed = value;
+                    OnPropertyChanged();
+                    OnRenderRequest?.Invoke(_result.PortsAfterScan);
+                }
             }
         }
         public bool ShowNotChecked
@@ -126,11 +134,17 @@ namespace Looto.ViewModels
             get => _showNotChecked;
             set
             {
-                _showNotChecked = value;
-                OnPropertyChanged();
+                if (!_isLoading)
+                {
+                    _showNotChecked = value;
+                    OnPropertyChanged();
+                    OnRenderRequest?.Invoke(_result.PortsAfterScan);
+                }
             }
         }
         #endregion
+
+        public event Action<Port[]> OnRenderRequest; 
 
         /// <summary>Base constructor.</summary>
         public ResultsViewModel() { }

@@ -128,64 +128,61 @@
                                                  Margin="120, 0, 120, 20"/>
                     </StackPanel>
                     <ScrollViewer Height="305">
-                        <StackPanel>
-                            <StackPanel x:Name="ResultsContainer"
-                                        Loaded="ResultsContainer_Loaded"
-                                        Visibility="{Binding IsValidHost, Converter={StaticResource VisibilityConverter}}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox Style="{StaticResource StandartCheckBox}"
+                        <StackPanel Visibility="{Binding IsValidHost, Converter={StaticResource VisibilityConverter}}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
                                                   IsChecked="{Binding ShowOpened}"
                                                   Margin="5, 5, 5, -14"/>
-                                        <TextBlock Text="Opened"
+                                    <TextBlock Text="Opened"
                                                    VerticalAlignment="Center"
                                                    FontSize="{StaticResource Regular}"
                                                    FontFamily="{StaticResource BaseFont}"
                                                    Foreground="{StaticResource OpenedBrush}"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1"
+                                </StackPanel>
+                                <StackPanel Grid.Column="1"
                                                 Orientation="Horizontal">
-                                        <CheckBox Style="{StaticResource StandartCheckBox}"
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
                                                   IsChecked="{Binding ShowClosed}"
                                                   Margin="5, 5, 5, -14"/>
-                                        <TextBlock Text="Closed"
+                                    <TextBlock Text="Closed"
                                                    VerticalAlignment="Center"
                                                    FontSize="{StaticResource Regular}"
                                                    FontFamily="{StaticResource BaseFont}"
                                                    Foreground="{StaticResource ClosedBrush}"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="2"
+                                </StackPanel>
+                                <StackPanel Grid.Column="2"
                                                 Orientation="Horizontal">
-                                        <CheckBox Style="{StaticResource StandartCheckBox}"
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
                                                   IsChecked="{Binding ShowNotChecked}"
                                                   Margin="5, 5, 5, -14"/>
-                                        <TextBlock Text="Not checked"
+                                    <TextBlock Text="Not checked"
                                                    VerticalAlignment="Center"
                                                    FontSize="{StaticResource Regular}"
                                                    FontFamily="{StaticResource BaseFont}"
                                                    Foreground="{StaticResource NotCheckedBrush}"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Margin="0, 10, 0, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="3*"/>
-                                    </Grid.ColumnDefinitions>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="0, 10, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="Port"
+                                <TextBlock Text="Port"
                                                TextAlignment="Center"
                                                VerticalAlignment="Center"
                                                FontFamily="{StaticResource BaseFont}"
                                                Foreground="{StaticResource WhiteBrush}"
                                                FontSize="{StaticResource Regular}"/>
 
-                                    <TextBlock Grid.Column="1"
+                                <TextBlock Grid.Column="1"
                                                Text="Protocol"
                                                TextAlignment="Center"
                                                VerticalAlignment="Center"
@@ -193,15 +190,16 @@
                                                Foreground="{StaticResource WhiteBrush}"
                                                FontSize="{StaticResource Regular}"/>
 
-                                    <TextBlock Grid.Column="2"
+                                <TextBlock Grid.Column="2"
                                                Text="Port status"
                                                TextAlignment="Center"
                                                VerticalAlignment="Center"
                                                FontFamily="{StaticResource BaseFont}"
                                                Foreground="{StaticResource WhiteBrush}"
                                                FontSize="{StaticResource Regular}"/>
-                                </Grid>
-                            </StackPanel>
+                            </Grid>
+                            <StackPanel x:Name="ResultsContainer"
+                                        Loaded="ResultsContainer_Loaded"/>
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
