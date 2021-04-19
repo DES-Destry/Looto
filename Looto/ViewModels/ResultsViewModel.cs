@@ -21,6 +21,10 @@ namespace Looto.ViewModels
         private int _currentProgress = 1;
         private int _maxProgress = 2;
 
+        private bool _showOpened = true;
+        private bool _showClosed = true;
+        private bool _showNotChecked = true;
+
         /// <summary>Result of scanning.</summary>
         /// <value>The <see cref="Result"/> property gets/sets the value of the <see cref="ScanResult"/> field, <see cref="_result"/>.</value>
         public ScanResult Result
@@ -95,6 +99,34 @@ namespace Looto.ViewModels
             set
             {
                 _maxProgress = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ShowOpened
+        {
+            get => _showOpened;
+            set
+            {
+                _showOpened = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool ShowClosed
+        {
+            get => _showClosed;
+            set
+            {
+                _showClosed = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool ShowNotChecked
+        {
+            get => _showNotChecked;
+            set
+            {
+                _showNotChecked = value;
                 OnPropertyChanged();
             }
         }
