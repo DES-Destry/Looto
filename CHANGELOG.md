@@ -1,5 +1,11 @@
 # Versions
 
+## v1.0.3
+- Some bug fixes.
+- LAN hosts scanner was improved - it scan more hosts based on local IP device.
+- Result window was restyled.
+- On result window filters appeared for on/off render ports with selected port states.
+
 ## v1.0.2
 - Error handling. Now app can write logs and made bug report files in .data\_logs folder. If exception was catched app now shows window with error info.(in the previous version the app only crashed without warnings or consequenses)
 - Not scanning hosts ports if host doesn't exists.(in the previous version the app shows all ports of not existed host as closed)
