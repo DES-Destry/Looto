@@ -19,7 +19,10 @@ namespace Looto.Views
         {
             InitializeComponent();
             // Initilalize view model for view with ready results
-            DataContext = new ResultsViewModel(results);
+            var vm = new ResultsViewModel(results);
+            vm.OnRenderRequest += RenderResult;
+
+            DataContext = vm;
         }
 
         /// <summary>
@@ -57,26 +60,39 @@ namespace Looto.Views
         /// <param name="resultsToRender">Ports to render.</param>
         private async void RenderResult(Port[] resultsToRender)
         {
-            (DataContext as ResultsViewModel).CurrentProgress = 0;
-            (DataContext as ResultsViewModel).IsLoading = true;
+            ResultsContainer.Children.Clear();
+
+            var vm = DataContext as ResultsViewModel;
+
+            vm.CurrentProgress = 0;
+            vm.IsLoading = true;
+
+            bool showOpened = vm.ShowOpened;
+            bool showClosed = vm.ShowClosed;
+            bool showNotCheked = vm.ShowNotChecked;
 
             bool isDarker = true;
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 foreach (Port result in resultsToRender)
                 {
-                    await Application.Current.Dispatcher.Invoke(async () =>
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        PortInfo component = new PortInfo
+                        if ((showOpened && result.State == PortState.Opened)
+                            || (showClosed && result.State == PortState.Closed)
+                            || (showNotCheked && result.State == PortState.NotChecked))
                         {
-                            Port = result.Value.ToString(),
-                            Protocol = result.Protocol.ToString(),
-                            State = result.State.ToString(),
-                            IsDarker = isDarker,
-                        };
-                        ResultsContainer.Children.Add(component);
-                        (DataContext as ResultsViewModel).CurrentProgress++;
-                        isDarker = !isDarker;
+                            PortInfo component = new PortInfo
+                            {
+                                Port = result.Value.ToString(),
+                                Protocol = result.Protocol.ToString(),
+                                State = result.State.ToString(),
+                                IsDarker = isDarker,
+                            };
+                            ResultsContainer.Children.Add(component);
+                            (DataContext as ResultsViewModel).CurrentProgress++;
+                            isDarker = !isDarker;
+                        }
                     });
                 }
             });

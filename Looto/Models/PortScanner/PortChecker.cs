@@ -9,7 +9,7 @@ using System.Windows;
 namespace Looto.Models.PortScanner
 {
     /// <summary>Have methods for check port for Opened/Closed state.</summary>
-    class PortChecker
+    public class PortChecker
     {
         private readonly byte[] _message;
 
@@ -42,7 +42,6 @@ namespace Looto.Models.PortScanner
             try
             {
                 // Try to send content
-                _socket = new Socket(_socketType, port.Protocol);
                 _socket.Connect(_host, port.Value);
                 _socket.Send(_message);
                 _socket.Shutdown(SocketShutdown.Both);
@@ -78,7 +77,7 @@ namespace Looto.Models.PortScanner
         {
             await Task.Run(() =>
             {
-                if (!HostChecker.CheckHost(new HostData(host, false)))
+                if (!HostChecker.CheckHost(host))
                     throw new HostNotValidException("Host not exists", host);
             });
         }

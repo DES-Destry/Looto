@@ -8,7 +8,7 @@ namespace Looto.Models.HostScanner
     /// <see cref="IHostScanner"/> interface implementation.<br/>
     /// Checks an array of hosts for Exists/NotExists state.
     /// </summary>
-    class SimpleHostScanner : IHostScanner
+    public class SimpleHostScanner : IHostScanner
     {
         private readonly ParallelOptions _parallelOptions;
         private readonly object _lockObject;
@@ -48,7 +48,7 @@ namespace Looto.Models.HostScanner
                     Parallel.ForEach(Hosts, _parallelOptions, host =>
                     {
                         if (!_isAborted)
-                            host.Exists = HostChecker.CheckHost(host);
+                            host.Exists = HostChecker.CheckHost(host.Host);
                         else host.Exists = false;
 
                         result.Add(host);

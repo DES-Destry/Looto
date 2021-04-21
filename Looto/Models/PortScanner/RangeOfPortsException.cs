@@ -3,7 +3,7 @@
 namespace Looto.Models.PortScanner
 {
     [Serializable]
-    class RangeOfPortsException : Exception
+    public class RangeOfPortsException : Exception
     {
         public RangeOfPorts Range { get; }
 

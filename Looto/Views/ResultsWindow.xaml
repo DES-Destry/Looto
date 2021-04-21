@@ -84,45 +84,90 @@
 
             <Grid Background="{StaticResource ActiveBgBrush}"
                   Height="423">
-                <ScrollViewer>
-                    <StackPanel>
-                        <StackPanel>
+                <StackPanel>
+                    <Border Background="{StaticResource StaticBgBrush}"
+                            CornerRadius="10"
+                            Margin="10"
+                            Height="96">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ScanImage}"/>
+                            <StackPanel>
+                                <TextBlock FontSize="{StaticResource H2}"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{Binding HostColor}"
+                                           Text="{Binding Host}"
+                                           Margin="10"/>
+                                <TextBlock FontSize="{StaticResource Small}"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource SecondMessageBrush}"
+                                           Text="{Binding ScanDate}"
+                                           MaxWidth="460"
+                                           TextWrapping="Wrap"
+                                           Margin="10, -10, 0, 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               FontSize="{StaticResource Big}"
+                               Foreground="{StaticResource RedBrush}"
+                               Visibility="{Binding IsNotValidHost, Converter={StaticResource VisibilityConverter}}"
+                               TextAlignment="Center"
+                               Text="This host not exists!"/>
+                    <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}">
+                        <TextBlock FontFamily="{StaticResource BaseFont}"
+                                               FontSize="{StaticResource Small}"
+                                               Foreground="{StaticResource WhiteBrush}"
+                                               TextAlignment="Center"
+                                               Text="Loading..."
+                                               Margin="0, 5, 0, 0"/>
+                        <ProgressBar Foreground="{StaticResource PropgressBrush}"
+                                                 Value="{Binding CurrentProgress}"
+                                                 Maximum="{Binding MaxProgress}"
+                                                 Background="Transparent"
+                                                 Height="15"
+                                                 Margin="120, 0, 120, 20"/>
+                    </StackPanel>
+                    <ScrollViewer Height="305">
+                        <StackPanel Visibility="{Binding IsValidHost, Converter={StaticResource VisibilityConverter}}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
+                                                  IsChecked="{Binding ShowOpened}"
+                                                  Margin="5, 5, 5, -14"/>
+                                    <TextBlock Text="Opened"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="{StaticResource Regular}"
+                                                   FontFamily="{StaticResource BaseFont}"
+                                                   Foreground="{StaticResource OpenedBrush}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1"
+                                                Orientation="Horizontal">
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
+                                                  IsChecked="{Binding ShowClosed}"
+                                                  Margin="5, 5, 5, -14"/>
+                                    <TextBlock Text="Closed"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="{StaticResource Regular}"
+                                                   FontFamily="{StaticResource BaseFont}"
+                                                   Foreground="{StaticResource ClosedBrush}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2"
+                                                Orientation="Horizontal">
+                                    <CheckBox Style="{StaticResource StandartCheckBox}"
+                                                  IsChecked="{Binding ShowNotChecked}"
+                                                  Margin="5, 5, 5, -14"/>
+                                    <TextBlock Text="Not checked"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="{StaticResource Regular}"
+                                                   FontFamily="{StaticResource BaseFont}"
+                                                   Foreground="{StaticResource NotCheckedBrush}"/>
+                                </StackPanel>
                             </Grid>
-                        </StackPanel>
-                        <StackPanel x:Name="ResultsContainer"
-                                    Loaded="ResultsContainer_Loaded">
-                            <TextBlock Text="{Binding Host}"
-                                       FontFamily="{StaticResource BaseFont}"
-                                       FontSize="{StaticResource Regular}"
-                                       Foreground="{Binding HostColor}"
-                                       TextAlignment="Left"
-                                       Margin="5"/>
-                            <TextBlock Text="{Binding ScanDate}"
-                                       FontFamily="{StaticResource BaseFont}"
-                                       FontSize="{StaticResource Regular}"
-                                       Foreground="{StaticResource WhiteBrush}"
-                                       TextAlignment="Left"
-                                       Margin="5"/>
-                            <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}">
-                                <TextBlock FontFamily="{StaticResource BaseFont}"
-                                           FontSize="{StaticResource Small}"
-                                           Foreground="{StaticResource WhiteBrush}"
-                                           TextAlignment="Center"
-                                           Text="Loading..."
-                                           Margin="0, 5, 0, 0"/>
-                                <ProgressBar Foreground="{StaticResource PropgressBrush}"
-                                             Value="{Binding CurrentProgress}"
-                                             Maximum="{Binding MaxProgress}"
-                                             Background="Transparent"
-                                             Height="15"
-                                             Margin="120, 0, 120, 20"/>
-                            </StackPanel>
                             <Grid Margin="0, 10, 0, 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -131,31 +176,33 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Port"
-                                           TextAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{StaticResource BaseFont}"
-                                           Foreground="{StaticResource WhiteBrush}"
-                                           FontSize="{StaticResource Regular}"/>
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{StaticResource BaseFont}"
+                                               Foreground="{StaticResource WhiteBrush}"
+                                               FontSize="{StaticResource Regular}"/>
 
                                 <TextBlock Grid.Column="1"
-                                           Text="Protocol"
-                                           TextAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{StaticResource BaseFont}"
-                                           Foreground="{StaticResource WhiteBrush}"
-                                           FontSize="{StaticResource Regular}"/>
+                                               Text="Protocol"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{StaticResource BaseFont}"
+                                               Foreground="{StaticResource WhiteBrush}"
+                                               FontSize="{StaticResource Regular}"/>
 
                                 <TextBlock Grid.Column="2"
-                                           Text="Port status"
-                                           TextAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{StaticResource BaseFont}"
-                                           Foreground="{StaticResource WhiteBrush}"
-                                           FontSize="{StaticResource Regular}"/>
+                                               Text="Port status"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{StaticResource BaseFont}"
+                                               Foreground="{StaticResource WhiteBrush}"
+                                               FontSize="{StaticResource Regular}"/>
                             </Grid>
+                            <StackPanel x:Name="ResultsContainer"
+                                        Loaded="ResultsContainer_Loaded"/>
                         </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
+                    </ScrollViewer>
+                </StackPanel>
             </Grid>
         </StackPanel>
     </Border>

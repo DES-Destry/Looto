@@ -10,7 +10,7 @@ namespace Looto.Models.PortScanner
     /// <see cref="IScanner"/> interface implementation.<br/>
     /// Checks an array of ports for Opened/Closed state.
     /// </summary>
-    class MultipleScanner : IScanner
+    public class MultipleScanner : IScanner
     {
         private readonly object _lockObject;
         private readonly ParallelOptions _parallelOptions;
