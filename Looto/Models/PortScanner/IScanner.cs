@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Looto.Models.PortScanner
 {
     /// <summary>Base port scanner interface.</summary>
-    interface IScanner
+    public interface IScanner
     {
         /// <summary>Calls when one port was scanned.</summary>
         event Action<int, int> OnOnePortWasScanned;

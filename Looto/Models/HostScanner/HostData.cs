@@ -1,7 +1,7 @@
 ﻿namespace Looto.Models.HostScanner
 {
     /// <summary>Data about host.</summary>
-    struct HostData
+    public struct HostData
     {
         /// <summary>Host domain name or IP address.</summary>
         public string Host { get; set; }

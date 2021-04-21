@@ -11,7 +11,7 @@ namespace Looto.Models.PortScanner
     /// <see cref="IScanner"/> interface implementation.<br/>
     /// Checks an range of ports for Opened/Closed state.
     /// </summary>
-    class RangeOfPortsScanner : IScanner
+    public class RangeOfPortsScanner : IScanner
     {
         private readonly object _lockObject;
         private readonly ParallelOptions _parallelOptions;

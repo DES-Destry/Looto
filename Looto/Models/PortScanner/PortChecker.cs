@@ -9,7 +9,7 @@ using System.Windows;
 namespace Looto.Models.PortScanner
 {
     /// <summary>Have methods for check port for Opened/Closed state.</summary>
-    class PortChecker
+    public class PortChecker
     {
         private readonly byte[] _message;
 

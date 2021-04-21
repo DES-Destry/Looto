@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Looto.Models.HostScanner
 {
     /// <summary>Base host scanner interface.</summary>
-    interface IHostScanner
+    public interface IHostScanner
     {
         /// <summary>Calls when one host was scanned.</summary>
         event Action<int, int, HostData> OnOneHostWasScanned;

@@ -1,15 +1,21 @@
-﻿using System.Net.NetworkInformation;
+﻿using System;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace Looto.Models.HostScanner
 {
     /// <summary>Class for checking host on existance.</summary>
-    class HostChecker
+    public class HostChecker
     {
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
         /// <returns>Bollean value. true - exists. false - don't exists.</returns>
         public static bool CheckHost(HostData host)
         {
+            if (host.Host == string.Empty || host.Host == null)
+                return false;
+
             try
             {
                 Ping hostCheck = new Ping();
@@ -23,6 +29,21 @@ namespace Looto.Models.HostScanner
             {
                 return false;
             }
+        }
+
+        /// <summary>Get local IPv4 address of current device.</summary>
+        /// <returns>IP address in the string format.</returns>
+        /// <exception cref="PingException">Throws when device not connected to the LAN.</exception>
+        public static string GetLocalIP()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    return ip.ToString();
+            }
+
+            throw new PingException("No network adapters with an IPv4 address in the system!");
         }
     }
 }

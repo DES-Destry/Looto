@@ -8,7 +8,7 @@ namespace Looto.Models.HostScanner
     /// <see cref="IHostScanner"/> interface implementation.<br/>
     /// Checks an array of hosts for Exists/NotExists state.
     /// </summary>
-    class SimpleHostScanner : IHostScanner
+    public class SimpleHostScanner : IHostScanner
     {
         private readonly ParallelOptions _parallelOptions;
         private readonly object _lockObject;

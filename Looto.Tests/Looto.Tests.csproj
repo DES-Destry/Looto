@@ -1,4 +1,4 @@
-п»ї<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props" Condition="Exists('..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props')" />
   <Import Project="..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props')" />
@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostCheckerTests.cs" />
+    <Compile Include="LANScannerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="xunit.runner.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
@@ -75,7 +78,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Р”Р°РЅРЅС‹Р№ РїСЂРѕРµРєС‚ СЃСЃС‹Р»Р°РµС‚СЃСЏ РЅР° РїР°РєРµС‚С‹ NuGet, РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ РЅР° СЌС‚РѕРј РєРѕРјРїСЊСЋС‚РµСЂРµ. РСЃРїРѕР»СЊР·СѓР№С‚Рµ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїР°РєРµС‚РѕРІ NuGet, С‡С‚РѕР±С‹ СЃРєР°С‡Р°С‚СЊ РёС….  Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ СЃРј. РїРѕ Р°РґСЂРµСЃСѓ: http://go.microsoft.com/fwlink/?LinkID=322105. РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ СЃР»РµРґСѓСЋС‰РёР№ С„Р°Р№Р»: {0}.</ErrorText>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />

@@ -3,7 +3,7 @@
 namespace Looto.Models.PortScanner
 {
     [Serializable]
-    class HostNotValidException : Exception
+    public class HostNotValidException : Exception
     {
         public string Host { get; }
 
