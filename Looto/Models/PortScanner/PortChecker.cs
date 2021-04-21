@@ -42,7 +42,6 @@ namespace Looto.Models.PortScanner
             try
             {
                 // Try to send content
-                _socket = new Socket(_socketType, port.Protocol);
                 _socket.Connect(_host, port.Value);
                 _socket.Send(_message);
                 _socket.Shutdown(SocketShutdown.Both);

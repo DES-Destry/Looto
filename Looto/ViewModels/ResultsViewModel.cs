@@ -103,6 +103,8 @@ namespace Looto.ViewModels
             }
         }
 
+        /// <summary>Results filter. Show ports with Opened state.</summary>
+        /// <value>The <see cref="ShowOpened"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showOpened"/>.</value>
         public bool ShowOpened
         {
             get => _showOpened;
@@ -116,6 +118,8 @@ namespace Looto.ViewModels
                 }
             }
         }
+        /// <summary>Results filter. Show ports with Closed state.</summary>
+        /// <value>The <see cref="ShowClosed"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showClosed"/>.</value>
         public bool ShowClosed
         {
             get => _showClosed;
@@ -129,6 +133,8 @@ namespace Looto.ViewModels
                 }
             }
         }
+        /// <summary>Results filter. Show ports with Not Checked state.</summary>
+        /// <value>The <see cref="ShowNotChecked"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showNotChecked"/>.</value>
         public bool ShowNotChecked
         {
             get => _showNotChecked;
@@ -144,6 +150,7 @@ namespace Looto.ViewModels
         }
         #endregion
 
+        /// <summary>Render components again, when user changed filters.</summary>
         public event Action<Port[]> OnRenderRequest; 
 
         /// <summary>Base constructor.</summary>
