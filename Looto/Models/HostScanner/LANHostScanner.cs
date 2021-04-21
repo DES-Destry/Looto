@@ -26,6 +26,8 @@ namespace Looto.Models.HostScanner
                 List<HostData> toCheck = new List<HostData>();
 
                 for (byte i = 0; i < byte.MaxValue; i++)
+                    toCheck.Add(new HostData($"{LAN_IP_BASE}1.{i}", false));
+                for (byte i = 0; i < byte.MaxValue; i++)
                     toCheck.Add(new HostData($"{LAN_IP_BASE}{predicate}.{i}", false));
 
                 Hosts = toCheck.ToArray();
