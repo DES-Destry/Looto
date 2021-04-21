@@ -2,8 +2,8 @@
 {
     public enum PortState
     {
-        NotChecked,
         Opened,
+        NotChecked,
         Closed,
     }
 }

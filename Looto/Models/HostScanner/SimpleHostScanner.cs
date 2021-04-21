@@ -48,7 +48,7 @@ namespace Looto.Models.HostScanner
                     Parallel.ForEach(Hosts, _parallelOptions, host =>
                     {
                         if (!_isAborted)
-                            host.Exists = HostChecker.CheckHost(host);
+                            host.Exists = HostChecker.CheckHost(host.Host);
                         else host.Exists = false;
 
                         result.Add(host);

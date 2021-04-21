@@ -8,12 +8,9 @@ namespace Looto.Tests
         [Fact]
         public void CheckHost_ShouldFindLocalhost()
         {
-            HostData data = new HostData
-            {
-                Host = "localhost"
-            };
+            string testHost = "localhost"; 
 
-            bool actual = HostChecker.CheckHost(data);
+            bool actual = HostChecker.CheckHost(testHost);
 
             Assert.True(actual);
         }
@@ -21,12 +18,9 @@ namespace Looto.Tests
         [Fact]
         public void CheckHost_ShouldNotFindLocalehostes()
         {
-            HostData data = new HostData
-            {
-                Host = "localehostes"
-            };
+            string testHost = "localehostes";
 
-            bool actual = HostChecker.CheckHost(data);
+            bool actual = HostChecker.CheckHost(testHost);
 
             Assert.False(actual);
         }
@@ -34,12 +28,7 @@ namespace Looto.Tests
         [Fact]
         public void CheckHost_ShouldNotFindEmpty()
         {
-            HostData data = new HostData
-            {
-                Host = ""
-            };
-
-            bool actual = HostChecker.CheckHost(data);
+            bool actual = HostChecker.CheckHost("");
 
             Assert.False(actual);
         }
@@ -47,12 +36,7 @@ namespace Looto.Tests
         [Fact]
         public void CheckHost_ShouldNotFindNull()
         {
-            HostData data = new HostData
-            {
-                Host = null
-            };
-
-            bool actual = HostChecker.CheckHost(data);
+            bool actual = HostChecker.CheckHost(null);
 
             Assert.False(actual);
         }
@@ -61,18 +45,9 @@ namespace Looto.Tests
         [Fact]
         public void CheckHost_ShouldFindOnePopularHost()
         {
-            HostData googleHost = new HostData
-            {
-                Host = "google.com"
-            };
-            HostData vkHost = new HostData
-            {
-                Host = "vk.com"
-            };
-            HostData githubHost = new HostData
-            {
-                Host = "github.com"
-            };
+            string googleHost = "google.com";
+            string vkHost = "vk.com";
+            string githubHost = "github.com";
 
             bool googleFinded = HostChecker.CheckHost(googleHost);
             bool vkFinded = HostChecker.CheckHost(vkHost);
@@ -84,7 +59,7 @@ namespace Looto.Tests
         }
 
         [Fact]
-        public void GetLocalIP_ShouldReturnSomething()
+        public void GetLocalIP_ShouldReturnLocalIP()
         {
             string actual = HostChecker.GetLocalIP();
 

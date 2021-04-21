@@ -77,7 +77,7 @@ namespace Looto.Models.PortScanner
         {
             await Task.Run(() =>
             {
-                if (!HostChecker.CheckHost(new HostData(host, false)))
+                if (!HostChecker.CheckHost(host))
                     throw new HostNotValidException("Host not exists", host);
             });
         }

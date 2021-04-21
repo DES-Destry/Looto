@@ -11,15 +11,15 @@ namespace Looto.Models.HostScanner
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
         /// <returns>Bollean value. true - exists. false - don't exists.</returns>
-        public static bool CheckHost(HostData host)
+        public static bool CheckHost(string host)
         {
-            if (host.Host == string.Empty || host.Host == null)
+            if (host == string.Empty || host == null)
                 return false;
 
             try
             {
                 Ping hostCheck = new Ping();
-                PingReply reply = hostCheck.Send(host.Host, 1000);
+                PingReply reply = hostCheck.Send(host, 1000);
 
                 if (reply.Status == IPStatus.Success)
                     return true;
