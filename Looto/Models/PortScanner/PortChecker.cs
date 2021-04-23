@@ -18,7 +18,6 @@ namespace Looto.Models.PortScanner
 
         private string _host;
         private Socket _socket;
-        private SocketAsyncEventArgs _dataWaiting;
         private SocketType _socketType;
 
         /// <summary>Create new instance of checker.</summary>
@@ -47,10 +46,6 @@ namespace Looto.Models.PortScanner
             // Configurate socket parameters.
             _socketType = port.Protocol == ProtocolType.Tcp ? SocketType.Stream : SocketType.Dgram;
             _socket = new Socket(_socketType, port.Protocol);
-
-            // Event args for waiting UDP port response.
-            _dataWaiting = new SocketAsyncEventArgs();
-            _dataWaiting.Completed += DataReceived;
 
             try
             {
