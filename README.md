@@ -53,7 +53,6 @@ Lastest stable version of application will be available in [Releases](https://gi
 
 ## 🔜 Coming soon...
 - At the moment this soft a little unfinished, but all mistakes will be fixed in the next versions of software.
-- Fix UDP scanning. Now it always shows Opened state(if the port actually closed)
 - Optimize memory using in port results render. If ports count is 65534 in result, then app uses ~1.2GB of RAM.
 - Make application flexible configurable with settings page.
 - Allow the user to save the results to files of vaious types.
