@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Looto.Models.DebugTools;
 
 namespace Looto.Models.PortScanner
 {
@@ -57,10 +56,6 @@ namespace Looto.Models.PortScanner
             catch (HostNotValidException)
             {
                 OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, new Port[] { }, false));
-            }
-            catch (Exception ex)
-            {
-                new Error(ex).HandleError();
             }
 
             _scannedPortsCount = 0;
