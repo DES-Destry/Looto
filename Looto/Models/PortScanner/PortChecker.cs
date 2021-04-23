@@ -60,7 +60,7 @@ namespace Looto.Models.PortScanner
 
                 if (port.Protocol == ProtocolType.Udp)
                 {
-                    _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived1, null);
+                    _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived, null);
                     Thread.Sleep(1000);
                 }
                 _socket.Shutdown(SocketShutdown.Both);
@@ -104,12 +104,7 @@ namespace Looto.Models.PortScanner
         /// <summary>Calls when UDP port responded with content.</summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Some socket event args.</param>
-        private void DataReceived(object sender, SocketAsyncEventArgs e)
-        {
-            _dataReceived = true;
-        }
-
-        private void DataReceived1(IAsyncResult result)
+        private void DataReceived(IAsyncResult result)
         {
             _dataReceived = true;
         }
