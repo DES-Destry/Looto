@@ -81,6 +81,8 @@
     <Compile Include="Components\PortInfo.xaml.cs">
       <DependentUpon>PortInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Cache.cs" />
+    <Compile Include="Models\Data\CacheChunk.cs" />
     <Compile Include="Models\DebugTools\Error.cs" />
     <Compile Include="Models\DebugTools\Log.cs" />
     <Compile Include="Models\HostScanner\HostChecker.cs" />

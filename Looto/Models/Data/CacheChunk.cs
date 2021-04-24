@@ -6,7 +6,7 @@ namespace Looto.Models.Data
 {
     /// <summary>Object of cache data.</summary>
     [Serializable]
-    class CacheData
+    public class CacheData
     {
         /// <summary>Life time of the one chunck.</summary>
         public TimeSpan ChunckLifetime { get; set; }

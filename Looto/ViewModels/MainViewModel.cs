@@ -1,4 +1,5 @@
 ﻿using Looto.Models;
+using Looto.Models.Data;
 using Looto.Models.DebugTools;
 using Looto.Models.PortScanner;
 using Looto.Views;
@@ -15,6 +16,7 @@ namespace Looto.ViewModels
     class MainViewModel : BaseViewModel
     {
         private readonly Log _log;
+        private readonly Cache _cache;
         private IScanner _scanner;
 
         #region Fields for binding
@@ -282,6 +284,7 @@ namespace Looto.ViewModels
         public MainViewModel()
         {
             _log = new Log();
+            _cache = new Cache();
         }
 
         /// <summary>Scan host with parameters in input.</summary>
@@ -400,6 +403,11 @@ namespace Looto.ViewModels
             resultsShowCase.Show();
 
             _log.AppendLogMessage("Scanning has been completed.");
+
+            _cache.PushNewChunck(results);
+            _cache.Save();
+            _log.AppendLogMessage("Scanning results writed to cache file.");
+
             IsAborted = false;
             _scanner = null;
         }
