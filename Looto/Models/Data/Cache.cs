@@ -34,6 +34,13 @@ namespace Looto.Models.Data
             _data = GetDataFromFile();
         }
 
+        /// <summary>Add new chunck with cache data to existed collection.</summary>
+        /// <param name="newChuncks">Collection with data.</param>
+        public void PushNewChunck(ScanResult newChunck)
+        {
+            _data.Chuncks.Add(newChunck);
+        }
+
         /// <summary>Add new collection with cache data to existed collection.</summary>
         /// <param name="newChuncks">Collection with data.</param>
         public void PushNewChuncks(List<ScanResult> newChuncks)
@@ -57,12 +64,26 @@ namespace Looto.Models.Data
                 _cacheFile.Serialize(fs, _data);
         }
 
+        /// <summary>Get data from cache file.</summary>
+        /// <returns>Cache file.</returns>
+        public CacheData GetCache()
+        {
+            return _data;
+        }
+
         /// <summary>Get cache data from file.</summary>
         /// <returns><see cref="CacheData"/> object from file or new instance of <see cref="CacheData"/>.</returns>
         private CacheData GetDataFromFile()
         {
-            using (FileStream fs = new FileStream(_filePath, FileMode.OpenOrCreate))
-                return (CacheData)_cacheFile.Deserialize(fs) ?? new CacheData();
+            try
+            {
+                using (FileStream fs = new FileStream(_filePath, FileMode.OpenOrCreate))
+                    return (CacheData)_cacheFile.Deserialize(fs) ?? new CacheData();
+            }
+            catch (System.Runtime.Serialization.SerializationException)
+            {
+                return new CacheData();
+            }
         }
     }
 }
