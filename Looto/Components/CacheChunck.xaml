@@ -9,6 +9,7 @@
              d:DesignWidth="690">
 
     <Grid x:Name="MainGrid"
+          Height="35"
           Background="Transparent"
           Loaded="MainGrid_Loaded">
 
@@ -37,6 +38,7 @@
                    FontSize="{StaticResource Regular}"/>
 
         <Button Grid.Column="2"
+                Height="35"
                 Cursor="Hand"
                 Click="Show_Click">
 
@@ -66,6 +68,7 @@
         </Button>
 
         <Button Grid.Column="3"
+                Height="35"
                 Cursor="Hand"
                 Click="Delete_Click">
 

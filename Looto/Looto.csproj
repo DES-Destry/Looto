@@ -261,5 +261,14 @@
     <Resource Include="Images\history_green.png" />
     <Resource Include="Images\history_white.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete_red.png" />
+    <Resource Include="Images\delete_selected_red.png" />
+    <Resource Include="Images\delete_white.png" />
+    <Resource Include="Images\show_gray.png" />
+    <Resource Include="Images\show_green.png" />
+    <Resource Include="Images\show_selected_green.png" />
+    <Resource Include="Images\show_white.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
