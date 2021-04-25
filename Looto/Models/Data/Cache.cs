@@ -106,7 +106,7 @@ namespace Looto.Models.Data
         /// <summary>Delete expired cache data chuncks.</summary>
         private void DeleteExpiredData()
         {
-            _data.Chuncks = _data.Chuncks.Where(chunck => chunck.ScanDate - DateTime.Now > _data.ChunckLifetime).ToList();
+            _data.Chuncks = _data.Chuncks.Where(chunck => DateTime.Now - chunck.ScanDate < _data.ChunckLifetime).ToList();
         }
     }
 }

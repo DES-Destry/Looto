@@ -80,16 +80,16 @@ namespace Looto.Components
         /// <returns>String of time passed.</returns>
         private string GetTimeString(DateTime date)
         {
-            TimeSpan time = date - DateTime.Now;
+            TimeSpan time = DateTime.Now - date;
 
-            if (time.TotalDays > 0)
-                return $"{time.TotalDays} days ago.";
-            if (time.TotalHours > 0)
-                return $"{time.TotalHours} hours ago.";
-            if (time.TotalMinutes > 0)
-                return $"{time.TotalMinutes} minutes ago.";
-            if (time.TotalSeconds > 0)
-                return $"{time.TotalSeconds} seconds ago.";
+            if (time.Days > 0)
+                return $"{time.Days} days ago.";
+            if (time.Hours > 0)
+                return $"{time.Hours} hours ago.";
+            if (time.Minutes > 0)
+                return $"{time.Minutes} minutes ago.";
+            if (time.Seconds > 0)
+                return $"{time.Seconds} seconds ago.";
 
             return "Right now.";
         }

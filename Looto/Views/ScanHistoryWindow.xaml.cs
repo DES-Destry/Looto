@@ -36,6 +36,7 @@ namespace Looto.Views
             bool isDarker = true;
             Application.Current.Dispatcher.Invoke(() =>
             {
+                ResultsContainer.Children.Clear();
                 foreach (var chunck in cache.Chuncks)
                 {
                     var component = new CacheChunck()
@@ -57,6 +58,8 @@ namespace Looto.Views
         {
             _cache.RemoveChunck(chunck);
             _cache.Save();
+
+            RenderCache(_cache.GetCache());
         }
 
         /// <summary>

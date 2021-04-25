@@ -57,4 +57,4 @@ Lastest stable version of application will be available in [Releases](https://gi
 - Make application flexible configurable with settings page.
 - Allow the user to save the results to files of vaious types.
 - Make application update system to ensure that the user always only has the latest version of app.
-- Check ports on "Filtered" state.
+- Check UDP ports with ICMP protocol.
