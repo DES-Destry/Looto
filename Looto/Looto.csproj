@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\CacheChunck.xaml.cs">
+      <DependentUpon>CacheChunck.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\HostInfo.xaml.cs">
       <DependentUpon>HostInfo.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,7 @@
     <Compile Include="ViewModels\ErrorOccuredViewModel.cs" />
     <Compile Include="ViewModels\LANListViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
+    <Compile Include="ViewModels\ScanHistoryViewModel.cs" />
     <Compile Include="Views\ErrorOccured.xaml.cs">
       <DependentUpon>ErrorOccured.xaml</DependentUpon>
     </Compile>
@@ -106,6 +110,13 @@
     <Compile Include="Views\ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScanHistoryWindow.xaml.cs">
+      <DependentUpon>ScanHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Components\CacheChunck.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\HostInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +187,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ScanHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -240,6 +255,11 @@
   <ItemGroup>
     <Resource Include="Images\scan_green.png" />
     <Resource Include="Images\scan_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\history_gray.png" />
+    <Resource Include="Images\history_green.png" />
+    <Resource Include="Images\history_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
