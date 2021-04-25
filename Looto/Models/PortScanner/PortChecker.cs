@@ -29,7 +29,7 @@ namespace Looto.Models.PortScanner
 
         /// <summary>
         /// Check port for Opened/Closed state. <br/>
-        /// Use <see cref="InstallHost(string)"/> before call this method, else it will throw <see cref="ArgumentNullException"/>.
+        /// Use <see cref="InstallHost(string)"/> before call this method, else it will throws <see cref="ArgumentNullException"/>.
         /// </summary>
         /// <param name="port">Port parameters</param>
         /// <exception cref="ArgumentNullException">If <see cref="InstallHost(string)"/> method wasn't executed and <see cref="_host"/> equals null.</exception>

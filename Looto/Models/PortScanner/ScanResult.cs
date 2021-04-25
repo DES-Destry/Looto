@@ -3,6 +3,7 @@
 namespace Looto.Models.PortScanner
 {
     /// <summary>Struct for storage data about scanning result.</summary>
+    [Serializable]
     public struct ScanResult
     {
         /// <summary>Host, that was scanned.</summary>

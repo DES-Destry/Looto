@@ -34,18 +34,34 @@ namespace Looto.Models.Data
             _data = GetDataFromFile();
         }
 
-        /// <summary>Add new chunck with cache data to existed collection.</summary>
+        /// <summary>
+        /// Add new chunck with cache data to existed collection. <br/>
+        /// To apply changes you need to call <see cref="Save"/> method.
+        /// </summary>
         /// <param name="newChuncks">Collection with data.</param>
         public void PushNewChunck(ScanResult newChunck)
         {
             _data.Chuncks.Add(newChunck);
         }
 
-        /// <summary>Add new collection with cache data to existed collection.</summary>
+        /// <summary>
+        /// Add new collection with cache data to existed collection. <br/>
+        /// To apply changes you need to call <see cref="Save"/> method.
+        /// </summary>
         /// <param name="newChuncks">Collection with data.</param>
         public void PushNewChuncks(List<ScanResult> newChuncks)
         {
             _data.Chuncks.AddRange(newChuncks);
+        }
+
+        /// <summary>
+        /// Remove one chunck from cache. <br/>
+        /// To apply changes you need to call <see cref="Save"/> method.
+        /// </summary>
+        /// <param name="chunckToRemove">Chunck to remove.</param>
+        public void RemoveChunck(ScanResult chunckToRemove)
+        {
+            _data.Chuncks = _data.Chuncks.Where(chunck => chunck.ScanDate != chunckToRemove.ScanDate).ToList();
         }
 
         /// <summary>Set new life time value for cache data.</summary>
@@ -58,7 +74,7 @@ namespace Looto.Models.Data
         /// <summary>Save all changes to file.</summary>
         public void Save()
         {
-            _data.Chuncks = _data.Chuncks.Where(chunck => chunck.ScanDate - DateTime.Now == _data.ChunckLifetime).ToList();
+            DeleteExpiredData();
 
             using (FileStream fs = new FileStream(_filePath, FileMode.OpenOrCreate))
                 _cacheFile.Serialize(fs, _data);
@@ -68,6 +84,7 @@ namespace Looto.Models.Data
         /// <returns>Cache file.</returns>
         public CacheData GetCache()
         {
+            DeleteExpiredData();
             return _data;
         }
 
@@ -84,6 +101,12 @@ namespace Looto.Models.Data
             {
                 return new CacheData();
             }
+        }
+
+        /// <summary>Delete expired cache data chuncks.</summary>
+        private void DeleteExpiredData()
+        {
+            _data.Chuncks = _data.Chuncks.Where(chunck => chunck.ScanDate - DateTime.Now > _data.ChunckLifetime).ToList();
         }
     }
 }

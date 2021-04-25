@@ -15,7 +15,7 @@ namespace Looto.Components
             set { SetValue(IsDarkerProperty, value); }
         }
 
-        /// <summary>DP for <see cref="IsDarker"/> property</summary>
+        /// <summary>DP for <see cref="IsDarker"/> property.</summary>
         public static readonly DependencyProperty IsDarkerProperty =
             DependencyProperty.Register("IsDarker", typeof(bool), typeof(HostInfo), new PropertyMetadata(false));
 

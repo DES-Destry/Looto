@@ -1,8 +1,10 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 
 namespace Looto.Models.PortScanner
 {
     /// <summary>Ports integer presentation with his protocol.</summary>
+    [Serializable]
     public struct Port
     {
         /// <summary>Numeric value of port.</summary>

@@ -273,6 +273,11 @@ namespace Looto.ViewModels
         /// </summary>
         public ICommand Abort => new BaseCommand(AbortCommand);
         /// <summary>
+        /// History button command. <br/>
+        /// Open history window with rendered list of cache.
+        /// </summary>
+        public ICommand History => new BaseCommand(HistoryCommand);
+        /// <summary>
         /// LAN List button command. <br/> 
         /// Search for hosts in the LAN.
         /// </summary>
@@ -319,7 +324,7 @@ namespace Looto.ViewModels
             StartScanning(portsToScan);
         }
 
-        /// <summary>Abort scanning if it started</summary>
+        /// <summary>Abort scanning if it started.</summary>
         /// <param name="parameter">
         /// Basic <see cref="BaseCommand"/> parameter. <br/>
         /// Value of this gets from xaml (CommandParameter property).
@@ -331,6 +336,17 @@ namespace Looto.ViewModels
                 _scanner.Abort();
                 IsAborted = true;
             }
+        }
+
+        /// <summary>Open history window with rendered list of cache.</summary>
+        /// <param name="paremeter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void HistoryCommand(object paremeter)
+        {
+            ScanHistoryWindow view = new ScanHistoryWindow(_cache);
+            view.Show();
         }
 
         /// <summary>Open view as dialog with available LAN hosts.</summary>
@@ -404,9 +420,12 @@ namespace Looto.ViewModels
 
             _log.AppendLogMessage("Scanning has been completed.");
 
-            _cache.PushNewChunck(results);
-            _cache.Save();
-            _log.AppendLogMessage("Scanning results writed to cache file.");
+            if (results.HostIsValid)
+            {
+                _cache.PushNewChunck(results);
+                _cache.Save();
+                _log.AppendLogMessage("Scanning results writed to cache file.");
+            }
 
             IsAborted = false;
             _scanner = null;
