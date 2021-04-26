@@ -36,6 +36,20 @@ namespace Looto.Components
 
 
 
+        /// <summary>Time text.</summary>
+        public string TimeText
+        {
+            get => (string)GetValue(TimeTextProperty);
+            set { SetValue(TimeTextProperty, value); }
+        }
+
+        /// <summary>DP for <see cref="TimeText"/> property.</summary>
+        public static readonly DependencyProperty TimeTextProperty =
+            DependencyProperty.Register("TimeText", typeof(string), typeof(HostInfo), new PropertyMetadata(string.Empty));
+
+
+
+
         /// <summary>Host text.</summary>
         public Action<string> HostApplied
         {
@@ -66,6 +80,7 @@ namespace Looto.Components
                 MainGrid.Background = new SolidColorBrush(Color.FromArgb(0x7F, 0, 0, 0));
 
             Host.Text = HostText;
+            Time.Text = TimeText;
         }
 
         /// <summary>When user clicked at "Apply" button.</summary>

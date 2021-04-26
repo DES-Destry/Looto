@@ -356,7 +356,7 @@ namespace Looto.ViewModels
         /// </param>
         private void LANListCommand(object parameter)
         {
-            LANHostsWindow view = new LANHostsWindow(HostApplied);
+            LANHostsWindow view = new LANHostsWindow(_cache, HostApplied);
             view.ShowDialog();
         }
 

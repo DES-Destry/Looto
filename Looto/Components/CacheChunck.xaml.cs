@@ -1,4 +1,5 @@
 ﻿using Looto.Models.PortScanner;
+using Looto.Models.Utils;
 using Looto.Views;
 using System;
 using System.Windows;
@@ -55,7 +56,7 @@ namespace Looto.Components
                 MainGrid.Background = new SolidColorBrush(Color.FromArgb(0x7F, 0, 0, 0));
 
             Host.Text = ScanResult.Host;
-            Time.Text = GetTimeString(ScanResult.ScanDate);
+            Time.Text = ScanResult.ScanDate.GetTimeString();
         }
 
         /// <summary>When user clicks at show button.</summary>
@@ -73,25 +74,6 @@ namespace Looto.Components
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             OnDeleteClicked?.Invoke(ScanResult);
-        }
-
-        /// <summary>Generate string of time passed.</summary>
-        /// <param name="date">Date from.</param>
-        /// <returns>String of time passed.</returns>
-        private string GetTimeString(DateTime date)
-        {
-            TimeSpan time = DateTime.Now - date;
-
-            if (time.Days > 0)
-                return $"{time.Days} days ago.";
-            if (time.Hours > 0)
-                return $"{time.Hours} hours ago.";
-            if (time.Minutes > 0)
-                return $"{time.Minutes} minutes ago.";
-            if (time.Seconds > 0)
-                return $"{time.Seconds} seconds ago.";
-
-            return "Right now.";
         }
     }
 }

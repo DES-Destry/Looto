@@ -97,6 +97,7 @@
     <Compile Include="Models\PortScanner\RangeOfPorts.cs" />
     <Compile Include="Models\PortScanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\PortScanner\ScanResult.cs" />
+    <Compile Include="Models\Utils\DateTimeExtensions.cs" />
     <Compile Include="ViewModels\ErrorOccuredViewModel.cs" />
     <Compile Include="ViewModels\LANListViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
