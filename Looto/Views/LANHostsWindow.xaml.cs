@@ -1,6 +1,10 @@
 ﻿using Looto.Components;
+using Looto.Models.Data;
+using Looto.Models.PortScanner;
+using Looto.Models.Utils;
 using Looto.ViewModels;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace Looto.Views
@@ -8,6 +12,7 @@ namespace Looto.Views
     /// <summary>View for LAN hosts list.</summary>
     public partial class LANHostsWindow : Window
     {
+        private readonly Cache _cache;
         private bool _isDarkerComponent = true;
 
         /// <summary>Calls, when user clicks at "Apply" button.</summary>
@@ -25,8 +30,10 @@ namespace Looto.Views
 
         /// <summary>Create view with apply event.</summary>
         /// <param name="onHostApplied">Calls, when user clicks at "Apply" button.</param>
-        public LANHostsWindow(Action<string> onHostApplied)
+        public LANHostsWindow(Cache cache, Action<string> onHostApplied)
         {
+            _cache = cache;
+
             var vm = new LANListViewModel();
             HostApplied += onHostApplied;
             HostApplied += CloseOnApply;
@@ -66,10 +73,21 @@ namespace Looto.Views
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
+                string time = "";
+                var alreadyScannedResults = _cache.GetCache().Chuncks
+                    .Where(chunck => chunck.Host == host).ToArray();
+
+                if (alreadyScannedResults.Length > 0)
+                {
+                    var alreadyScannedResult = alreadyScannedResults.Reverse().FirstOrDefault();
+                    time = alreadyScannedResult.ScanDate.GetTimeString();
+                }
+
                 HostInfo component = new HostInfo()
                 {
                     IsDarker = _isDarkerComponent,
                     HostText = host,
+                    TimeText = time,
                     HostApplied = HostApplied,
                 };
                 ResultsPanel.Children.Add(component);
