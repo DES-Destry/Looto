@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Looto.Models.HostScanner;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -50,14 +52,14 @@ namespace Looto.Components
 
 
 
-        /// <summary>Host text.</summary>
+        /// <summary>Host apply button was clicked.</summary>
         public Action<string> HostApplied
         {
             get => (Action<string>)GetValue(HostAppliedProperty);
             set { SetValue(HostAppliedProperty, value); }
         }
 
-        /// <summary>DP for <see cref="HostText"/> property.</summary>
+        /// <summary>DP for <see cref="HostApplied"/> property.</summary>
         public static readonly DependencyProperty HostAppliedProperty =
             DependencyProperty.Register("HostApplied", typeof(Action<string>), typeof(HostInfo));
 
@@ -78,6 +80,12 @@ namespace Looto.Components
             // Is is darker - made background slightly(127/255) transparent black color.
             if (IsDarker)
                 MainGrid.Background = new SolidColorBrush(Color.FromArgb(0x7F, 0, 0, 0));
+
+            // If host in this list - current device where started Looto, then show it.
+            if (HostChecker.GetLocalIPs().Contains(HostText))
+            {
+                HostText += " (me)";
+            }
 
             Host.Text = HostText;
             Time.Text = TimeText;

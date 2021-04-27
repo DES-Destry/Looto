@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.NetworkInformation;
 
 namespace Looto.Models.HostScanner
 {
@@ -14,28 +13,26 @@ namespace Looto.Models.HostScanner
         /// <summary>Create LAN scanner. Init all possible LAN hosts.</summary>
         public LANHostScanner()
         {
-            try
-            {
-                string localIP = HostChecker.GetLocalIP();
+            string[] localIPs = HostChecker.GetLocalIPs();
 
-                // localIP: 192.168.1.3 (For example)
-                // predicate        ^
+            List<string> predicates = new List<string>();
+
+            foreach (var ip in localIPs)
+            {
+                // ip: 192.168.1.3 (For example)
+                // predicate   ^
                 // predicates in the different LANs not same.
-                string predicate = localIP.Split('.')[2];
-
-                List<HostData> toCheck = new List<HostData>();
-
-                for (byte i = 0; i < byte.MaxValue; i++)
-                    toCheck.Add(new HostData($"{LAN_IP_BASE}1.{i}", false));
-                for (byte i = 0; i < byte.MaxValue; i++)
-                    toCheck.Add(new HostData($"{LAN_IP_BASE}{predicate}.{i}", false));
-
-                Hosts = toCheck.ToArray();
+                predicates.Add(ip.Split('.')[2]);
             }
-            catch (PingException)
-            {
-                Hosts = new HostData[] { };
-            }
+
+            List<HostData> toCheck = new List<HostData>();
+
+            for (byte i = 0; i < byte.MaxValue; i++)
+                for (int j = 0; j < predicates.Count; j++)
+                    toCheck.Add(new HostData($"{LAN_IP_BASE}{predicates[j]}.{i}", false));
+
+
+            Hosts = toCheck.ToArray();
         }
     }
 }

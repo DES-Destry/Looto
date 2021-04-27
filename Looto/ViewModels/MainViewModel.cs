@@ -362,7 +362,7 @@ namespace Looto.ViewModels
 
         /// <summary>Invoke when LAN list dialog applied host.</summary>
         /// <param name="host">Host that was applied.</param>
-        private void HostApplied(string host) => Host = host;
+        private void HostApplied(string host) => Host = host.Replace(" (me)", "");
 
         /// <summary>Scan all ports.</summary>
         /// <param name="ports">Ports collection.</param>

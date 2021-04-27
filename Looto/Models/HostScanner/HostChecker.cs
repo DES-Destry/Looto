@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -31,19 +31,19 @@ namespace Looto.Models.HostScanner
             }
         }
 
-        /// <summary>Get local IPv4 address of current device.</summary>
-        /// <returns>IP address in the string format.</returns>
-        /// <exception cref="PingException">Throws when device not connected to the LAN.</exception>
-        public static string GetLocalIP()
+        /// <summary>Get local IPv4 addresses of current device.</summary>
+        /// <returns>IP addresses in the string format.</returns>
+        public static string[] GetLocalIPs()
         {
+            List<string> IPv4Hosts = new List<string>();
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    return ip.ToString();
+                    IPv4Hosts.Add(ip.ToString());
             }
 
-            throw new PingException("No network adapters with an IPv4 address in the system!");
+            return IPv4Hosts.ToArray();
         }
     }
 }
