@@ -61,10 +61,10 @@ namespace Looto.Tests
         [Fact]
         public void GetLocalIP_ShouldReturnLocalIP()
         {
-            string actual = HostChecker.GetLocalIP();
+            string[] actual = HostChecker.GetLocalIPs();
 
             Assert.True(actual.Length > 0);
-            Assert.StartsWith("192.168.", actual);
+            Assert.StartsWith("192.168.", actual[0]);
         }
     }
 }

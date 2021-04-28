@@ -20,7 +20,8 @@ namespace Looto.Tests
             ToTcp = 25
         };
 
-    [Fact]
+
+        [Fact]
         public async void ScanAllMultiple_ShouldMultipleScanPorts()
         {
             string host = "localhost";
