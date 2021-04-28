@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:viewmodels="clr-namespace:Looto.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:ScanHistoryViewModel}"
-        Title="Scan history" 
+        Title="Scaning history" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -34,7 +34,7 @@
                                FontSize="{StaticResource Small}"
                                Margin="10, 0, 0, 0"
                                VerticalAlignment="Center"
-                               Text="Scan history"/>
+                               Text="Scaning history"/>
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -91,7 +91,7 @@
                                 <TextBlock FontSize="{StaticResource H2}"
                                            FontFamily="{StaticResource BaseFont}"
                                            Foreground="{StaticResource WhiteBrush}"
-                                           Text="Scan history"
+                                           Text="Scaning history"
                                            Margin="10"/>
                                 <TextBlock FontSize="{StaticResource Small}"
                                            FontFamily="{StaticResource BaseFont}"
@@ -103,7 +103,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer>
+                    <ScrollViewer Height="355">
                         <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>

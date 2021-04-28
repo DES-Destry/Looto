@@ -308,7 +308,7 @@
                            VerticalAlignment="Bottom"
                            TextAlignment="Right"
                            Margin="5"
-                           Text="Destry.Unimaster - v1.0.4 dev"/>
+                           Text="Destry.Unimaster - v1.0.4"/>
             </Grid>
         </StackPanel>
     </Border>

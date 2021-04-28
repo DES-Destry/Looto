@@ -1,5 +1,10 @@
 # Versions
 
+## v1.0.4
+- UDP port scanning was fixed.(in the previous version the app shows that all UDP ports have Opened state)
+- Scanning results cache was added. You can see your history in the "Scaning history" and LAN list shows how long you scanned any ports in the LAN. Cache stored in the .data\.cache file.
+- LAN list shows IPs that belong to device, that launched Looto app. It shows (me) status near the host.
+
 ## v1.0.3
 - Some bug fixes.
 - LAN hosts scanner was improved - it scan more hosts based on local IP device.
