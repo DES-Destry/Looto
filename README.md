@@ -36,17 +36,25 @@ Scan your local network and get all devices IP in LAN. For convenience you can c
 ---
 <br/>
 
+
+### 📜 Scanning history
+You can see all your results of scanning that makes at last 3 days.
+<img src="./README_RESOURCES/IM_7.png" style="display: block;margin-left: auto;margin-right: auto;">
+
+---
+<br/>
+
 ### ❌ Error handling
 If error was occured in theory app will not crash. It will show window about crash, then will write logs entries with EXCP type with creating bug report. You can write new issue as bug report [here](https://github.com/DES-Destry/Looto/issues/new?assignees=DES-Destry&labels=bug&template=bug_report.md&title=Looto+have+a+bug%21). For more informative of the bug you can send ".data" folder content to agafonovandrej69@gmail.com. I'll not check your ".data" folder without created issue!
-<img src="./README_RESOURCES/IM_7.png" style="display: block;margin-left: auto;margin-right: auto;">
+<img src="./README_RESOURCES/IM_8.png" style="display: block;margin-left: auto;margin-right: auto;">
 
 ---
 <br/>
 <br/>
 
-## 📜Install
-Lastest stable version of application will be available in [Releases](https://github.com/DES-Destry/Looto/releases) of [GitHub repository](https://github.com/DES-Destry/Looto). For stable working of application you need only one executable file (Looto.exe) and ".data" folder. Other files not necessary for application working, but still important.
-<img src="./README_RESOURCES/IM_8.png" style="display: block;margin-left: auto;margin-right: auto;">
+## 📁 Install
+Lastest stable version of application will be available in [Releases](https://github.com/DES-Destry/Looto/releases) of [GitHub repository](https://github.com/DES-Destry/Looto). For stable working of application you need only one executable file "Looto.exe" and ".data" folder. Other files not necessary for application working, but still important.
+<img src="./README_RESOURCES/IM_9.png" style="display: block;margin-left: auto;margin-right: auto;">
 
 <br/>
 <br/>
