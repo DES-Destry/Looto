@@ -12,7 +12,7 @@ namespace Looto.Tests
         {
             HostData thisMachineDevice = new HostData
             {
-                Host = HostChecker.GetLocalIP(),
+                Host = HostChecker.GetLocalIPs()[0],
                 Exists = true
             };
 

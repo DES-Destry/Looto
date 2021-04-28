@@ -56,7 +56,7 @@ namespace Looto.Models.PortScanner
                 if (port.Protocol == ProtocolType.Udp)
                 {
                     _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived, null);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2500);
                 }
                 _socket.Shutdown(SocketShutdown.Both);
 

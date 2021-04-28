@@ -1,6 +1,5 @@
 ﻿using Looto.Components;
 using Looto.Models.Data;
-using Looto.Models.PortScanner;
 using Looto.Models.Utils;
 using Looto.ViewModels;
 using System;
