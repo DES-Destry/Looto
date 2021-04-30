@@ -1,5 +1,6 @@
 ﻿using Looto.Components;
 using Looto.Models.PortScanner;
+using Looto.Models.Utils;
 using Looto.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
@@ -80,13 +81,15 @@ namespace Looto.Views
                     {
                         if ((showOpened && result.State == PortState.Opened)
                             || (showClosed && result.State == PortState.Closed)
-                            || (showNotCheked && result.State == PortState.NotChecked))
+                            || (showNotCheked && result.State == PortState.NotChecked)
+                            || result.State == PortState.Filtered 
+                            || result.State == PortState.OpenedOrFiltered)
                         {
                             PortInfo component = new PortInfo
                             {
                                 Port = result.Value.ToString(),
                                 Protocol = result.Protocol.ToString(),
-                                State = result.State.ToString(),
+                                State = result.State.EnumToString(),
                                 IsDarker = isDarker,
                             };
                             ResultsContainer.Children.Add(component);

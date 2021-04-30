@@ -1,9 +1,22 @@
-﻿namespace Looto.Models.PortScanner
+﻿using System.ComponentModel;
+
+namespace Looto.Models.PortScanner
 {
     public enum PortState
     {
-        Opened,
+        [Description("Not checked")]
         NotChecked,
+
+        [Description("Opened")]
+        Opened,
+
+        [Description("Closed")]
         Closed,
+
+        [Description("Filtered")]
+        Filtered,
+
+        [Description("Opened / Filtered")]
+        OpenedOrFiltered,
     }
 }

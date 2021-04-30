@@ -35,7 +35,7 @@
 
         <TextBlock x:Name="StateText"
                    Grid.Column="2"
-                   Text="NotСhecked"
+                   Text="Not checked"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
                    FontWeight="Bold"

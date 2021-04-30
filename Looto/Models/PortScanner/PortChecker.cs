@@ -60,8 +60,12 @@ namespace Looto.Models.PortScanner
                 }
                 _socket.Shutdown(SocketShutdown.Both);
 
-                // If sending are successful - port opened (not allowed for UDP)
-                result = PortState.Opened;
+                // If sending are successful - port opened
+                // If UDP nothing received - have a chanse, that port are filtered
+                if (port.Protocol == ProtocolType.Udp && !_dataReceived)
+                    result = PortState.OpenedOrFiltered;
+                else
+                    result = PortState.Opened;
             }
             catch (SocketException)
             {
@@ -101,7 +105,18 @@ namespace Looto.Models.PortScanner
         /// <param name="e">Some socket event args.</param>
         private void DataReceived(IAsyncResult result)
         {
-            _dataReceived = true;
+            try
+            {
+                var socket = result.AsyncState as Socket;
+                var bytesReceived = socket?.EndReceive(result);
+
+                if (bytesReceived != null && bytesReceived > 0)
+                    _dataReceived = true;
+            }
+            catch (Exception)
+            {
+                _dataReceived = false;
+            }
         }
     }
 }

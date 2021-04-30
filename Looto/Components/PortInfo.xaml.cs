@@ -43,7 +43,7 @@ namespace Looto.Components
             DependencyProperty.Register("Protocol", typeof(string), typeof(PortInfo), new PropertyMetadata(string.Empty));
 
 
-        /// <summary>State of port(Opened/Closed/NotChecked).</summary>
+        /// <summary>State of port(Opened; Closed; Filtered; Opened / Filtered; Not checked).</summary>
         public string State
         {
             get => (string)GetValue(StateProperty);
@@ -75,12 +75,14 @@ namespace Looto.Components
             ProtocolText.Text = Protocol;
             StateText.Text = State;
 
-            // Color state foe more informative.
+            // Color state for more informative.
             if (State == "Opened")
                 StateText.Foreground = (Brush)Application.Current.MainWindow.FindResource("OpenedBrush");
             else if (State == "Closed")
                 StateText.Foreground = (Brush)Application.Current.MainWindow.FindResource("ClosedBrush");
-            else if (State == "NotChecked")
+            else if (State.Contains("Filtered"))
+                StateText.Foreground = (Brush)Application.Current.MainWindow.FindResource("FilteredBrush");
+            else if (State == "Not checked")
                 StateText.Foreground = (Brush)Application.Current.MainWindow.FindResource("NotCheckedBrush");
         }
     }
