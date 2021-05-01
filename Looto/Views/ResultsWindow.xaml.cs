@@ -70,7 +70,9 @@ namespace Looto.Views
 
             bool showOpened = vm.ShowOpened;
             bool showClosed = vm.ShowClosed;
-            bool showNotCheked = vm.ShowNotChecked;
+            bool showFiltered = vm.ShowFiltered;
+            bool showOpenedOrFiltered = vm.ShowOpenedOrFiltered;
+            bool showNotChecked = vm.ShowNotChecked;
 
             bool isDarker = true;
             await Task.Run(() =>
@@ -81,9 +83,9 @@ namespace Looto.Views
                     {
                         if ((showOpened && result.State == PortState.Opened)
                             || (showClosed && result.State == PortState.Closed)
-                            || (showNotCheked && result.State == PortState.NotChecked)
-                            || result.State == PortState.Filtered 
-                            || result.State == PortState.OpenedOrFiltered)
+                            || (showNotChecked && result.State == PortState.NotChecked)
+                            || (showFiltered && result.State == PortState.Filtered) 
+                            || (showOpenedOrFiltered && result.State == PortState.OpenedOrFiltered))
                         {
                             PortInfo component = new PortInfo
                             {

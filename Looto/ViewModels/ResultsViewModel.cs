@@ -24,6 +24,8 @@ namespace Looto.ViewModels
         private bool _showOpened = true;
         private bool _showClosed = true;
         private bool _showNotChecked = true;
+        private bool _showFiltered = true;
+        private bool _showOpenedOrFiltered = true;
 
         /// <summary>Result of scanning.</summary>
         /// <value>The <see cref="Result"/> property gets/sets the value of the <see cref="ScanResult"/> field, <see cref="_result"/>.</value>
@@ -133,7 +135,7 @@ namespace Looto.ViewModels
                 }
             }
         }
-        /// <summary>Results filter. Show ports with Not Checked state.</summary>
+        /// <summary>Results filter. Show ports with "Not checked" state.</summary>
         /// <value>The <see cref="ShowNotChecked"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showNotChecked"/>.</value>
         public bool ShowNotChecked
         {
@@ -143,6 +145,37 @@ namespace Looto.ViewModels
                 if (!_isLoading)
                 {
                     _showNotChecked = value;
+                    OnPropertyChanged();
+                    OnRenderRequest?.Invoke(_result.PortsAfterScan);
+                }
+            }
+        }
+        /// <summary>Results filter. Show ports with Filtered state.</summary>
+        /// <value>The <see cref="ShowFiltered"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showFiltered"/>.</value>
+        public bool ShowFiltered
+        {
+            get => _showFiltered;
+            set
+            {
+                if (!_isLoading)
+                {
+                    _showFiltered = value;
+                    OnPropertyChanged();
+                    OnRenderRequest?.Invoke(_result.PortsAfterScan);
+                }
+                
+            }
+        }
+        /// <summary>Results filter. Show ports with "Opened / Filtered" state.</summary>
+        /// <value>The <see cref="ShowOpenedOrFiltered"/> property gets/sets the value of the <see cref="bool"/> field, <see cref="_showOpenedOrFiltered"/>.</value>
+        public bool ShowOpenedOrFiltered
+        {
+            get => _showOpenedOrFiltered;
+            set
+            {
+                if (!_isLoading)
+                {
+                    _showOpenedOrFiltered = value;
                     OnPropertyChanged();
                     OnRenderRequest?.Invoke(_result.PortsAfterScan);
                 }
