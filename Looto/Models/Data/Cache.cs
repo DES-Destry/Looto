@@ -80,6 +80,13 @@ namespace Looto.Models.Data
                 _cacheFile.Serialize(fs, _data);
         }
 
+        /// <summary>Delete all cache chuncks and save to the file.</summary>
+        public void ClearAll()
+        {
+            _data.Chuncks.Clear();
+            Save();
+        }
+
         /// <summary>Get data from cache file.</summary>
         /// <returns>Cache file.</returns>
         public CacheData GetCache()
