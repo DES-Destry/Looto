@@ -101,7 +101,7 @@ namespace Looto.Views
                     });
                 }
             });
-            (DataContext as ResultsViewModel).IsLoading = false;
+            vm.IsLoading = false;
         }
     }
 }
