@@ -282,6 +282,11 @@ namespace Looto.ViewModels
         /// Search for hosts in the LAN.
         /// </summary>
         public ICommand LANList => new BaseCommand(LANListCommand);
+        /// <summary>
+        /// Settings button command. <br/>
+        /// Open window with settings editing.
+        /// </summary>
+        public ICommand Settings => new BaseCommand(SettingsCommand);
 
         #endregion
 
@@ -356,8 +361,19 @@ namespace Looto.ViewModels
         /// </param>
         private void LANListCommand(object parameter)
         {
-            LANHostsWindow view = new LANHostsWindow(_cache, HostApplied);
+            var view = new LANHostsWindow(_cache, HostApplied);
             view.ShowDialog();
+        }
+
+        /// <summary>Open window with settings editing.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void SettingsCommand(object parameter)
+        {
+            var view = new SettingsWindow();
+            view.Show();
         }
 
         /// <summary>Invoke when LAN list dialog applied host.</summary>

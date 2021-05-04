@@ -17,28 +17,52 @@ namespace Looto.Models.Data
         private static readonly int DEFAULT_HOST_SCANNING_CORES = Environment.ProcessorCount;
 
 
-        /// <summary><see cref="Looto.Views.ResultsWindow"/> render mode.</summary>
+        /// <summary>
+        /// <see cref="Looto.Views.ResultsWindow"/> render mode.<br/>
+        /// Default value = <see cref="ResultsRenderMode.Full"/>.
+        /// </summary>
         public ResultsRenderMode ResultsRenderMode { get; set; } = DEFAULT_RENDER_MODE;
 
-        /// <summary><see cref="Looto.Views.ResultsWindow"/> sorting mode.</summary>
+        /// <summary>
+        /// <see cref="Looto.Views.ResultsWindow"/> sorting mode.<br/>
+        /// Default value = <see cref="ResultsSortingMode.ByPortValue"/>.
+        /// </summary>
         public ResultsSortingMode ResultsSortingMode { get; set; } = DEFAULT_SORTING_MODE;
 
-        /// <summary>Maximum count of cores in port scanning<./summary>
+        /// <summary>
+        /// Maximum count of cores in port scanning.<br/>
+        /// Defalult value = max cores count - <see cref="Environment.ProcessorCount"/>.
+        /// </summary>
         public int MaximumCoresInPortScanning { get; set; } = DEFAULT_PORT_SCANNING_CORES;
 
-        /// <summary>Maximum count of cores in LAN scanning.</summary>
+        /// <summary>
+        /// Maximum count of cores in LAN scanning.<br/>
+        /// Defalult value = max cores count - <see cref="Environment.ProcessorCount"/>.
+        /// </summary>
         public int MaximumCoresInLANScanning { get; set; } = DEFAULT_HOST_SCANNING_CORES;
 
-        /// <summary>Cache chunck lifetime in days.</summary>
+        /// <summary>
+        /// Cache chunck lifetime in days.<br/>
+        /// Default value = 3.
+        /// </summary>
         public int CacheLifeTime { get; set; } = DEFAULT_CACHE_LIFETIME;
 
-        /// <summary>Timeout value for data sending in port scanning in ms.</summary>
+        /// <summary>
+        /// Timeout value for data sending in port scanning in ms.<br/>
+        /// Default value = 2500.
+        /// </summary>
         public int DataSendingTimeout { get; set; } = DEFAULT_DATA_SENDING_TIMEOUT;
 
-        /// <summary>Timeout value for data sending in host scanning in ms.</summary>
+        /// <summary>
+        /// Timeout value for data sending in host scanning in ms.<br/>
+        /// Default value = 1000.
+        /// </summary>
         public int HostCheckTimeout { get; set; } = DEFAULT_HOST_CHECK_TIMEOUT;
 
-        /// <summary>Timeout value for receiving data from UDP port in ms.</summary>
+        /// <summary>
+        /// Timeout value for receiving data from UDP port in ms.<br/>
+        /// Default value = 2500.
+        /// </summary>
         public int UDPDataReceivingTimeout { get; set; } = DEFAULT_DATA_RECEIVING_TIMEOUT;
     }
 }

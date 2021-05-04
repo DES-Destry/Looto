@@ -112,6 +112,39 @@
                         </Button.Template>
                     </Button>
 
+                    <Button Grid.Column="2"
+                            Width="20" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="1,1,67,1"
+                            Cursor="Hand"
+                            Command="{Binding Settings}">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+
+                                <Grid>
+                                    <Image x:Name="ButtonImage" 
+                                           Source="/Looto;component/Images/settings_white.png"/>
+                                </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/settings_main.png"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/settings_selected_main.png"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                 </Grid>
 
             </Grid>
@@ -123,9 +156,9 @@
                                 Orientation="Horizontal"
                                 Height="35">
                         <TextBox Style="{StaticResource StandartTextBox}"
-                             Text="{Binding Host}"
-                             Width="650"
-                             Tag="Host for scanning"/>
+                                 Text="{Binding Host}"
+                                 Width="650"
+                                 Tag="Host for scanning"/>
                         <Button Margin="10, 0, 0, 0"
                                 Cursor="Hand"
                                 Command="{Binding LANList}">

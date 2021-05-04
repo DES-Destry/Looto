@@ -44,6 +44,9 @@
     <SolidColorBrush x:Key="SecondMessageBrush" Color="#AFAFAF"/>
     <Color x:Key="SecondMessageColor">#AFAFAF</Color>
 
+    <SolidColorBrush x:Key="TransparencyBrush" Color="#7F000000"/>
+    <Color x:Key="TransparencyColor">#7F000000</Color>
+    
     <LinearGradientBrush x:Key="PropgressBrush">
         <GradientStop Color="#00CA47" Offset="0"/>
         <GradientStop Color="#00AB0E" Offset="1"/>

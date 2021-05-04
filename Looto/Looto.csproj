@@ -84,11 +84,18 @@
     <Compile Include="Components\HostInfo.xaml.cs">
       <DependentUpon>HostInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\TextBoxSettingsElement.xaml.cs">
+      <DependentUpon>TextBoxSettingsElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\PortInfo.xaml.cs">
       <DependentUpon>PortInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Cache.cs" />
     <Compile Include="Models\Data\CacheChunk.cs" />
+    <Compile Include="Models\Data\ResultsRenderMode.cs" />
+    <Compile Include="Models\Data\ResultsSortingMode.cs" />
+    <Compile Include="Models\Data\Settings.cs" />
+    <Compile Include="Models\Data\SettingsData.cs" />
     <Compile Include="Models\DebugTools\Error.cs" />
     <Compile Include="Models\DebugTools\Log.cs" />
     <Compile Include="Models\HostScanner\HostChecker.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="ViewModels\LANListViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\ScanHistoryViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ErrorOccured.xaml.cs">
       <DependentUpon>ErrorOccured.xaml</DependentUpon>
     </Compile>
@@ -118,11 +126,18 @@
     <Compile Include="Views\ScanHistoryWindow.xaml.cs">
       <DependentUpon>ScanHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Components\CacheChunck.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\HostInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TextBoxSettingsElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ScanHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,6 +294,14 @@
     <Resource Include="Images\show_green.png" />
     <Resource Include="Images\show_selected_green.png" />
     <Resource Include="Images\show_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\settings_main.png" />
+    <Resource Include="Images\settings_selected_main.png" />
+    <Resource Include="Images\settings_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cpu_main.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
