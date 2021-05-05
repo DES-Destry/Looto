@@ -108,11 +108,12 @@
                     <ScrollViewer Height="510">
                         <StackPanel>
                             <components:TextBoxSettingsElement TitleText="Max cores for port scanning"
-                                                               DescriptionText="Looto cores count of proccessor for port scanning. If this value is more, then speed of port scanning will be faster. Minimum: 1. Maximum:"
+                                                               DescriptionText="Сores count of proccessor for port scanning. If this value is more, then speed of port scanning will be faster. Minimum: 1. Maximum:"
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/cpu_main.png"
-                                                               ContentText="{Binding Data.MaximumCoresInPortScanning}"/>
+                                                               IsValidInput="{Binding IsPortScanningCoresValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                               ContentText="{Binding Data.MaximumCoresInPortScanning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>

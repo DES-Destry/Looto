@@ -31,7 +31,7 @@
                     <TextBlock x:Name="Description"
                                Text="Some description..."
                                TextWrapping="Wrap"
-                               MaxWidth="410"
+                               MaxWidth="380"
                                Foreground="{StaticResource SecondMessageBrush}"
                                FontSize="{StaticResource Small}"
                                FontFamily="{StaticResource BaseFont}"/>
@@ -47,10 +47,11 @@
         </Grid>
 
         <Border.Triggers>
-            <EventTrigger RoutedEvent="MouseEnter">
+            <EventTrigger x:Name="MouseEnterTrigger" RoutedEvent="MouseEnter">
                 <BeginStoryboard Name="ShowBorder">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OutBorder"
+                        <ObjectAnimationUsingKeyFrames x:Name="ShowBorderAnimation"
+                                                       Storyboard.TargetName="OutBorder"
                                                        Storyboard.TargetProperty="BorderBrush">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0"
                                                     Value="{StaticResource MainBrush}"/>
@@ -61,7 +62,8 @@
             <EventTrigger RoutedEvent="MouseLeave">
                 <BeginStoryboard Name="HideBorder">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OutBorder"
+                        <ObjectAnimationUsingKeyFrames x:Name="HideBorderAnimation"
+                                                       Storyboard.TargetName="OutBorder"
                                                        Storyboard.TargetProperty="BorderBrush">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0"
                                                     Value="{StaticResource TransparencyBrush}"/>

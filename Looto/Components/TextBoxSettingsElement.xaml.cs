@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Looto.Components
@@ -70,9 +71,33 @@ namespace Looto.Components
 
 
 
+        /// <summary>Value of the settings.</summary>
+        public bool IsValidInput
+        {
+            get => (bool)GetValue(IsValidInputProperty);
+            set { SetValue(IsValidInputProperty, value); }
+        }
+
+        /// <summary>DP for <see cref="IsValidInput"/> property.</summary>
+        public static readonly DependencyProperty IsValidInputProperty =
+            DependencyProperty.Register(
+                "IsValidInput",
+                typeof(bool),
+                typeof(TextBoxSettingsElement),
+                new FrameworkPropertyMetadata(
+                    false,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    new PropertyChangedCallback(ContentChanged)));
+
+
+
+
         public TextBoxSettingsElement()
         {
             InitializeComponent();
+
+            ShowBorder.Storyboard.Completed += Storyboard_Completed;
+            HideBorder.Storyboard.Completed += Storyboard_Completed;
         }
 
         private void MainGrid_Loaded(object sender, RoutedEventArgs e)
@@ -86,6 +111,12 @@ namespace Looto.Components
         private static void ContentChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             (sender as TextBoxSettingsElement).MainGrid_Loaded(sender, null);
+        }
+
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+            if (IsValidInput)
+                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("ClosedBrush");
         }
     }
 }
