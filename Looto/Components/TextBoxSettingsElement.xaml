@@ -38,6 +38,7 @@
                 </StackPanel>
             </StackPanel>
             <TextBox x:Name="Content"
+                     TextChanged="Content_TextChanged"
                      Grid.Column="1"
                      VerticalAlignment="Center"
                      Tag="Value"
@@ -50,10 +51,10 @@
             <EventTrigger x:Name="MouseEnterTrigger" RoutedEvent="MouseEnter">
                 <BeginStoryboard Name="ShowBorder">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames x:Name="ShowBorderAnimation"
-                                                       Storyboard.TargetName="OutBorder"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OutBorder"
                                                        Storyboard.TargetProperty="BorderBrush">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0"
+                            <DiscreteObjectKeyFrame x:Name="ShowBorderAnimation"
+                                                    KeyTime="0:0:0"
                                                     Value="{StaticResource MainBrush}"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -62,8 +63,7 @@
             <EventTrigger RoutedEvent="MouseLeave">
                 <BeginStoryboard Name="HideBorder">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames x:Name="HideBorderAnimation"
-                                                       Storyboard.TargetName="OutBorder"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OutBorder"
                                                        Storyboard.TargetProperty="BorderBrush">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0"
                                                     Value="{StaticResource TransparencyBrush}"/>

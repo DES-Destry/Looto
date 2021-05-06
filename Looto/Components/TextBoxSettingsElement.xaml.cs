@@ -66,7 +66,7 @@ namespace Looto.Components
                 new FrameworkPropertyMetadata(
                     string.Empty,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                    new PropertyChangedCallback(ContentChanged)));
+                    new PropertyChangedCallback(PropertyChanged)));
 
 
 
@@ -87,7 +87,7 @@ namespace Looto.Components
                 new FrameworkPropertyMetadata(
                     false,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                    new PropertyChangedCallback(ContentChanged)));
+                    new PropertyChangedCallback(PropertyChanged)));
 
 
 
@@ -106,17 +106,31 @@ namespace Looto.Components
             Title.Text = TitleText;
             Description.Text = DescriptionText;
             Content.Text = ContentText;
+
+            if (!IsValidInput)
+                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
         }
 
-        private static void ContentChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            (sender as TextBoxSettingsElement).MainGrid_Loaded(sender, null);
+            var component = (sender as TextBoxSettingsElement);
+
+            if (component?.IsValidInput ?? false)
+                component.ShowBorderAnimation.Value = (Brush)Application.Current.MainWindow.FindResource("MainBrush");
+            else
+                component.ShowBorderAnimation.Value = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
         }
 
         private void Storyboard_Completed(object sender, EventArgs e)
         {
-            if (IsValidInput)
-                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("ClosedBrush");
+            if (!IsValidInput)
+                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
+        }
+
+        private void Content_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ContentText = (sender as TextBox).Text;
+            MainGrid_Loaded(sender, null);
         }
     }
 }

@@ -112,8 +112,8 @@
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/cpu_main.png"
-                                                               IsValidInput="{Binding IsPortScanningCoresValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                               ContentText="{Binding Data.MaximumCoresInPortScanning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                               IsValidInput="{Binding IsPortScanningCoresValid}"
+                                                               ContentText="{Binding MaxCoresInPortScanning}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>

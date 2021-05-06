@@ -7,7 +7,7 @@ using System.Windows.Markup;
 namespace Looto.Models
 {
     /// <summary>
-    /// Bool -> <see cref="Visibility"/> converter. <br/>
+    /// <see cref="bool"/> -> <see cref="Visibility"/> converter. <br/>
     /// Needs to hide or show something with bool value.
     /// </summary>
     [ValueConversion(typeof(bool), typeof(Visibility))]
