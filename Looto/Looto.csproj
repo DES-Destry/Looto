@@ -303,5 +303,16 @@
   <ItemGroup>
     <Resource Include="Images\cpu_main.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cpu_red.png" />
+    <Resource Include="Images\hosttimeout_red.png" />
+    <Resource Include="Images\hosttimeout_main.png" />
+    <Resource Include="Images\lifetime_main.png" />
+    <Resource Include="Images\lifetime_red.png" />
+    <Resource Include="Images\receivetimeout_main.png" />
+    <Resource Include="Images\receivetimeout_red.png" />
+    <Resource Include="Images\sendtimeout_main.png" />
+    <Resource Include="Images\sendtimeout_red.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

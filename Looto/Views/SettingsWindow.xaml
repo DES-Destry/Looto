@@ -105,15 +105,50 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer Height="510">
+                    <ScrollViewer Height="500">
                         <StackPanel>
                             <components:TextBoxSettingsElement TitleText="Max cores for port scanning"
-                                                               DescriptionText="Сores count of proccessor for port scanning. If this value is more, then speed of port scanning will be faster. Minimum: 1. Maximum:"
+                                                               DescriptionText="{Binding MaxCoresInPortScanningDescription}"
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/cpu_main.png"
                                                                IsValidInput="{Binding IsPortScanningCoresValid}"
                                                                ContentText="{Binding MaxCoresInPortScanning}"/>
+                            <components:TextBoxSettingsElement TitleText="Max cores for LAN scanning"
+                                                               DescriptionText="{Binding MaxCoresInLANScanningDescription}"
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/cpu_main.png"
+                                                               IsValidInput="{Binding IsLANScanningCoresValid}"
+                                                               ContentText="{Binding MaxCoresInLANScanning}"/>
+                            <components:TextBoxSettingsElement TitleText="Cache lifetime"
+                                                               DescriptionText="..."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/lifetime_main.png"
+                                                               IsValidInput="{Binding IsCacheLifetimeValid}"
+                                                               ContentText="{Binding CacheLifetime}"/>
+                            <components:TextBoxSettingsElement TitleText="Port checking timeout"
+                                                               DescriptionText="..."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/sendtimeout_main.png"
+                                                               IsValidInput="{Binding IsDataSendingTimeoutValid}"
+                                                               ContentText="{Binding DataSendingTimeout}"/>
+                            <components:TextBoxSettingsElement TitleText="Host checking timeout"
+                                                               DescriptionText="..."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/hosttimeout_main.png"
+                                                               IsValidInput="{Binding IsHostCheckTimeoutValid}"
+                                                               ContentText="{Binding HostCheckTimeout}"/>
+                            <components:TextBoxSettingsElement TitleText="UDP receive data timeout"
+                                                               DescriptionText="..."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/receivetimeout_main.png"
+                                                               IsValidInput="{Binding IsUDPTimeoutValid}"
+                                                               ContentText="{Binding UDPTimeout}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>

@@ -92,15 +92,14 @@ namespace Looto.Components
 
 
 
+        /// <summary>Create new component.</summary>
         public TextBoxSettingsElement()
         {
             InitializeComponent();
-
-            ShowBorder.Storyboard.Completed += Storyboard_Completed;
-            HideBorder.Storyboard.Completed += Storyboard_Completed;
         }
 
-        private void MainGrid_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>Rerender component with new DP values.</summary>
+        public void Render()
         {
             SettingsImage.Source = new BitmapImage(new Uri(ImageSource, UriKind.Relative));
             Title.Text = TitleText;
@@ -111,26 +110,48 @@ namespace Looto.Components
                 OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
         }
 
+        /// <summary>Calls when main grid was loaded and it ready for render values from DP.</summary>
+        /// <param name="sender">Grid which loaded event binded on this method..</param>
+        /// <param name="e">Some event arguments.</param>
+        private void MainGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Render();
+        }
+
+        /// <summary>
+        /// Calls when bindable DP was changed with <see cref="ViewModels.BaseViewModel.OnPropertyChanged(string)"/> method call.<br/>
+        /// Bindable DP's: <see cref="ContentTextProperty"/>, <see cref="IsValidInputProperty"/>.
+        /// </summary>
+        /// <param name="sender">Instance of <see cref="TextBoxSettingsElement"/> which bindable DP was changed.</param>
+        /// <param name="e">Some event arguments.</param>
         private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var component = (sender as TextBoxSettingsElement);
+            var component = sender as TextBoxSettingsElement;
 
             if (component?.IsValidInput ?? false)
+            {
                 component.ShowBorderAnimation.Value = (Brush)Application.Current.MainWindow.FindResource("MainBrush");
+                component.ImageSource = component.ImageSource.Replace("red", "main");
+                component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
+            }
             else
+            {
                 component.ShowBorderAnimation.Value = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
+                component.ImageSource = component.ImageSource.Replace("main", "red");
+                component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
+            }
         }
 
-        private void Storyboard_Completed(object sender, EventArgs e)
-        {
-            if (!IsValidInput)
-                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
-        }
-
+        /// <summary>
+        /// Calls when text in textbox was changed.<br/>
+        /// Refresh all <see cref="TextBoxSettingsElement"/> DP's with <see cref="MainGrid_Loaded(object, RoutedEventArgs)"/> method.
+        /// </summary>
+        /// <param name="sender"><see cref="TextBox"/> which text changed event binded on this method.</param>
+        /// <param name="e">Some event arguments.</param>
         private void Content_TextChanged(object sender, TextChangedEventArgs e)
         {
             ContentText = (sender as TextBox).Text;
-            MainGrid_Loaded(sender, null);
+            Render();
         }
     }
 }
