@@ -1,4 +1,4 @@
-<img src="./Looto/Images/logo_green.png" style="display: block;margin-left: auto;margin-right: auto;">
+<img src="./Looto/Images/logo_main.png" style="display: block;margin-left: auto;margin-right: auto;">
 
 <h1 style="text-align:center"><span style="color:#00C953">Looto</span> - port scanner</h1>
 

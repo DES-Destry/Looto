@@ -85,7 +85,7 @@
                             Margin="10"
                             Height="96">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Looto;component/Images/history_green.png"
+                            <Image Source="/Looto;component/Images/history_main.png"
                                    Margin="5"/>
                             <StackPanel>
                                 <TextBlock FontSize="{StaticResource H2}"

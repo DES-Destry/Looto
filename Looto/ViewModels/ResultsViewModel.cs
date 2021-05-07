@@ -197,7 +197,7 @@ namespace Looto.ViewModels
                 (Brush)Application.Current.MainWindow.FindResource("WhiteBrush")
                 : (Brush)Application.Current.MainWindow.FindResource("RedBrush");
             ScanImage = _result.HostIsValid ?
-                new BitmapImage(new Uri("/Looto;component/Images/scan_green.png", UriKind.Relative))
+                new BitmapImage(new Uri("/Looto;component/Images/scan_main.png", UriKind.Relative))
                 : new BitmapImage(new Uri("/Looto;component/Images/scan_red.png", UriKind.Relative));
         }
     }

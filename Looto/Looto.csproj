@@ -264,26 +264,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\logo_green.png" />
+    <Resource Include="Images\logo_main.png" />
     <Resource Include="Images\logo_white.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\error.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\lan_green.png" />
+    <Resource Include="Images\lan_main.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\lan_selected_green.png" />
+    <Resource Include="Images\lan_selected_main.png" />
     <Resource Include="Images\lan_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\scan_green.png" />
+    <Resource Include="Images\scan_main.png" />
     <Resource Include="Images\scan_red.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\history_gray.png" />
-    <Resource Include="Images\history_green.png" />
+    <Resource Include="Images\history_main.png" />
     <Resource Include="Images\history_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -291,8 +291,8 @@
     <Resource Include="Images\delete_selected_red.png" />
     <Resource Include="Images\delete_white.png" />
     <Resource Include="Images\show_gray.png" />
-    <Resource Include="Images\show_green.png" />
-    <Resource Include="Images\show_selected_green.png" />
+    <Resource Include="Images\show_main.png" />
+    <Resource Include="Images\show_selected_main.png" />
     <Resource Include="Images\show_white.png" />
   </ItemGroup>
   <ItemGroup>
