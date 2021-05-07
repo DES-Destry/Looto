@@ -84,28 +84,58 @@
                     <Border Background="{StaticResource StaticBgBrush}"
                             CornerRadius="10"
                             Margin="10"
-                            Height="96">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Looto;component/Images/settings_main.png"
+                            Height="130">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Looto;component/Images/settings_main.png"
                                    Height="86"
                                    Margin="5"/>
-                            <StackPanel>
-                                <TextBlock FontSize="{StaticResource H2}"
+                                <StackPanel>
+                                    <TextBlock FontSize="{StaticResource H2}"
                                            FontFamily="{StaticResource BaseFont}"
                                            Foreground="{StaticResource WhiteBrush}"
                                            Text="Settings"
                                            Margin="10"/>
-                                <TextBlock FontSize="{StaticResource Small}"
+                                    <TextBlock FontSize="{StaticResource Small}"
                                            FontFamily="{StaticResource BaseFont}"
                                            Foreground="{StaticResource SecondMessageBrush}"
                                            Text="Global settings of the application."
                                            MaxWidth="560"
                                            TextWrapping="Wrap"
                                            Margin="10, -10, 0, 0"/>
+                                </StackPanel>
                             </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        IsEnabled="{Binding IsApplyButtonClickable}"
+                                        Command="{Binding ApplyChanges}"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Apply changes"/>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        Command="{Binding SetAllToDefault}"
+                                        Grid.Column="1"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Set all to default"/>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        Command="{Binding CancelChanges}"
+                                        Grid.Column="2"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Cancel changes"/>
+                            </Grid>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer Height="500">
+                    <ScrollViewer Height="468">
                         <StackPanel>
                             <components:TextBoxSettingsElement TitleText="Max cores for port scanning"
                                                                DescriptionText="{Binding MaxCoresInPortScanningDescription}"
@@ -122,29 +152,29 @@
                                                                IsValidInput="{Binding IsLANScanningCoresValid}"
                                                                ContentText="{Binding MaxCoresInLANScanning}"/>
                             <components:TextBoxSettingsElement TitleText="Cache lifetime"
-                                                               DescriptionText="..."
+                                                               DescriptionText="Results cache lifetime. Expired cache chuncks will be deleted. Value in days and must be not less than 0. Default: 3."
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/lifetime_main.png"
                                                                IsValidInput="{Binding IsCacheLifetimeValid}"
                                                                ContentText="{Binding CacheLifetime}"/>
                             <components:TextBoxSettingsElement TitleText="Port checking timeout"
-                                                               DescriptionText="..."
+                                                               DescriptionText="Port scanner trying connect to host with this port for some time. If this time is up, then port will have a 'Closed' status. Value in milliseconds and must be not less than 0. Default: 2500."
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/sendtimeout_main.png"
                                                                IsValidInput="{Binding IsDataSendingTimeoutValid}"
                                                                ContentText="{Binding DataSendingTimeout}"/>
                             <components:TextBoxSettingsElement TitleText="Host checking timeout"
-                                                               DescriptionText="..."
+                                                               DescriptionText="Host scanner trying connect to this host for some time. If this time is up, then host will have a Unavailable status. Value in milliseconds and must be not less than 0. Default: 1000."
                                                                Height="100"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/hosttimeout_main.png"
                                                                IsValidInput="{Binding IsHostCheckTimeoutValid}"
                                                                ContentText="{Binding HostCheckTimeout}"/>
                             <components:TextBoxSettingsElement TitleText="UDP receive data timeout"
-                                                               DescriptionText="..."
-                                                               Height="100"
+                                                               DescriptionText="Well, port scanner was connected to this UDP port successful, but this doesn't mean, that port is 'Opened'. Port scanner trying receive some data from this port for some time. If this time is up, then port will have a 'Opened / Filtered' status. Value in milliseconds and must be not less than 0. Default: 2500."
+                                                               Height="120"
                                                                Margin="5"
                                                                ImageSource="/Looto;component/Images/receivetimeout_main.png"
                                                                IsValidInput="{Binding IsUDPTimeoutValid}"

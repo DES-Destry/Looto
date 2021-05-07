@@ -33,7 +33,7 @@
                                TextWrapping="Wrap"
                                MaxWidth="380"
                                Foreground="{StaticResource SecondMessageBrush}"
-                               FontSize="{StaticResource Small}"
+                               FontSize="{StaticResource Mini}"
                                FontFamily="{StaticResource BaseFont}"/>
                 </StackPanel>
             </StackPanel>

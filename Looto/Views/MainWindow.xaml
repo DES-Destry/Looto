@@ -274,10 +274,10 @@
                         </Grid>
                         <StackPanel Visibility="{Binding IsUdpFieldsVisible, Converter={StaticResource VisibilityConverter}}">
                             <TextBlock Text="UDP"
-                                   TextAlignment="Center"
-                                   FontFamily="{StaticResource BaseFont}"
-                                   FontSize="{StaticResource Regular}"
-                                   Foreground="{StaticResource WhiteBrush}"/>
+                                       TextAlignment="Center"
+                                       FontFamily="{StaticResource BaseFont}"
+                                       FontSize="{StaticResource Regular}"
+                                       Foreground="{StaticResource WhiteBrush}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

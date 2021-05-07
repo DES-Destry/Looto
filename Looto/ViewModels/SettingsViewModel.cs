@@ -1,11 +1,16 @@
-﻿using Looto.Models.Data;
+﻿using Looto.Models;
+using Looto.Models.Data;
 using System;
+using System.Windows.Input;
 
 namespace Looto.ViewModels
 {
+    /// <summary>
+    /// View model for settings window (<see cref="Views.SettingsWindow"/>) of application.<br/>
+    /// Extends <see cref="BaseViewModel"/> class.
+    /// </summary>
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly SettingsData _defaultSettings = new SettingsData();
         private readonly Settings _settings;
 
         #region Fields for binding
@@ -36,6 +41,8 @@ namespace Looto.ViewModels
             {
                 _data = value;
                 OnPropertyChanged();
+
+                ChangeAllFieldsWithData();
             }
         }
 
@@ -174,6 +181,7 @@ namespace Looto.ViewModels
             {
                 _isPortScanningCoresValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Validness of <see cref="MaxCoresInLANScanning"/>. It change settings element appearance.</summary>
@@ -185,6 +193,7 @@ namespace Looto.ViewModels
             {
                 _isLANScanningCoresValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Validness of <see cref="CacheLifetime"/>. It change settings element appearance.</summary>
@@ -196,6 +205,7 @@ namespace Looto.ViewModels
             {
                 _isCacheLifetimeValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Validness of <see cref="DataSendingTimeout"/>. It change settings element appearance.</summary>
@@ -207,6 +217,7 @@ namespace Looto.ViewModels
             {
                 _isDataSendingTimeoutValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Validness of <see cref="HostCheckTimeout"/>. It change settings element appearance.</summary>
@@ -218,6 +229,7 @@ namespace Looto.ViewModels
             {
                 _isHostCheckTimeoutValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Validness of <see cref="UDPTimeout"/>. It change settings element appearance.</summary>
@@ -229,6 +241,7 @@ namespace Looto.ViewModels
             {
                 _isUDPTimeoutValid = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsApplyButtonClickable");
             }
         }
         /// <summary>Availableness for applying new settings. All inputs must be valid.</summary>
@@ -245,36 +258,71 @@ namespace Looto.ViewModels
             && _isHostCheckTimeoutValid
             && _isUDPTimeoutValid;
 
+        /// <summary>
+        /// Write changes to file.<br/>
+        /// Apply Changes button command.
+        /// </summary>
+        public ICommand ApplyChanges => new BaseCommand(ApplyChangesCommand);
+        /// <summary>
+        /// Cancel all unsaved changes.<br/>
+        /// Cancel Changes button command.
+        /// </summary>
+        public ICommand CancelChanges => new BaseCommand(CancelChangesCommand);
+        /// <summary>
+        /// Set settings data value to default value.<br/>
+        /// Set All To Default button command.
+        /// </summary>
+        public ICommand SetAllToDefault => new BaseCommand(SetAllToDefaultCommand);
+
         #endregion
 
         /// <summary>Create new view model for <see cref="Views.SettingsWindow"/> view.</summary>
         public SettingsViewModel()
         {
             _settings = new Settings();
-
             Data = _settings.GetSettings();
+        }
+
+        /// <summary>Write changes to file.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void ApplyChangesCommand(object parameter)
+        {
+            _settings.ChangeData(_data);
+            _settings.Save();
+        }
+
+        /// <summary>Cancel all unsaved changes.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void CancelChangesCommand(object parameter)
+        {
+            Data = _settings.GetSettings();
+        }
+
+        /// <summary>Set settings data value to default value.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void SetAllToDefaultCommand(object parameter)
+        {
+            Data = new SettingsData();
+        }
+
+        /// <summary>Change all fields with data if data object was changed.</summary>
+        private void ChangeAllFieldsWithData()
+        {
             MaxCoresInPortScanning = _data.MaximumCoresInPortScanning.ToString();
             MaxCoresInLANScanning = _data.MaximumCoresInLANScanning.ToString();
             CacheLifetime = _data.CacheLifeTime.ToString();
             DataSendingTimeout = _data.DataSendingTimeout.ToString();
             HostCheckTimeout = _data.HostCheckTimeout.ToString();
             UDPTimeout = _data.UDPDataReceivingTimeout.ToString();
-        }
-
-        private void ApplyChanges(object parameter)
-        {
-            _settings.ChangeData(_data);
-            _settings.Save();
-        }
-
-        private void CancelChanges(object parameter)
-        {
-            Data = _settings.GetSettings();
-        }
-
-        private void SetAllToDefault(object parameter)
-        {
-            Data = _defaultSettings;
         }
 
         /// <summary>Check input number on correctness - it must be not less than 1 and not more than cores count in the current machine.</summary>

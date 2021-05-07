@@ -60,9 +60,9 @@ namespace Looto.Components
         /// <summary>DP for <see cref="ContentText"/> property.</summary>
         public static readonly DependencyProperty ContentTextProperty =
             DependencyProperty.Register(
-                "ContentText", 
-                typeof(string), 
-                typeof(TextBoxSettingsElement), 
+                "ContentText",
+                typeof(string),
+                typeof(TextBoxSettingsElement),
                 new FrameworkPropertyMetadata(
                     string.Empty,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
@@ -92,6 +92,9 @@ namespace Looto.Components
 
 
 
+        public bool IsChanged = false;
+        public bool IsPropertyChanged = false;
+
         /// <summary>Create new component.</summary>
         public TextBoxSettingsElement()
         {
@@ -118,6 +121,7 @@ namespace Looto.Components
             Render();
         }
 
+        // TODO: this method crash the VS XAML constructor.
         /// <summary>
         /// Calls when bindable DP was changed with <see cref="ViewModels.BaseViewModel.OnPropertyChanged(string)"/> method call.<br/>
         /// Bindable DP's: <see cref="ContentTextProperty"/>, <see cref="IsValidInputProperty"/>.
@@ -140,6 +144,10 @@ namespace Looto.Components
                 component.ImageSource = component.ImageSource.Replace("main", "red");
                 component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
             }
+
+            component.IsPropertyChanged = true;
+            component.Content.Text = component.ContentText;
+            component.IsPropertyChanged = false;
         }
 
         /// <summary>
@@ -150,8 +158,17 @@ namespace Looto.Components
         /// <param name="e">Some event arguments.</param>
         private void Content_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ContentText = (sender as TextBox).Text;
-            Render();
+            if (!IsPropertyChanged)
+            {
+                ContentText = (sender as TextBox).Text;
+                return;
+            }
+
+            if (IsPropertyChanged && !IsChanged)
+            {
+                ContentText = (sender as TextBox).Text;
+                IsChanged = !IsChanged;
+            }
         }
     }
 }
