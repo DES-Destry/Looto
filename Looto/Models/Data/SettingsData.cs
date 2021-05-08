@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Looto.Models.PortScanner;
+using System;
 
 namespace Looto.Models.Data
 {
     /// <summary>Class for settings json file data presentation.</summary>
-    public class SettingsData
+    public class SettingsData : IPortScannerConfig
     {
         private const ResultsRenderMode DEFAULT_RENDER_MODE = ResultsRenderMode.Full;
         private const ResultsSortingMode DEFAULT_SORTING_MODE = ResultsSortingMode.ByPortValue;

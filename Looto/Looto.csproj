@@ -104,6 +104,7 @@
     <Compile Include="Models\HostScanner\LANHostScanner.cs" />
     <Compile Include="Models\HostScanner\SimpleHostScanner.cs" />
     <Compile Include="Models\PortScanner\HostNotValidException.cs" />
+    <Compile Include="Models\PortScanner\IPortScannerConfig.cs" />
     <Compile Include="Models\PortScanner\RangeOfPorts.cs" />
     <Compile Include="Models\PortScanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\PortScanner\ScanResult.cs" />
@@ -189,7 +190,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\PortScanner\IScanner.cs" />
+    <Compile Include="Models\PortScanner\IPortScanner.cs" />
     <Compile Include="Models\PortScanner\MultipleScanner.cs" />
     <Compile Include="Models\PortScanner\Port.cs" />
     <Compile Include="Models\PortScanner\PortChecker.cs" />

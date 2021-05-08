@@ -8,10 +8,10 @@ using Looto.Models.DebugTools;
 namespace Looto.Models.PortScanner
 {
     /// <summary>
-    /// <see cref="IScanner"/> interface implementation.<br/>
+    /// <see cref="IPortScanner"/> interface implementation.<br/>
     /// Checks an range of ports for Opened/Closed state.
     /// </summary>
-    public class RangeOfPortsScanner : IScanner
+    public class RangeOfPortsScanner : IPortScanner
     {
         private readonly object _lockObject;
         private readonly ParallelOptions _parallelOptions;
@@ -52,6 +52,12 @@ namespace Looto.Models.PortScanner
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
             };
+        }
+
+        public void Configure(IPortScannerConfig config)
+        {
+            _checker.Configure(config);
+            _parallelOptions.MaxDegreeOfParallelism = config.MaximumCoresInPortScanning;
         }
 
         /// <summary>Scan all of ports in host.</summary>

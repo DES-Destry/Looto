@@ -1,4 +1,5 @@
-﻿using Looto.Models.DebugTools;
+﻿using Looto.Models.Data;
+using Looto.Models.DebugTools;
 using Looto.Models.HostScanner;
 using System;
 using System.Net.Sockets;
@@ -19,6 +20,7 @@ namespace Looto.Models.PortScanner
         private string _host;
         private Socket _socket;
         private SocketType _socketType;
+        private IPortScannerConfig _config;
 
         /// <summary>Create new instance of checker.</summary>
         public PortChecker()
@@ -39,13 +41,18 @@ namespace Looto.Models.PortScanner
             //Null check
             if (_host == null)
                 throw new ArgumentNullException(nameof(_host), "Host to check not initialized.");
+            if (_config == null)
+                _config = new SettingsData();
 
             _dataReceived = false;
             PortState result;
 
             // Configurate socket parameters.
             _socketType = port.Protocol == ProtocolType.Tcp ? SocketType.Stream : SocketType.Dgram;
-            _socket = new Socket(_socketType, port.Protocol);
+            _socket = new Socket(_socketType, port.Protocol)
+            {
+                SendTimeout = _config.DataSendingTimeout
+            };
 
             try
             {
@@ -56,7 +63,7 @@ namespace Looto.Models.PortScanner
                 if (port.Protocol == ProtocolType.Udp)
                 {
                     _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived, null);
-                    Thread.Sleep(2500);
+                    Thread.Sleep(_config.UDPDataReceivingTimeout);
                 }
                 _socket.Shutdown(SocketShutdown.Both);
 
@@ -86,6 +93,13 @@ namespace Looto.Models.PortScanner
         public void InstallHost(string host)
         {
             _host = host;
+        }
+
+        /// <summary>Configure port scanner with custom settings.</summary>
+        /// <param name="config">Custom settings.</param>
+        public void Configure(IPortScannerConfig config)
+        {
+            _config = config ?? new SettingsData();
         }
 
         /// <summary>Check host on existance.</summary>

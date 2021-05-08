@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Looto.Models.PortScanner
 {
     /// <summary>Base port scanner interface.</summary>
-    public interface IScanner
+    public interface IPortScanner
     {
         /// <summary>Calls when one port was scanned.</summary>
         event Action<int, int> OnOnePortWasScanned;
@@ -18,6 +18,10 @@ namespace Looto.Models.PortScanner
         /// <summary>Count of all ports that will be scanned.</summary>
         int PortsCount { get; }
 
+
+        /// <summary>Configure port scanner with custom settings.</summary>
+        /// <param name="config">Custom settings.</param>
+        void Configure(IPortScannerConfig config);
         /// <summary>Scan async all of ports in host.</summary>
         Task ScanAllAsync();
         /// <summary>Abort current scanning.</summary>
