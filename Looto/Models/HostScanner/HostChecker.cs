@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Looto.Models.Data;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -11,7 +12,7 @@ namespace Looto.Models.HostScanner
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
         /// <returns>Bollean value. true - exists. false - don't exists.</returns>
-        public static bool CheckHost(string host)
+        public static bool CheckHost(string host, IHostScannerConfig config)
         {
             if (host == string.Empty || host == null)
                 return false;
@@ -19,7 +20,7 @@ namespace Looto.Models.HostScanner
             try
             {
                 Ping hostCheck = new Ping();
-                PingReply reply = hostCheck.Send(host, 1000);
+                PingReply reply = hostCheck.Send(host, config?.HostCheckTimeout ?? 1000);
 
                 if (reply.Status == IPStatus.Success)
                     return true;
