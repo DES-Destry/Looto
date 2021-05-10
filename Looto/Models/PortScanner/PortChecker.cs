@@ -41,8 +41,6 @@ namespace Looto.Models.PortScanner
             //Null check
             if (_host == null)
                 throw new ArgumentNullException(nameof(_host), "Host to check not initialized.");
-            if (_config == null)
-                _config = new SettingsData();
 
             _dataReceived = false;
             PortState result;
@@ -51,7 +49,7 @@ namespace Looto.Models.PortScanner
             _socketType = port.Protocol == ProtocolType.Tcp ? SocketType.Stream : SocketType.Dgram;
             _socket = new Socket(_socketType, port.Protocol)
             {
-                SendTimeout = _config.DataSendingTimeout
+                SendTimeout = _config?.DataSendingTimeout ?? 2500,
             };
 
             try
@@ -63,7 +61,7 @@ namespace Looto.Models.PortScanner
                 if (port.Protocol == ProtocolType.Udp)
                 {
                     _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived, null);
-                    Thread.Sleep(_config.UDPDataReceivingTimeout);
+                    Thread.Sleep(_config?.UDPDataReceivingTimeout ?? 2500);
                 }
                 _socket.Shutdown(SocketShutdown.Both);
 
@@ -99,7 +97,7 @@ namespace Looto.Models.PortScanner
         /// <param name="config">Custom settings.</param>
         public void Configure(IPortScannerConfig config)
         {
-            _config = config ?? new SettingsData();
+            _config = config;
         }
 
         /// <summary>Check host on existance.</summary>

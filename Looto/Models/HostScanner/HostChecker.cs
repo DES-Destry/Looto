@@ -1,5 +1,4 @@
-﻿using Looto.Models.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -12,7 +11,7 @@ namespace Looto.Models.HostScanner
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
         /// <returns>Bollean value. true - exists. false - don't exists.</returns>
-        public static bool CheckHost(string host, IHostScannerConfig config)
+        public static bool CheckHost(string host, IHostScannerConfig config = null)
         {
             if (host == string.Empty || host == null)
                 return false;

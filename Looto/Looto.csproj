@@ -101,6 +101,7 @@
     <Compile Include="Models\HostScanner\HostChecker.cs" />
     <Compile Include="Models\HostScanner\HostData.cs" />
     <Compile Include="Models\HostScanner\IHostScanner.cs" />
+    <Compile Include="Models\HostScanner\IHostScannerConfig.cs" />
     <Compile Include="Models\HostScanner\LANHostScanner.cs" />
     <Compile Include="Models\HostScanner\SimpleHostScanner.cs" />
     <Compile Include="Models\PortScanner\HostNotValidException.cs" />

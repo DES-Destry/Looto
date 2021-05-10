@@ -38,8 +38,11 @@ namespace Looto.Models.PortScanner
 
         public void Configure(IPortScannerConfig config)
         {
-            _checker.Configure(config);
-            _parallelOptions.MaxDegreeOfParallelism = config.MaximumCoresInPortScanning;
+            if (config != null)
+            {
+                _checker.Configure(config);
+                _parallelOptions.MaxDegreeOfParallelism = config.MaximumCoresInPortScanning;
+            }
         }
 
         /// <summary>Scan all of ports in host.</summary>
