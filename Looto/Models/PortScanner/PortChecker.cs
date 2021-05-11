@@ -1,5 +1,4 @@
-﻿using Looto.Models.Data;
-using Looto.Models.DebugTools;
+﻿using Looto.Models.DebugTools;
 using Looto.Models.HostScanner;
 using System;
 using System.Net.Sockets;

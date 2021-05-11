@@ -10,7 +10,7 @@ namespace Looto.Models.HostScanner
     {
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
-        /// <returns>Bollean value. true - exists. false - don't exists.</returns>
+        /// <returns>Boolean value. true - exists. false - don't exists.</returns>
         public static bool CheckHost(string host, IHostScannerConfig config = null)
         {
             if (host == string.Empty || host == null)
