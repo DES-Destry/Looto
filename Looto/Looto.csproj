@@ -81,6 +81,9 @@
     <Compile Include="Components\CacheChunck.xaml.cs">
       <DependentUpon>CacheChunck.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ComboBoxSettingsElement.xaml.cs">
+      <DependentUpon>ComboBoxSettingsElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\HostInfo.xaml.cs">
       <DependentUpon>HostInfo.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\CacheChunck.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ComboBoxSettingsElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,8 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace Looto.Components
 {
-    /// <summary>User control for using in the <see cref="Views.SettingsWindow"/> as input/output settings data as text.</summary>
-    public partial class TextBoxSettingsElement : UserControl
+    public partial class ComboBoxSettingsElement : UserControl
     {
         /// <summary>Image source of settings element.</summary>
         public string ImageSource
@@ -18,7 +17,7 @@ namespace Looto.Components
 
         /// <summary>DP for <see cref="ImageSource"/> property.</summary>
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(string), typeof(TextBoxSettingsElement), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("ImageSource", typeof(string), typeof(ComboBoxSettingsElement), new PropertyMetadata(string.Empty));
 
 
 
@@ -32,7 +31,7 @@ namespace Looto.Components
 
         /// <summary>DP for <see cref="TitleText"/> property.</summary>
         public static readonly DependencyProperty TitleTextProperty =
-            DependencyProperty.Register("TitleText", typeof(string), typeof(TextBoxSettingsElement), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("TitleText", typeof(string), typeof(ComboBoxSettingsElement), new PropertyMetadata(string.Empty));
 
 
 
@@ -46,26 +45,40 @@ namespace Looto.Components
 
         /// <summary>DP for <see cref="DescriptionText"/> property.</summary>
         public static readonly DependencyProperty DescriptionTextProperty =
-            DependencyProperty.Register("DescriptionText", typeof(string), typeof(TextBoxSettingsElement), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("DescriptionText", typeof(string), typeof(ComboBoxSettingsElement), new PropertyMetadata(string.Empty));
 
 
 
 
         /// <summary>Value of the settings.</summary>
-        public string ContentText
+        public string ComboElements
         {
-            get => (string)GetValue(ContentTextProperty);
-            set { SetValue(ContentTextProperty, value); }
+            get => (string)GetValue(ComboElementsProperty);
+            set { SetValue(ComboElementsProperty, value); }
         }
 
-        /// <summary>DP for <see cref="ContentText"/> property.</summary>
-        public static readonly DependencyProperty ContentTextProperty =
+        /// <summary>DP for <see cref="ComboElements"/> property.</summary>
+        public static readonly DependencyProperty ComboElementsProperty =
+            DependencyProperty.Register("ComboElements", typeof(string), typeof(ComboBoxSettingsElement), new PropertyMetadata(string.Empty));
+
+
+
+
+        /// <summary>Value of the settings.</summary>
+        public int CurrentSelectedItem
+        {
+            get => (int)GetValue(CurrentSelectedItemProperty);
+            set { SetValue(CurrentSelectedItemProperty, value); }
+        }
+
+        /// <summary>DP for <see cref="ComboElements"/> property.</summary>
+        public static readonly DependencyProperty CurrentSelectedItemProperty =
             DependencyProperty.Register(
-                "ContentText",
-                typeof(string),
-                typeof(TextBoxSettingsElement),
+                "CurrentSelectedItem",
+                typeof(int),
+                typeof(ComboBoxSettingsElement),
                 new FrameworkPropertyMetadata(
-                    string.Empty,
+                    0,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     new PropertyChangedCallback(PropertyChanged)));
 
@@ -84,7 +97,7 @@ namespace Looto.Components
             DependencyProperty.Register(
                 "IsValidInput",
                 typeof(bool),
-                typeof(TextBoxSettingsElement),
+                typeof(ComboBoxSettingsElement),
                 new FrameworkPropertyMetadata(
                     false,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
@@ -93,11 +106,8 @@ namespace Looto.Components
 
 
 
-        private bool IsChanged = false;
-        private bool IsPropertyChanged = false;
-
         /// <summary>Create new component.</summary>
-        public TextBoxSettingsElement()
+        public ComboBoxSettingsElement()
         {
             InitializeComponent();
         }
@@ -105,13 +115,10 @@ namespace Looto.Components
         /// <summary>Rerender component with new DP values.</summary>
         public void Render()
         {
-            SettingsImage.Source = new BitmapImage(new Uri(ImageSource, UriKind.Relative));
             Title.Text = TitleText;
             Description.Text = DescriptionText;
-            Content.Text = ContentText;
-
-            if (!IsValidInput)
-                OutBorder.BorderBrush = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
+            Content.ItemsSource = ComboElements.Split(';');
+            Content.SelectedIndex = CurrentSelectedItem;
         }
 
         /// <summary>Calls when main grid was loaded and it ready for render values from DP.</summary>
@@ -122,16 +129,15 @@ namespace Looto.Components
             Render();
         }
 
-        // TODO: this method crash the VS XAML constructor.
         /// <summary>
         /// Calls when bindable DP was changed with <see cref="ViewModels.BaseViewModel.OnPropertyChanged(string)"/> method call.<br/>
         /// Bindable DP's: <see cref="ContentTextProperty"/>, <see cref="IsValidInputProperty"/>.
         /// </summary>
-        /// <param name="sender">Instance of <see cref="TextBoxSettingsElement"/> which bindable DP was changed.</param>
+        /// <param name="sender">Instance of <see cref="ComboBoxSettingsElement"/> which bindable DP was changed.</param>
         /// <param name="e">Some event arguments.</param>
         private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var component = sender as TextBoxSettingsElement;
+            var component = sender as ComboBoxSettingsElement;
 
             if (component?.IsValidInput ?? false)
             {
@@ -144,31 +150,6 @@ namespace Looto.Components
                 component.ShowBorderAnimation.Value = (Brush)Application.Current.MainWindow.FindResource("RedBrush");
                 component.ImageSource = component.ImageSource.Replace("main", "red");
                 component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
-            }
-
-            component.IsPropertyChanged = true;
-            component.Content.Text = component.ContentText;
-            component.IsPropertyChanged = false;
-        }
-
-        /// <summary>
-        /// Calls when text in textbox was changed.<br/>
-        /// Refresh all <see cref="TextBoxSettingsElement"/> DP's with <see cref="MainGrid_Loaded(object, RoutedEventArgs)"/> method.
-        /// </summary>
-        /// <param name="sender"><see cref="TextBox"/> which text changed event binded on this method.</param>
-        /// <param name="e">Some event arguments.</param>
-        private void Content_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!IsPropertyChanged)
-            {
-                ContentText = (sender as TextBox).Text;
-                return;
-            }
-
-            if (IsPropertyChanged && !IsChanged)
-            {
-                ContentText = (sender as TextBox).Text;
-                IsChanged = !IsChanged;
             }
         }
     }
