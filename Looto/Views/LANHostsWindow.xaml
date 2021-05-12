@@ -90,7 +90,7 @@
                             Margin="10"
                             Height="96">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Looto;component/Images/lan_green.png"
+                            <Image Source="/Looto;component/Images/lan_main.png"
                                    Height="86"
                                    Margin="5"/>
                             <StackPanel>
@@ -148,7 +148,7 @@
                                                FontFamily="{StaticResource BaseFont}"
                                                FontSize="{StaticResource Regular}"/>
                                 </Grid>
-                                <StackPanel x:Name="ResultsPanel"></StackPanel>
+                                <StackPanel x:Name="ResultsPanel"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

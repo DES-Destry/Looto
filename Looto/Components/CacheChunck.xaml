@@ -54,12 +54,12 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonImage" 
                                     Property="Source" 
-                                    Value="/Looto;component/Images/show_green.png"/>
+                                    Value="/Looto;component/Images/show_main.png"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="ButtonImage" 
                                     Property="Source" 
-                                    Value="/Looto;component/Images/show_selected_green.png"/>
+                                    Value="/Looto;component/Images/show_selected_main.png"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
 

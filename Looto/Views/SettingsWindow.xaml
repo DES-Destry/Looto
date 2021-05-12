@@ -1,0 +1,212 @@
+﻿<Window x:Class="Looto.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Looto.Views"
+        mc:Ignorable="d"
+        xmlns:components="clr-namespace:Looto.Components"
+        xmlns:viewmodels="clr-namespace:Looto.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+        Title="Settings"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="650" 
+        Width="700">
+
+    <Border BorderThickness="2"
+            BorderBrush="{StaticResource MainBrush}">
+        <StackPanel>
+            <Grid Height="25"
+                  Background="{StaticResource StaticBgBrush}"
+                  MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <TextBlock FontFamily="{StaticResource BaseFont}"
+                               Foreground="{StaticResource WhiteBrush}"
+                               FontSize="{StaticResource Small}"
+                               Margin="10, 0, 0, 0"
+                               VerticalAlignment="Center"
+                               Text="Settings"/>
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <Button x:Name="ExitButton"
+                            Grid.Column="2"
+                            Width="20" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="1,1,7,1"
+                            Cursor="Hand"
+                            Click="ExitButton_Click">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+
+                                <Grid>
+                                    <Image x:Name="ButtonImage" 
+                                           Source="/Looto;component/Images/exit_white.png"/>
+                                </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_red.png"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ButtonImage" 
+                                                Property="Source" 
+                                                Value="/Looto;component/Images/exit_gray.png"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Background="{StaticResource ActiveBgBrush}"
+                  Height="625">
+                <StackPanel>
+                    <Border Background="{StaticResource StaticBgBrush}"
+                            CornerRadius="10"
+                            Margin="10"
+                            Height="130">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Looto;component/Images/settings_main.png"
+                                   Height="86"
+                                   Margin="5"/>
+                                <StackPanel>
+                                    <TextBlock FontSize="{StaticResource H2}"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource WhiteBrush}"
+                                           Text="Settings"
+                                           Margin="10"/>
+                                    <TextBlock FontSize="{StaticResource Small}"
+                                           FontFamily="{StaticResource BaseFont}"
+                                           Foreground="{StaticResource SecondMessageBrush}"
+                                           Text="Global settings of the application."
+                                           MaxWidth="560"
+                                           TextWrapping="Wrap"
+                                           Margin="10, -10, 0, 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        IsEnabled="{Binding IsApplyButtonClickable}"
+                                        Command="{Binding ApplyChanges}"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Apply changes"/>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        Command="{Binding SetAllToDefault}"
+                                        Grid.Column="1"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Set all to default"/>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        FontSize="{StaticResource Regular}"
+                                        Command="{Binding CancelChanges}"
+                                        Grid.Column="2"
+                                        Margin="5, 0, 5, 0"
+                                        Content="Cancel changes"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer Height="468">
+                        <StackPanel>
+                            <components:ComboBoxSettingsElement TitleText="Result render mode"
+                                                                DescriptionText="Full render mode - draws pretty table with colored port states. Demanding on resources and can take a long time to boot with a large number of scanned ports. As text - use one text block, therefore result not informative for people eyes. Not demanding on resources. Not render - not show results. Need if you want fast download the results and not waiting for any render. Default: Full."
+                                                                Height="130"
+                                                                Margin="5"
+                                                                ImageSource="/Looto;component/Images/render_mode_main.png"
+                                                                IsValidInput="True"
+                                                                ComboElements=" Full; As text; Not render "
+                                                                CurrentSelectedItem="{Binding RenderMode}"/>
+                            <components:ComboBoxSettingsElement TitleText="Result sorting mode"
+                                                                DescriptionText="Sorts elements in the results window. It will affect on data in cache and in downloaded results files. Default: By port number."
+                                                                Height="100"
+                                                                Margin="5"
+                                                                ImageSource="/Looto;component/Images/sort_main.png"
+                                                                IsValidInput="True"
+                                                                ComboElements=" By port number; By port protocol; By port state "
+                                                                CurrentSelectedItem="{Binding SortingMode}"/>
+                            <components:ComboBoxSettingsElement TitleText="Invert result sorting (DESC)"
+                                                                DescriptionText="Invert your sorting in the results window. Defalt: Off."
+                                                                Height="100"
+                                                                Margin="5"
+                                                                ImageSource="/Looto;component/Images/sort_desc_main.png"
+                                                                IsValidInput="True"
+                                                                ComboElements=" Off; On "
+                                                                CurrentSelectedItem="{Binding DescSorting}"/>
+                            <components:TextBoxSettingsElement TitleText="Max cores for port scanning"
+                                                               DescriptionText="{Binding MaxCoresInPortScanningDescription}"
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/cpu_main.png"
+                                                               IsValidInput="{Binding IsPortScanningCoresValid}"
+                                                               ContentText="{Binding MaxCoresInPortScanning}"/>
+                            <components:TextBoxSettingsElement TitleText="Max cores for LAN scanning"
+                                                               DescriptionText="{Binding MaxCoresInLANScanningDescription}"
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/cpu_main.png"
+                                                               IsValidInput="{Binding IsLANScanningCoresValid}"
+                                                               ContentText="{Binding MaxCoresInLANScanning}"/>
+                            <components:TextBoxSettingsElement TitleText="Cache lifetime"
+                                                               DescriptionText="Results cache lifetime. Expired cache chuncks will be deleted. Value in days and must be not less than 0. Default: 3."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/lifetime_main.png"
+                                                               IsValidInput="{Binding IsCacheLifetimeValid}"
+                                                               ContentText="{Binding CacheLifetime}"/>
+                            <components:TextBoxSettingsElement TitleText="Port checking timeout"
+                                                               DescriptionText="Port scanner trying connect to host with this port for some time. If this time is up, then port will have a 'Closed' status. Value in milliseconds and must be not less than 0. Default: 2500."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/sendtimeout_main.png"
+                                                               IsValidInput="{Binding IsDataSendingTimeoutValid}"
+                                                               ContentText="{Binding DataSendingTimeout}"/>
+                            <components:TextBoxSettingsElement TitleText="Host checking timeout"
+                                                               DescriptionText="Host scanner trying connect to this host for some time. If this time is up, then host will have a Unavailable status. Value in milliseconds and must be not less than 0. Default: 1000."
+                                                               Height="100"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/hosttimeout_main.png"
+                                                               IsValidInput="{Binding IsHostCheckTimeoutValid}"
+                                                               ContentText="{Binding HostCheckTimeout}"/>
+                            <components:TextBoxSettingsElement TitleText="UDP receive data timeout"
+                                                               DescriptionText="Well, port scanner was connected to this UDP port successful, but this doesn't mean, that port is 'Opened'. Port scanner trying receive some data from this port for some time. If this time is up, then port will have a 'Opened / Filtered' status. Value in milliseconds and must be not less than 0. Default: 2500."
+                                                               Height="120"
+                                                               Margin="5"
+                                                               ImageSource="/Looto;component/Images/receivetimeout_main.png"
+                                                               IsValidInput="{Binding IsUDPTimeoutValid}"
+                                                               ContentText="{Binding UDPTimeout}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

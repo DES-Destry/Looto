@@ -8,10 +8,10 @@ using Looto.Models.DebugTools;
 namespace Looto.Models.PortScanner
 {
     /// <summary>
-    /// <see cref="IScanner"/> interface implementation.<br/>
+    /// <see cref="IPortScanner"/> interface implementation.<br/>
     /// Checks an range of ports for Opened/Closed state.
     /// </summary>
-    public class RangeOfPortsScanner : IScanner
+    public class RangeOfPortsScanner : IPortScanner
     {
         private readonly object _lockObject;
         private readonly ParallelOptions _parallelOptions;
@@ -54,6 +54,12 @@ namespace Looto.Models.PortScanner
             };
         }
 
+        public void Configure(IPortScannerConfig config)
+        {
+            _checker.Configure(config);
+            _parallelOptions.MaxDegreeOfParallelism = config.MaximumCoresInPortScanning;
+        }
+
         /// <summary>Scan all of ports in host.</summary>
         /// <exception cref="ArgumentNullException">Throws when <see cref="Host"/> or <see cref="Ports"/> was equals null.</exception>
         /// <exception cref="RangeOfPortsException">Throws when <see cref="Ports"/> parameter not looks like a range.</exception>
@@ -85,7 +91,7 @@ namespace Looto.Models.PortScanner
                     results.AddRange(scannedPorts);
                 }
 
-                Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
+                Port[] sortedResults = results.ToArray();
 
                 OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             }

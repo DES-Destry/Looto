@@ -16,6 +16,11 @@ namespace Looto.Models.HostScanner
         /// <summary>Count of all hosts that will be scanned.</summary>
         int HostsCount { get; }
 
+
+        /// <summary>Configure host scanner with custom settings.</summary>
+        /// <param name="config">Custom settings.</param>
+        void Configure(IHostScannerConfig config);
+
         /// <summary>Scan async all hosts.</summary>
         Task ScanAllAsync();
         /// <summary>Abort current scanning.</summary>

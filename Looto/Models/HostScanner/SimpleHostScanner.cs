@@ -12,6 +12,7 @@ namespace Looto.Models.HostScanner
     {
         private readonly ParallelOptions _parallelOptions;
         private readonly object _lockObject;
+        private IHostScannerConfig _config;
         private int _scannedHosts;
         private bool _isAborted = false;
 
@@ -32,6 +33,12 @@ namespace Looto.Models.HostScanner
             };
         }
 
+        public void Configure(IHostScannerConfig config)
+        {
+            _config = config;
+            _parallelOptions.MaxDegreeOfParallelism = _config.MaximumCoresInLANScanning;
+        }
+
         public void Abort()
         {
             _isAborted = true;
@@ -48,7 +55,7 @@ namespace Looto.Models.HostScanner
                     Parallel.ForEach(Hosts, _parallelOptions, host =>
                     {
                         if (!_isAborted)
-                            host.Exists = HostChecker.CheckHost(host.Host);
+                            host.Exists = HostChecker.CheckHost(host.Host, _config);
                         else host.Exists = false;
 
                         result.Add(host);

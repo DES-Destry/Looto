@@ -1,4 +1,5 @@
-﻿using Looto.Models.HostScanner;
+﻿using Looto.Models.Data;
+using Looto.Models.HostScanner;
 using System;
 
 namespace Looto.ViewModels
@@ -10,6 +11,7 @@ namespace Looto.ViewModels
     class LANListViewModel : BaseViewModel
     {
         private readonly IHostScanner _hostScanner;
+        private readonly Settings _settings;
 
         #region Fields for binding
         private bool _isSearching = false;
@@ -61,7 +63,10 @@ namespace Looto.ViewModels
         /// <summary>Create new view model for view.</summary>
         public LANListViewModel()
         {
+            _settings = new Settings();
+
             _hostScanner = new LANHostScanner();
+            _hostScanner.Configure(_settings.GetSettings());
             _hostScanner.OnOneHostWasScanned += HostScanned;
             _hostScanner.OnScanEnding += HostScanningEnded;
 

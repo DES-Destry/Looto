@@ -19,6 +19,7 @@ namespace Looto.Models.PortScanner
         private string _host;
         private Socket _socket;
         private SocketType _socketType;
+        private IPortScannerConfig _config;
 
         /// <summary>Create new instance of checker.</summary>
         public PortChecker()
@@ -45,7 +46,10 @@ namespace Looto.Models.PortScanner
 
             // Configurate socket parameters.
             _socketType = port.Protocol == ProtocolType.Tcp ? SocketType.Stream : SocketType.Dgram;
-            _socket = new Socket(_socketType, port.Protocol);
+            _socket = new Socket(_socketType, port.Protocol)
+            {
+                SendTimeout = _config?.DataSendingTimeout ?? 2500,
+            };
 
             try
             {
@@ -56,12 +60,16 @@ namespace Looto.Models.PortScanner
                 if (port.Protocol == ProtocolType.Udp)
                 {
                     _socket.BeginReceive(_receive, 0, _receive.Length, SocketFlags.None, DataReceived, null);
-                    Thread.Sleep(2500);
+                    Thread.Sleep(_config?.UDPDataReceivingTimeout ?? 2500);
                 }
                 _socket.Shutdown(SocketShutdown.Both);
 
-                // If sending are successful - port opened (not allowed for UDP)
-                result = PortState.Opened;
+                // If sending are successful - port opened
+                // If UDP nothing received - have a chanse, that port are filtered
+                if (port.Protocol == ProtocolType.Udp && !_dataReceived)
+                    result = PortState.OpenedOrFiltered;
+                else
+                    result = PortState.Opened;
             }
             catch (SocketException)
             {
@@ -84,6 +92,13 @@ namespace Looto.Models.PortScanner
             _host = host;
         }
 
+        /// <summary>Configure port scanner with custom settings.</summary>
+        /// <param name="config">Custom settings.</param>
+        public void Configure(IPortScannerConfig config)
+        {
+            _config = config;
+        }
+
         /// <summary>Check host on existance.</summary>
         /// <param name="host">Host to check.</param>
         /// <exception cref="HostNotValidException">Throws when host doesn't exist.</exception>
@@ -101,7 +116,18 @@ namespace Looto.Models.PortScanner
         /// <param name="e">Some socket event args.</param>
         private void DataReceived(IAsyncResult result)
         {
-            _dataReceived = true;
+            try
+            {
+                var socket = result.AsyncState as Socket;
+                var bytesReceived = socket?.EndReceive(result);
+
+                if (bytesReceived != null && bytesReceived > 0)
+                    _dataReceived = true;
+            }
+            catch (Exception)
+            {
+                _dataReceived = false;
+            }
         }
     }
 }

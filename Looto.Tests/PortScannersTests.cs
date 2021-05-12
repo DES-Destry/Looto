@@ -27,7 +27,7 @@ namespace Looto.Tests
             string host = "localhost";
             Port[] ports = _multiplePorts;
 
-            IScanner scanner = new MultipleScanner
+            IPortScanner scanner = new MultipleScanner
             {
                 Host = host,
                 Ports = ports
@@ -49,7 +49,7 @@ namespace Looto.Tests
             string host = "localhost";
             Port[] ports = new Port[] { };
 
-            IScanner scanner = new MultipleScanner
+            IPortScanner scanner = new MultipleScanner
             {
                 Host = host,
                 Ports = ports
@@ -68,7 +68,7 @@ namespace Looto.Tests
             string host = "";
             Port[] ports = new Port[] { };
 
-            IScanner scanner = new MultipleScanner
+            IPortScanner scanner = new MultipleScanner
             {
                 Host = host,
                 Ports = ports
@@ -86,7 +86,7 @@ namespace Looto.Tests
             string host = "localhost";
             Port[] ports = null;
 
-            IScanner scanner = new MultipleScanner
+            IPortScanner scanner = new MultipleScanner
             {
                 Host = host,
                 Ports = ports
@@ -102,7 +102,7 @@ namespace Looto.Tests
             string host = null;
             Port[] ports = _multiplePorts;
 
-            IScanner scanner = new MultipleScanner
+            IPortScanner scanner = new MultipleScanner
             {
                 Host = host,
                 Ports = ports
@@ -118,7 +118,7 @@ namespace Looto.Tests
             string host = "localhost";
             RangeOfPorts rangeOfPorts = _validRange;
 
-            IScanner scanner = new RangeOfPortsScanner
+            IPortScanner scanner = new RangeOfPortsScanner
             {
                 Host = host,
                 Ports = rangeOfPorts.GetPortsArray(),
@@ -142,7 +142,7 @@ namespace Looto.Tests
 
             await Assert.ThrowsAsync<RangeOfPortsException>(async () =>
             {
-                IScanner scanner = new RangeOfPortsScanner
+                IPortScanner scanner = new RangeOfPortsScanner
                 {
                     Host = host,
                     Ports = rangeOfPorts.GetPortsArray(),
@@ -165,7 +165,7 @@ namespace Looto.Tests
 
             await Assert.ThrowsAsync<RangeOfPortsException>(async () =>
             {
-                IScanner scanner = new RangeOfPortsScanner
+                IPortScanner scanner = new RangeOfPortsScanner
                 {
                     Host = host,
                     Ports = rangeOfPorts.GetPortsArray(),
@@ -182,7 +182,7 @@ namespace Looto.Tests
             string host = "";
             RangeOfPorts rangeOfPorts = _validRange;
 
-            IScanner scanner = new RangeOfPortsScanner
+            IPortScanner scanner = new RangeOfPortsScanner
             {
                 Host = host,
                 Ports = rangeOfPorts.GetPortsArray(),
@@ -199,7 +199,7 @@ namespace Looto.Tests
         {
             string host = "localhost";
 
-            IScanner scanner = new RangeOfPortsScanner
+            IPortScanner scanner = new RangeOfPortsScanner
             {
                 Host = host,
                 Ports = null,
@@ -215,7 +215,7 @@ namespace Looto.Tests
             string host = null;
             RangeOfPorts rangeOfPorts = _validRange;
 
-            IScanner scanner = new RangeOfPortsScanner
+            IPortScanner scanner = new RangeOfPortsScanner
             {
                 Host = host,
                 Ports = rangeOfPorts.GetPortsArray(),

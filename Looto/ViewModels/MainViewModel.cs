@@ -17,7 +17,8 @@ namespace Looto.ViewModels
     {
         private readonly Log _log;
         private readonly Cache _cache;
-        private IScanner _scanner;
+        private readonly Settings _settings;
+        private IPortScanner _scanner;
 
         #region Fields for binding
 
@@ -282,6 +283,11 @@ namespace Looto.ViewModels
         /// Search for hosts in the LAN.
         /// </summary>
         public ICommand LANList => new BaseCommand(LANListCommand);
+        /// <summary>
+        /// Settings button command. <br/>
+        /// Open window with settings editing.
+        /// </summary>
+        public ICommand Settings => new BaseCommand(SettingsCommand);
 
         #endregion
 
@@ -289,7 +295,13 @@ namespace Looto.ViewModels
         public MainViewModel()
         {
             _log = new Log();
+
+            _settings = new Settings();
+            var settingsData = _settings.GetSettings();
+
             _cache = new Cache();
+            _cache.ChangeChunksLifeTime(TimeSpan.FromDays(settingsData.CacheLifeTime));
+            _cache.Save();
         }
 
         /// <summary>Scan host with parameters in input.</summary>
@@ -356,8 +368,19 @@ namespace Looto.ViewModels
         /// </param>
         private void LANListCommand(object parameter)
         {
-            LANHostsWindow view = new LANHostsWindow(_cache, HostApplied);
+            var view = new LANHostsWindow(_cache, HostApplied);
             view.ShowDialog();
+        }
+
+        /// <summary>Open window with settings editing.</summary>
+        /// <param name="parameter">
+        /// Basic <see cref="BaseCommand"/> parameter. <br/>
+        /// Value of this gets from xaml (CommandParameter property).
+        /// </param>
+        private void SettingsCommand(object parameter)
+        {
+            var view = new SettingsWindow();
+            view.Show();
         }
 
         /// <summary>Invoke when LAN list dialog applied host.</summary>
@@ -370,6 +393,7 @@ namespace Looto.ViewModels
         {
             _scanner.Host = _host;
             _scanner.Ports = ports;
+            _scanner.Configure(_settings.GetSettings());
             _scanner.OnOnePortWasScanned += ProgressWasChanged;
             _scanner.OnScanEnding += ScanEnded;
 
@@ -396,7 +420,7 @@ namespace Looto.ViewModels
             }
         }
 
-        /// <summary>Calls on invoking <see cref="IScanner.OnOnePortWasScanned"/> event.</summary>
+        /// <summary>Calls on invoking <see cref="IPortScanner.OnOnePortWasScanned"/> event.</summary>
         /// <param name="dest">Count of all ports for scanning.</param>
         /// <param name="currentProgress">Count of already scanned ports.</param>
         private void ProgressWasChanged(int dest, int currentProgress)
@@ -406,7 +430,7 @@ namespace Looto.ViewModels
             CurrentProgress = currentProgress;
         }
 
-        /// <summary>Calls on invoking <see cref="IScanner.OnScanEnding"/> event.</summary>
+        /// <summary>Calls on invoking <see cref="IPortScanner.OnScanEnding"/> event.</summary>
         /// <param name="results">Results after scanning.</param>
         private void ScanEnded(ScanResult results)
         {

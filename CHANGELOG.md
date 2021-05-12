@@ -1,5 +1,14 @@
 # Versions
 
+## v1.1.0
+- Settings window has been added. Now Looto application have flexible configurable parameters.
+- Now Looto can manage maximum count of using processors cores for port scanner or LAN scanner.
+- Now Looto have configurable scanners. You can configure data sending timeout for the both protocols, host check timeout, cache chuncks lifetime and UDP port data receive timeout(for balancing beetwen "Opened" and "Opened / Filtered" states).
+- Results window now have several render modes: "Full render", "Render as text" and "Not render".
+- Results window now have several sorting modes: "By port value", "By port state" and "By port protocol". Also Looto can turn on or turn off DESC sorting mode.
+- "Opened / Filtered" state for UDP port has been added. This state applies to port if Looto connected to port successfully, but data from port not recieved.
+- Cache "Clear all" button has been added.
+
 ## v1.0.4
 - UDP port scanning was fixed.(in the previous version the app shows that all UDP ports have Opened state)
 - Scanning results cache was added. You can see your history in the "Scaning history" and LAN list shows how long you scanned any ports in the LAN. Cache stored in the .data\.cache file.

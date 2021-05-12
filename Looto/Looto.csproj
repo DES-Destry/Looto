@@ -55,6 +55,9 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -78,30 +81,44 @@
     <Compile Include="Components\CacheChunck.xaml.cs">
       <DependentUpon>CacheChunck.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ComboBoxSettingsElement.xaml.cs">
+      <DependentUpon>ComboBoxSettingsElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\HostInfo.xaml.cs">
       <DependentUpon>HostInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\TextBoxSettingsElement.xaml.cs">
+      <DependentUpon>TextBoxSettingsElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\PortInfo.xaml.cs">
       <DependentUpon>PortInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Cache.cs" />
     <Compile Include="Models\Data\CacheChunk.cs" />
+    <Compile Include="Models\Data\ResultsRenderMode.cs" />
+    <Compile Include="Models\Data\ResultsSortingMode.cs" />
+    <Compile Include="Models\Data\Settings.cs" />
+    <Compile Include="Models\Data\SettingsData.cs" />
     <Compile Include="Models\DebugTools\Error.cs" />
     <Compile Include="Models\DebugTools\Log.cs" />
     <Compile Include="Models\HostScanner\HostChecker.cs" />
     <Compile Include="Models\HostScanner\HostData.cs" />
     <Compile Include="Models\HostScanner\IHostScanner.cs" />
+    <Compile Include="Models\HostScanner\IHostScannerConfig.cs" />
     <Compile Include="Models\HostScanner\LANHostScanner.cs" />
     <Compile Include="Models\HostScanner\SimpleHostScanner.cs" />
     <Compile Include="Models\PortScanner\HostNotValidException.cs" />
+    <Compile Include="Models\PortScanner\IPortScannerConfig.cs" />
     <Compile Include="Models\PortScanner\RangeOfPorts.cs" />
     <Compile Include="Models\PortScanner\RangeOfPortsScanner.cs" />
     <Compile Include="Models\PortScanner\ScanResult.cs" />
     <Compile Include="Models\Utils\DateTimeExtensions.cs" />
+    <Compile Include="Models\Utils\EnumExtensions.cs" />
     <Compile Include="ViewModels\ErrorOccuredViewModel.cs" />
     <Compile Include="ViewModels\LANListViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\ScanHistoryViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ErrorOccured.xaml.cs">
       <DependentUpon>ErrorOccured.xaml</DependentUpon>
     </Compile>
@@ -114,11 +131,22 @@
     <Compile Include="Views\ScanHistoryWindow.xaml.cs">
       <DependentUpon>ScanHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Components\CacheChunck.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ComboBoxSettingsElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\HostInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TextBoxSettingsElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\StandartCheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\StandartComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,7 +202,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\PortScanner\IScanner.cs" />
+    <Compile Include="Models\PortScanner\IPortScanner.cs" />
     <Compile Include="Models\PortScanner\MultipleScanner.cs" />
     <Compile Include="Models\PortScanner\Port.cs" />
     <Compile Include="Models\PortScanner\PortChecker.cs" />
@@ -189,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ScanHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +247,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -240,26 +277,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\logo_green.png" />
+    <Resource Include="Images\logo_main.png" />
     <Resource Include="Images\logo_white.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\error.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\lan_green.png" />
+    <Resource Include="Images\lan_main.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\lan_selected_green.png" />
+    <Resource Include="Images\lan_selected_main.png" />
     <Resource Include="Images\lan_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\scan_green.png" />
+    <Resource Include="Images\scan_main.png" />
     <Resource Include="Images\scan_red.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\history_gray.png" />
-    <Resource Include="Images\history_green.png" />
+    <Resource Include="Images\history_main.png" />
     <Resource Include="Images\history_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -267,9 +304,38 @@
     <Resource Include="Images\delete_selected_red.png" />
     <Resource Include="Images\delete_white.png" />
     <Resource Include="Images\show_gray.png" />
-    <Resource Include="Images\show_green.png" />
-    <Resource Include="Images\show_selected_green.png" />
+    <Resource Include="Images\show_main.png" />
+    <Resource Include="Images\show_selected_main.png" />
     <Resource Include="Images\show_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\settings_main.png" />
+    <Resource Include="Images\settings_selected_main.png" />
+    <Resource Include="Images\settings_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cpu_main.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cpu_red.png" />
+    <Resource Include="Images\hosttimeout_red.png" />
+    <Resource Include="Images\hosttimeout_main.png" />
+    <Resource Include="Images\lifetime_main.png" />
+    <Resource Include="Images\lifetime_red.png" />
+    <Resource Include="Images\receivetimeout_main.png" />
+    <Resource Include="Images\receivetimeout_red.png" />
+    <Resource Include="Images\sendtimeout_main.png" />
+    <Resource Include="Images\sendtimeout_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\render_mode_main.png" />
+    <Resource Include="Images\render_mode_red.png" />
+    <Resource Include="Images\sort_main.png" />
+    <Resource Include="Images\sort_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sort_desc_main.png" />
+    <Resource Include="Images\sort_desc_red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

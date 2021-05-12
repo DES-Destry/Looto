@@ -85,7 +85,7 @@
                             Margin="10"
                             Height="96">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Looto;component/Images/history_green.png"
+                            <Image Source="/Looto;component/Images/history_main.png"
                                    Margin="5"/>
                             <StackPanel>
                                 <TextBlock FontSize="{StaticResource H2}"
@@ -103,7 +103,14 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer Height="355">
+                    <Button Style="{StaticResource ButtonStyle}"
+                            FontSize="{StaticResource Regular}"
+                            Command="{Binding ClearAll}"
+                            Margin="0, 0, 0, 15"
+                            HorizontalAlignment="Center"
+                            Width="150"
+                            Content="Clear cache"/>
+                    <ScrollViewer Height="315">
                         <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>
