@@ -333,5 +333,9 @@
     <Resource Include="Images\sort_main.png" />
     <Resource Include="Images\sort_red.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sort_desc_main.png" />
+    <Resource Include="Images\sort_desc_red.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

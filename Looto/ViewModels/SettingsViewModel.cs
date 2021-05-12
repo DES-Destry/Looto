@@ -26,6 +26,7 @@ namespace Looto.ViewModels
 
         private int _renderMode;
         private int _sortingMode;
+        private int _descSorting;
         private string _maxCoresInPortScanning;
         private string _maxCoresInLANScanning;
         private string _cacheLifetime;
@@ -74,6 +75,18 @@ namespace Looto.ViewModels
             {
                 _data.ResultsSortingMode = (ResultsSortingMode)value;
                 _sortingMode = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary><see cref="Views.ResultsWindow"/> will use invert sort(desc) results. It will affect on data of result files.</summary>
+        /// <value>The <see cref="DescSorting"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_descSorting"/>.</value>
+        public int DescSorting
+        {
+            get => _descSorting;
+            set
+            {
+                _data.ResultsIsDescSorting = value == 1;
+                _descSorting = value;
                 OnPropertyChanged();
             }
         }

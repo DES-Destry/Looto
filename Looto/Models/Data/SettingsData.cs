@@ -13,6 +13,8 @@ namespace Looto.Models.Data
         private const ResultsRenderMode DEFAULT_RENDER_MODE = ResultsRenderMode.Full;
         private const ResultsSortingMode DEFAULT_SORTING_MODE = ResultsSortingMode.ByPortValue;
 
+        private const bool DEFAULT_IS_DESC_SORTING = false;
+
         private const int DEFAULT_CACHE_LIFETIME = 3;
         private const int DEFAULT_DATA_SENDING_TIMEOUT = 2500;
         private const int DEFAULT_HOST_CHECK_TIMEOUT = 1000;
@@ -33,6 +35,12 @@ namespace Looto.Models.Data
         /// Default value = <see cref="ResultsSortingMode.ByPortValue"/>.
         /// </summary>
         public ResultsSortingMode ResultsSortingMode { get; set; } = DEFAULT_SORTING_MODE;
+
+        /// <summary>
+        /// Invert results sorting. It will affect on data of result files.<br/>
+        /// Default value = false.
+        /// </summary>
+        public bool ResultsIsDescSorting { get; set; } = DEFAULT_IS_DESC_SORTING;
 
         /// <summary>
         /// Maximum count of cores in port scanning.<br/>
