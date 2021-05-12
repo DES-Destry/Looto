@@ -197,16 +197,8 @@ namespace Looto.ViewModels
         public ResultsViewModel(ScanResult result)
         {
             _settings = new Settings();
-            ResultsSortingMode sortingMode = _settings.GetSettings().ResultsSortingMode;
 
-            if (sortingMode == ResultsSortingMode.ByPortValue)
-                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.Value).ToArray();
-            else if (sortingMode == ResultsSortingMode.ByPortState)
-                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.State).ToArray();
-            else if (sortingMode == ResultsSortingMode.ByPortProtocol)
-                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.Protocol).ToArray();
-
-            Result = result;
+            Result = GetSortedResultBySettings(result);
 
             HostColor = _result.HostIsValid ?
                 (Brush)Application.Current.MainWindow.FindResource("WhiteBrush")
@@ -214,6 +206,33 @@ namespace Looto.ViewModels
             ScanImage = _result.HostIsValid ?
                 new BitmapImage(new Uri("/Looto;component/Images/scan_main.png", UriKind.Relative))
                 : new BitmapImage(new Uri("/Looto;component/Images/scan_red.png", UriKind.Relative));
+        }
+
+        /// <summary>Sorts results array by settings values from <see cref="_settings"/>.</summary>
+        /// <param name="notSortedResult">Result with not sorted array of ports.</param>
+        /// <returns>Result with sorted array of ports by settings.</returns>
+        private ScanResult GetSortedResultBySettings(ScanResult notSortedResult)
+        {
+            ResultsSortingMode sortingMode = _settings.GetSettings().ResultsSortingMode;
+            bool isDescSorting = _settings.GetSettings().ResultsIsDescSorting;
+
+            if (sortingMode == ResultsSortingMode.ByPortValue)
+                if (isDescSorting)
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderByDescending(portInfo => portInfo.Value).ToArray();
+                else
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderBy(portInfo => portInfo.Value).ToArray();
+            else if (sortingMode == ResultsSortingMode.ByPortState)
+                if (isDescSorting)
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderByDescending(portInfo => portInfo.State).ToArray();
+                else
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderBy(portInfo => portInfo.State).ToArray();
+            else if (sortingMode == ResultsSortingMode.ByPortProtocol)
+                if (isDescSorting)
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderByDescending(portInfo => portInfo.Protocol).ToArray();
+                else
+                    notSortedResult.PortsAfterScan = notSortedResult.PortsAfterScan.OrderBy(portInfo => portInfo.Protocol).ToArray();
+
+            return notSortedResult;
         }
     }
 }

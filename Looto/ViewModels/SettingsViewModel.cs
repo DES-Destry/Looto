@@ -358,6 +358,7 @@ namespace Looto.ViewModels
         {
             RenderMode = (int)_data.ResultsRenderMode;
             SortingMode = (int)_data.ResultsSortingMode;
+            DescSorting = _data.ResultsIsDescSorting ? 1 : 0;
             MaxCoresInPortScanning = _data.MaximumCoresInPortScanning.ToString();
             MaxCoresInLANScanning = _data.MaximumCoresInLANScanning.ToString();
             CacheLifetime = _data.CacheLifeTime.ToString();
