@@ -24,6 +24,8 @@ namespace Looto.ViewModels
         private bool _isHostCheckTimeoutValid = true;
         private bool _isUDPTimeoutValid = true;
 
+        private int _renderMode;
+        private int _sortingMode;
         private string _maxCoresInPortScanning;
         private string _maxCoresInLANScanning;
         private string _cacheLifetime;
@@ -51,6 +53,30 @@ namespace Looto.ViewModels
         /// <summary>Text of the settings element dynamic description.</summary>
         public string MaxCoresInLANScanningDescription => $"Сores count of proccessor for LAN scanning. If this value is more, then speed of port scanning will be faster. Minimum: 1. Maximum(default): {Environment.ProcessorCount}";
 
+        /// <summary>How <see cref="Views.ResultsWindow"/> will render results.</summary>
+        /// <value>The <see cref="RenderMode"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_renderMode"/>.</value>
+        public int RenderMode
+        {
+            get => _renderMode;
+            set
+            {
+                _data.ResultsRenderMode = (ResultsRenderMode)value;
+                _renderMode = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>How <see cref="Views.ResultsWindow"/> will sort results. It will affect on data of result files.</summary>
+        /// <value>The <see cref="RenderMode"/> property gets/sets the value of the <see cref="int"/> field, <see cref="_renderMode"/>.</value>
+        public int SortingMode
+        {
+            get => _sortingMode;
+            set
+            {
+                _data.ResultsSortingMode = (ResultsSortingMode)value;
+                _sortingMode = value;
+                OnPropertyChanged();
+            }
+        }
         /// <summary>Maximum processor cores count for port scanning.</summary>
         /// <value>The <see cref="MaxCoresInPortScanning"/> property gets/sets the value of the <see cref="string"/> field, <see cref="_maxCoresInPortScanning"/>.</value>
         public string MaxCoresInPortScanning
@@ -317,6 +343,8 @@ namespace Looto.ViewModels
         /// <summary>Change all fields with data if data object was changed.</summary>
         private void ChangeAllFieldsWithData()
         {
+            RenderMode = (int)_data.ResultsRenderMode;
+            SortingMode = (int)_data.ResultsSortingMode;
             MaxCoresInPortScanning = _data.MaximumCoresInPortScanning.ToString();
             MaxCoresInLANScanning = _data.MaximumCoresInLANScanning.ToString();
             CacheLifetime = _data.CacheLifeTime.ToString();

@@ -327,5 +327,11 @@
     <Resource Include="Images\sendtimeout_main.png" />
     <Resource Include="Images\sendtimeout_red.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\render_mode_main.png" />
+    <Resource Include="Images\render_mode_red.png" />
+    <Resource Include="Images\sort_main.png" />
+    <Resource Include="Images\sort_red.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

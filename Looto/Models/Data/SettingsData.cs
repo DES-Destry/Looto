@@ -29,7 +29,7 @@ namespace Looto.Models.Data
         public ResultsRenderMode ResultsRenderMode { get; set; } = DEFAULT_RENDER_MODE;
 
         /// <summary>
-        /// <see cref="Looto.Views.ResultsWindow"/> sorting mode.<br/>
+        /// <see cref="Looto.Views.ResultsWindow"/> sorting mode. It will affect on data of result files.<br/>
         /// Default value = <see cref="ResultsSortingMode.ByPortValue"/>.
         /// </summary>
         public ResultsSortingMode ResultsSortingMode { get; set; } = DEFAULT_SORTING_MODE;

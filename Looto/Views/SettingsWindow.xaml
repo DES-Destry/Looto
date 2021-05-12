@@ -137,6 +137,22 @@
                     </Border>
                     <ScrollViewer Height="468">
                         <StackPanel>
+                            <components:ComboBoxSettingsElement TitleText="Result render mode"
+                                                                DescriptionText="..."
+                                                                Height="100"
+                                                                Margin="5"
+                                                                ImageSource="/Looto;component/Images/render_mode_main.png"
+                                                                IsValidInput="True"
+                                                                ComboElements=" Full; As text; Not render"
+                                                                CurrentSelectedItem="{Binding RenderMode}"/>
+                            <components:ComboBoxSettingsElement TitleText="Result sorting mode"
+                                                                DescriptionText="..."
+                                                                Height="100"
+                                                                Margin="5"
+                                                                ImageSource="/Looto;component/Images/sort_main.png"
+                                                                IsValidInput="True"
+                                                                ComboElements=" By port number; By port protocol; By port state"
+                                                                CurrentSelectedItem="{Binding SortingMode}"/>
                             <components:TextBoxSettingsElement TitleText="Max cores for port scanning"
                                                                DescriptionText="{Binding MaxCoresInPortScanningDescription}"
                                                                Height="100"
