@@ -152,5 +152,15 @@ namespace Looto.Components
                 component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
             }
         }
+
+        /// <summary>
+        /// Calls when selected item in the combobox was changed.<br/>
+        /// Refresh <see cref="CurrentSelectedItem"/> DP.</summary>
+        /// <param name="sender"><see cref="ComboBox"/> which text changed event binded on this method.</param>
+        /// <param name="e">Some event arguments.</param>
+        private void Content_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentSelectedItem = (sender as ComboBox).SelectedIndex;
+        }
     }
 }

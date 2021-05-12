@@ -38,11 +38,12 @@
                 </StackPanel>
             </StackPanel>
             <ComboBox x:Name="Content"
-                     Grid.Column="1"
-                     VerticalAlignment="Center"
-                     Tag="Value"
-                     Margin="5"
-                     FontSize="{StaticResource Regular}"/>
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      Tag="Value"
+                      Margin="5"
+                      SelectionChanged="Content_SelectionChanged"
+                      FontSize="{StaticResource Regular}"/>
         </Grid>
 
         <Border.Triggers>

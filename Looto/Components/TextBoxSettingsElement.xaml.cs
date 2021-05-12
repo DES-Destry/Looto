@@ -153,7 +153,7 @@ namespace Looto.Components
 
         /// <summary>
         /// Calls when text in textbox was changed.<br/>
-        /// Refresh all <see cref="TextBoxSettingsElement"/> DP's with <see cref="MainGrid_Loaded(object, RoutedEventArgs)"/> method.
+        /// Refresh <see cref="ContentText"/> DP.
         /// </summary>
         /// <param name="sender"><see cref="TextBox"/> which text changed event binded on this method.</param>
         /// <param name="e">Some event arguments.</param>
