@@ -91,7 +91,7 @@ namespace Looto.Models.PortScanner
                     results.AddRange(scannedPorts);
                 }
 
-                Port[] sortedResults = results.OrderBy(result => result.Value).ToArray();
+                Port[] sortedResults = results.ToArray();
 
                 OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, sortedResults));
             }

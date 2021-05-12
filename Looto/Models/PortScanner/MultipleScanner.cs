@@ -59,7 +59,7 @@ namespace Looto.Models.PortScanner
             try
             {
                 await _checker.HostIsValidAsync(Host);
-                Port[] results = (await IteratePortsAsync()).OrderBy(result => result.Value).ToArray();
+                Port[] results = await IteratePortsAsync();
                 OnScanEnding?.Invoke(new ScanResult(Host, DateTime.Now, results));
             }
             catch (HostNotValidException)

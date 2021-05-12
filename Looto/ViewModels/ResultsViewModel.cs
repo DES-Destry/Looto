@@ -1,5 +1,7 @@
-﻿using Looto.Models.PortScanner;
+﻿using Looto.Models.Data;
+using Looto.Models.PortScanner;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -12,6 +14,8 @@ namespace Looto.ViewModels
     /// </summary>
     class ResultsViewModel : BaseViewModel
     {
+        private readonly Settings _settings;
+
         #region Fields for binding
         private ScanResult _result;
         private Brush _hostColor;
@@ -192,7 +196,18 @@ namespace Looto.ViewModels
         /// <param name="result">Result information.</param>
         public ResultsViewModel(ScanResult result)
         {
+            _settings = new Settings();
+            ResultsSortingMode sortingMode = _settings.GetSettings().ResultsSortingMode;
+
+            if (sortingMode == ResultsSortingMode.ByPortValue)
+                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.Value).ToArray();
+            else if (sortingMode == ResultsSortingMode.ByPortState)
+                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.State).ToArray();
+            else if (sortingMode == ResultsSortingMode.ByPortProtocol)
+                result.PortsAfterScan = result.PortsAfterScan.OrderBy(portInfo => portInfo.Protocol).ToArray();
+
             Result = result;
+
             HostColor = _result.HostIsValid ?
                 (Brush)Application.Current.MainWindow.FindResource("WhiteBrush")
                 : (Brush)Application.Current.MainWindow.FindResource("RedBrush");
