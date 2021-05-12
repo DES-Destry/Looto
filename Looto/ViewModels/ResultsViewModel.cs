@@ -17,7 +17,7 @@ namespace Looto.ViewModels
         private Brush _hostColor;
         private BitmapImage _scanImage;
 
-        private bool _isLoading = true;
+        private bool _isLoading = false;
         private int _currentProgress = 1;
         private int _maxProgress = 2;
 

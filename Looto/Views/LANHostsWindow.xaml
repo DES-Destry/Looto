@@ -148,7 +148,7 @@
                                                FontFamily="{StaticResource BaseFont}"
                                                FontSize="{StaticResource Regular}"/>
                                 </Grid>
-                                <StackPanel x:Name="ResultsPanel"></StackPanel>
+                                <StackPanel x:Name="ResultsPanel"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
