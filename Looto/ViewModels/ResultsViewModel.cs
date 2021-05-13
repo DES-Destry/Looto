@@ -1,8 +1,12 @@
-﻿using Looto.Models.Data;
+﻿using Looto.Models;
+using Looto.Models.Data;
 using Looto.Models.PortScanner;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -185,6 +189,9 @@ namespace Looto.ViewModels
                 }
             }
         }
+
+
+        public ICommand SaveResults => new BaseCommand(SaveResultsCommand);
         #endregion
 
         /// <summary>Render components again, when user changed filters.</summary>
@@ -206,6 +213,22 @@ namespace Looto.ViewModels
             ScanImage = _result.HostIsValid ?
                 new BitmapImage(new Uri("/Looto;component/Images/scan_main.png", UriKind.Relative))
                 : new BitmapImage(new Uri("/Looto;component/Images/scan_red.png", UriKind.Relative));
+        }
+
+        private void SaveResultsCommand(object parameter)
+        {
+            using (var dialog = new System.Windows.Forms.SaveFileDialog())
+            {
+                dialog.Filter = "json files (*.json)|*.json";
+                dialog.DefaultExt = "json";
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
+                {
+                    var jsonResult = JsonConvert.SerializeObject(_result);
+                    File.WriteAllText(dialog.FileName, jsonResult);
+                }
+            }
         }
 
         /// <summary>Sorts results array by settings values from <see cref="_settings"/>.</summary>

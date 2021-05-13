@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -336,6 +337,11 @@
   <ItemGroup>
     <Resource Include="Images\sort_desc_main.png" />
     <Resource Include="Images\sort_desc_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\download_gray.png" />
+    <Resource Include="Images\download_main.png" />
+    <Resource Include="Images\download_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
