@@ -151,6 +151,8 @@ namespace Looto.Components
                 component.ImageSource = component.ImageSource.Replace("main", "red");
                 component.SettingsImage.Source = new BitmapImage(new Uri(component.ImageSource, UriKind.Relative));
             }
+
+            component.Content.SelectedIndex = component.CurrentSelectedItem;
         }
 
         /// <summary>
