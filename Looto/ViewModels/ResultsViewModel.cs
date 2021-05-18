@@ -205,7 +205,10 @@ namespace Looto.ViewModels
         {
             _settings = new Settings();
 
-            Result = GetSortedResultBySettings(result);
+            if (_settings.GetSettings().ResultsSortingMode != ResultsSortingMode.AsItWasScanned)
+                Result = GetSortedResultBySettings(result);
+            else
+                Result = result;
 
             HostColor = _result.HostIsValid ?
                 (Brush)Application.Current.MainWindow.FindResource("WhiteBrush")

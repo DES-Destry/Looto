@@ -16,5 +16,9 @@ namespace Looto.Models.Data
         /// <summary>Sorts results in the <see cref="Looto.Views.ResultsWindow"/> by port state.</summary>
         [Description("By port state")]
         ByPortState,
+
+        /// <summary>Sorts results in the <see cref="Looto.Views.ResultsWindow"/> as ports was scanned in the scanner. I.e not sort.</summary>
+        [Description("As it was scanned")]
+        AsItWasScanned,
     }
 }

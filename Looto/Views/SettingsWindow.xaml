@@ -151,7 +151,7 @@
                                                                 Margin="5"
                                                                 ImageSource="/Looto;component/Images/sort_main.png"
                                                                 IsValidInput="True"
-                                                                ComboElements=" By port number; By port protocol; By port state "
+                                                                ComboElements=" By port number; By port protocol; By port state; As it scanned "
                                                                 CurrentSelectedItem="{Binding SortingMode}"/>
                             <components:ComboBoxSettingsElement TitleText="Invert result sorting (DESC)"
                                                                 DescriptionText="Invert your sorting in the results window. Defalt: Off."
