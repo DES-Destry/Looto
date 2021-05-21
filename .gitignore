@@ -259,7 +259,8 @@ paket-files/
 __pycache__/
 *.pyc
 
-
+# Node modules
+node_modules
 
 #My Files
 *.message
